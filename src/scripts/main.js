@@ -39,19 +39,17 @@ mobileMenuBtn.addEventListener('click', () => {
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        
+
         const targetId = this.getAttribute('href');
         if (targetId === '#') return;
-        
+
         const targetElement = document.querySelector(targetId);
-        
+
         if (targetElement) {
-            // Close mobile menu if open
             mobileMenuBtn.classList.remove('active');
             mobileMenu.classList.remove('active');
             header.classList.remove('menu-open');
-            
-            // Smooth scroll to target
+
             targetElement.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
@@ -60,7 +58,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add animation on scroll
+// Scroll animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -75,7 +73,6 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe all cards
 document.querySelectorAll('.card').forEach(card => {
     card.style.opacity = '0';
     card.style.transform = 'translateY(20px)';
@@ -83,7 +80,6 @@ document.querySelectorAll('.card').forEach(card => {
     observer.observe(card);
 });
 
-// Observe section headers
 document.querySelectorAll('.section-header').forEach(header => {
     header.style.opacity = '0';
     header.style.transform = 'translateY(20px)';
@@ -91,7 +87,6 @@ document.querySelectorAll('.section-header').forEach(header => {
     observer.observe(header);
 });
 
-// Observe skills categories
 document.querySelectorAll('.skills-category').forEach(cat => {
     cat.style.opacity = '0';
     cat.style.transform = 'translateY(20px)';

@@ -901,7 +901,6 @@ section {
     gap: 8px;
 }
 
-/* Animation de battement de coeur */
 @keyframes heartbeat {
     0%, 100% { transform: scale(1); }
     15% { transform: scale(1.3); }
