@@ -1,0 +1,28 @@
+{
+  "name": "portofolio",
+  "version": "1.0.0",
+  "description": "This is a standalone portfolio website built with pure HTML, CSS, and vanilla JavaScript. No frameworks or build tools required!",
+  "main": "script.js",
+  
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sikoso774/Portofolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Sikoso774/Portofolio/issues"
+  },
+  "homepage": "https://github.com/Sikoso774/Portofolio#readme",
+  "dependencies": {
+    "astro": "^6.4.4"
+  }
+}
