@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import profilePhoto from '../images/photo_profile.jpg';
 ---
 
 <section id="hero" class="hero">
@@ -7,10 +9,13 @@
       <div class="hero-image">
         <div class="profile-halo"></div>
         <div class="profile-circle">
-          <img
-            src="/assets/img/photo_profile.jpg"
+          <Image
+            src={profilePhoto}
             alt="Zoléni Kokolo Zassi"
-            loading="lazy"
+            widths={[300, 460, 700, 920]}
+            sizes="(max-width: 768px) 68vw, 38vw"
+            loading="eager"
+            fetchpriority="high"
           />
         </div>
       </div>

@@ -95,5 +95,3 @@ android-sdk/ -e
 CLAUDE.md
 .claude/
 others/
-
-assets/networks

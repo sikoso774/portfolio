@@ -2,13 +2,11 @@
   "name": "portofolio",
   "version": "1.0.0",
   "description": "Personal portfolio built with Astro — zolenikokolo.com",
-  
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Sikoso774/Portofolio.git"
@@ -22,6 +20,8 @@
   },
   "homepage": "https://github.com/Sikoso774/Portofolio#readme",
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@fontsource-variable/inter": "^5.2.8",
     "astro": "^6.4.4"
   }
 }
