@@ -1,14 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-const dateFmt = new Intl.DateTimeFormat('fr-FR', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
+const dateFmt = new Intl.DateTimeFormat("en-US", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
 });
 ---
 
@@ -38,13 +38,14 @@ const dateFmt = new Intl.DateTimeFormat('fr-FR', {
                   <span>{tag}</span>
                 ))}
               </div>
-              <span class="blog-card-link">Lire l'article →</span>
             </a>
           ))}
         </div>
 
         <div class="writing-cta">
-          <a href="/blog" class="btn-outline">Voir tous les articles →</a>
+          <a href="/blog" class="btn-outline">
+            View all articles →
+          </a>
         </div>
       </div>
     </section>

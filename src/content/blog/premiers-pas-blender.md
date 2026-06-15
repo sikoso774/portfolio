@@ -1,120 +1,120 @@
 ---
-title: "Premiers pas sur Blender : interface, navigation et modes"
-description: "Comprendre l'interface de Blender, naviguer dans le viewport et maîtriser les trois modes de travail — mes notes de démarrage sur le logiciel de 3D libre."
+title: "First Steps in Blender: Interface, Navigation, and Modes"
+description: "Understanding Blender's interface, navigating the viewport, and mastering the three working modes — my startup notes on the free 3D software."
 pubDate: 2026-06-12
-tags: ["Blender", "3D", "Débutant", "Tutoriel"]
+tags: ["Blender", "3D", "Beginner", "Tutorial"]
 ---
 
-Après avoir digéré [le vocabulaire de la 3D](/blog/vocabulaire-3d), il était temps d'ouvrir Blender pour de vrai. Premier réflexe que tous les tutoriels martèlent : **on travaille au clavier, pas dans les menus**. Apprendre les raccourcis dès le début change tout sur la vitesse.
+After digesting [the 3D vocabulary](/blog/vocabulaire-3d), it was time to open Blender for real. First reflex that every tutorial hammers home: **you work with the keyboard, not the menus**. Learning shortcuts from the start changes everything in terms of speed.
 
-Voici mes notes de démarrage, condensées en un seul endroit.
+Here are my startup notes, condensed in one place.
 
-## L'interface
+## The Interface
 
-Au lancement, le *splash screen* propose plusieurs modes (**General**, 2D Animation, Sculpting, VFX, Editing). Ce ne sont que des interfaces préconfigurées : on peut passer de l'une à l'autre à tout moment, donc inutile de se stresser sur le choix de départ.
+At launch, the *splash screen* offers several modes (**General**, 2D Animation, Sculpting, VFX, Editing). These are just preconfigured interfaces: you can switch between them at any time, so there's no need to stress about the initial choice.
 
-L'écran se découpe en quelques zones clés :
+The screen is divided into a few key areas:
 
-| Zone | Rôle |
+| Area | Role |
 |---|---|
-| **Viewport** | La fenêtre 3D principale, là où tout se passe |
-| **Outliner** (haut droite) | La hiérarchie de la scène : objets, caméra, lumières |
-| **Properties** (droite) | Rendu, propriétés d'objet, modifiers, matériaux… |
-| **Timeline** (bas) | L'animation — 250 frames par défaut à 25 fps |
+| **Viewport** | The main 3D window, where everything happens |
+| **Outliner** (top right) | The scene hierarchy: objects, camera, lights |
+| **Properties** (right) | Render, object properties, modifiers, materials… |
+| **Timeline** (bottom) | Animation — 250 frames by default at 25 fps |
 
-Les fenêtres sont toutes redimensionnables et combinables ; on peut même ouvrir plusieurs viewports sur la même scène. En haut, une barre d'onglets organise le travail par étape : Layout, Modeling, Sculpting, UV Editing, Shading, Animation, Rendering…
+All panels are resizable and combinable; you can even open multiple viewports on the same scene. At the top, a tab bar organizes work by step: Layout, Modeling, Sculpting, UV Editing, Shading, Animation, Rendering…
 
-Trois raccourcis fichier à graver tout de suite :
+Three file shortcuts to memorize right away:
 
-| Action | Raccourci |
+| Action | Shortcut |
 |---|---|
-| Sauvegarder | `Ctrl + S` |
-| Annuler | `Ctrl + Z` |
-| Rétablir | `Ctrl + Shift + Z` |
+| Save | `Ctrl + S` |
+| Undo | `Ctrl + Z` |
+| Redo | `Ctrl + Shift + Z` |
 
-## Naviguer dans le viewport
+## Navigating the Viewport
 
-Se déplacer dans la scène repose surtout sur la molette de la souris :
+Moving around the scene relies mostly on the mouse wheel:
 
-| Action | Raccourci |
+| Action | Shortcut |
 |---|---|
-| Orbiter (tourner autour) | Clic molette |
-| Zoomer / dézoomer | Roulette |
-| Se déplacer latéralement | `Shift` + clic molette |
-| Afficher le panneau latéral (position, rotation…) | `N` |
-| Vue de face / dessus / côté | `1` / `7` / `3` (pavé numérique) |
-| Vue opposée | `Ctrl + 1 / 7 / 3` |
+| Orbit (rotate around) | Middle-click drag |
+| Zoom in / out | Scroll wheel |
+| Pan | `Shift` + middle-click drag |
+| Show side panel (position, rotation…) | `N` |
+| Front / top / side view | `1` / `7` / `3` (numpad) |
+| Opposite view | `Ctrl + 1 / 7 / 3` |
 
-> Une distinction qui m'a aidé : la **caméra de travail** (notre point de vue libre) est indépendante de la **caméra de rendu**, celle qui définit l'image finale. Bouger dans le viewport ne déplace pas la caméra de rendu.
+> A distinction that helped me: the **working camera** (our free viewpoint) is independent of the **render camera**, the one that defines the final image. Moving in the viewport does not move the render camera.
 
-## Les trois modes de travail
+## The Three Working Modes
 
-C'est le concept central de Blender. On bascule entre des modes selon ce qu'on veut faire :
+This is the central concept in Blender. You switch between modes depending on what you want to do:
 
-| Mode | Accès | Rôle |
+| Mode | Access | Role |
 |---|---|---|
-| **Object Mode** | Par défaut | Déplacer, positionner, dupliquer les objets |
-| **Edit Mode** | `Tab` | Modifier la géométrie : points, arêtes, faces |
-| **Sculpt Mode** | Menu déroulant | Sculpter comme de l'argile (demande beaucoup de géométrie) |
+| **Object Mode** | Default | Move, position, duplicate objects |
+| **Edit Mode** | `Tab` | Modify geometry: vertices, edges, faces |
+| **Sculpt Mode** | Dropdown menu | Sculpt like clay (requires a lot of geometry) |
 
-La touche `Tab` fait l'aller-retour entre Object Mode et Edit Mode — on l'utilise en permanence.
+The `Tab` key toggles between Object Mode and Edit Mode — you'll use it constantly.
 
-## Object Mode : manipuler les objets
+## Object Mode: Manipulating Objects
 
-Trois transformations fondamentales, qu'on peut contraindre à un axe en appuyant ensuite sur `X`, `Y` ou `Z` :
+Three fundamental transformations, which can be constrained to an axis by pressing `X`, `Y`, or `Z` afterward:
 
-| Action | Raccourci |
+| Action | Shortcut |
 |---|---|
-| Déplacer (Grab) | `G` |
-| Pivoter (Rotate) | `R` |
-| Mettre à l'échelle (Scale) | `S` |
+| Move (Grab) | `G` |
+| Rotate | `R` |
+| Scale | `S` |
 
-> Astuce : après `G`/`R`/`S`, `Shift + X/Y/Z` contraint sur **tous les axes sauf** celui indiqué. Et un clic droit annule la transformation en cours.
+> Tip: after `G`/`R`/`S`, `Shift + X/Y/Z` constrains to **all axes except** the one specified. And a right-click cancels the current transformation.
 
-Pour gérer les objets eux-mêmes :
+To manage objects themselves:
 
-| Action | Raccourci |
+| Action | Shortcut |
 |---|---|
-| Ajouter une primitive | `Shift + A` → Mesh |
-| Dupliquer | `Shift + D` |
-| Supprimer | `X` |
-| Copier / coller | `Ctrl + C` / `Ctrl + V` |
+| Add a primitive | `Shift + A` → Mesh |
+| Duplicate | `Shift + D` |
+| Delete | `X` |
+| Copy / Paste | `Ctrl + C` / `Ctrl + V` |
 
-Parmi les primitives : cube, sphère, cylindre, cercle… et **Suzanne**, le singe emblématique de Blender qui sert de modèle de test universel.
+Available primitives include: cube, sphere, cylinder, circle… and **Suzanne**, Blender's iconic monkey head, which serves as a universal test model.
 
-## Edit Mode : sculpter la géométrie
+## Edit Mode: Shaping Geometry
 
-On y sélectionne les éléments selon trois niveaux :
+In Edit Mode, you select elements at three levels:
 
-| Élément | Raccourci |
+| Element | Shortcut |
 |---|---|
-| Vertices (points) | `1` |
-| Edges (arêtes) | `2` |
+| Vertices | `1` |
+| Edges | `2` |
 | Faces | `3` |
-| Tout (dé)sélectionner | `A` |
+| Select / deselect all | `A` |
 
-Et voici les outils que j'utilise déjà le plus :
+And here are the tools I already use the most:
 
-| Outil | Raccourci | Usage |
+| Tool | Shortcut | Use |
 |---|---|---|
-| Extrude | `E` | Créer du volume à partir d'une face |
-| Inset | `I` | Créer une face plus petite à l'intérieur |
-| Bevel | `Ctrl + B` | Arrondir une arête (+ roulette = nombre de segments) |
-| Loop Cut | `Ctrl + R` | Ajouter une boucle de découpe |
-| Knife (couteau) | `K` → clic → `Entrée` | Découpe libre dans la géométrie |
-| Fill | `F` | Créer une face entre des points sélectionnés |
+| Extrude | `E` | Create volume from a face |
+| Inset | `I` | Create a smaller face inside another |
+| Bevel | `Ctrl + B` | Round an edge (+ scroll wheel = number of segments) |
+| Loop Cut | `Ctrl + R` | Add a loop cut |
+| Knife | `K` → click → `Enter` | Freehand cut through geometry |
+| Fill | `F` | Create a face between selected points |
 
-> Un piège à connaître pour supprimer proprement : avec `X`, **Dissolve Edge** retire l'arête sans laisser de trou, alors que **Delete Edge** en laisse un. On veut presque toujours le premier.
+> One gotcha worth knowing for clean deletion: with `X`, **Dissolve Edge** removes the edge without leaving a hole, while **Delete Edge** does leave one. You almost always want the first option.
 
-## Sculpt Mode et modifiers : ce qui vient ensuite
+## Sculpt Mode and Modifiers: What Comes Next
 
-Deux notions que j'ai juste effleurées et qui méritent leur propre article :
+Two concepts I've only touched on that deserve their own article:
 
-- **Le Sculpt Mode** nécessite une géométrie *dense*. Sur un cube à 6 faces, il ne se passe quasiment rien : la bonne pratique est de partir d'une sphère avec beaucoup de segments, puis de subdiviser.
-- **Les modifiers** modifient un objet de façon non destructive (toujours réglable, jamais figé). Les indispensables pour débuter : **Subdivision Surface** (lisser), **Bevel** (arrondir), **Array** (répéter en réseau) et **Boolean** (creuser ou fusionner des volumes). Ils se cumulent dans un ordre qu'on peut réarranger.
+- **Sculpt Mode** requires *dense* geometry. On a cube with 6 faces, almost nothing happens: the best practice is to start from a sphere with many segments, then subdivide.
+- **Modifiers** alter an object non-destructively (always adjustable, never baked). The must-knows for beginners: **Subdivision Surface** (smooth), **Bevel** (round), **Array** (repeat in a grid), and **Boolean** (carve or merge volumes). They stack in an order you can rearrange.
 
 ---
 
-Avec ces raccourcis, je suis passé de « perdu dans les menus » à « capable de modéliser une forme simple » en une session. La suite logique : un vrai petit projet de modélisation du début à la fin — je le documenterai ici.
+With these shortcuts, I went from "lost in the menus" to "able to model a simple shape" in a single session. The logical next step: a real small modeling project from start to finish — I'll document it here.
 
-*Notes prises à partir des tutoriels débutants des chaînes Apprendre Blender et KyneSilverhide.*
+*Notes taken from beginner tutorials on the Apprendre Blender and KyneSilverhide channels.*

@@ -18,11 +18,16 @@ const homeHref = '/#hero';
     transition: var(--transition);
   }
 
-  #header.scrolled,
-  #header.menu-open {
+  #header.scrolled {
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  #header.menu-open {
+    background: #030712;
+    backdrop-filter: none;
+    box-shadow: none;
   }
 
   .header-content {
@@ -30,6 +35,8 @@ const homeHref = '/#hero';
     align-items: center;
     justify-content: space-between;
     padding: 16px 0;
+    position: relative;
+    z-index: 2;
   }
 
   .logo {
@@ -84,12 +91,6 @@ const homeHref = '/#hero';
 
   .mobile-menu {
     display: none;
-    padding: 20px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .mobile-menu.active {
-    display: block;
   }
 
   .mobile-menu-btn {
@@ -124,34 +125,14 @@ const homeHref = '/#hero';
     transform: rotate(-45deg) translate(7px, -7px);
   }
 
-  .mobile-menu nav {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .mobile-menu a {
-    color: var(--clr-text-muted);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  .mobile-menu nav > a:hover {
+  .nav-num {
+    font-size: 11px;
+    font-weight: 600;
     color: var(--clr-accent);
-  }
-
-  .mobile-menu-actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .mobile-menu-actions a {
-    flex: 1;
-    justify-content: center;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    align-self: flex-end;
+    padding-bottom: 5px;
   }
 
   /* Tablette / desktop étroit : logo réduit, nav resserrée, GitHub masqué */
@@ -186,13 +167,137 @@ const homeHref = '/#hero';
     .mobile-menu-btn {
       display: flex;
     }
+
+    /* Full-screen overlay */
+    .mobile-menu {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background: #030712;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 40px 48px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Grid pattern */
+    .mobile-menu::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(var(--clr-accent-rgb), 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--clr-accent-rgb), 0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    /* Ambient glow bottom-right */
+    .mobile-menu::after {
+      content: '';
+      position: absolute;
+      bottom: -120px;
+      right: -120px;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(var(--clr-accent-rgb), 0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .mobile-menu.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-menu nav {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Exit: simultaneous, fast */
+    .mobile-menu nav a {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      color: var(--clr-text);
+      text-decoration: none;
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      transform: translateX(-28px);
+      opacity: 0;
+      transition: transform 0.2s ease, opacity 0.15s ease, color 0.2s ease;
+    }
+
+    .mobile-menu nav a:first-child {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .mobile-menu nav a:hover {
+      color: var(--clr-accent);
+    }
+
+    /* Enter: staggered */
+    .mobile-menu.active nav a {
+      transform: translateX(0);
+      opacity: 1;
+      transition:
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 60ms + 0.05s),
+        opacity 0.4s ease calc(var(--i, 0) * 60ms + 0.05s),
+        color 0.2s ease;
+    }
+
+    .mobile-menu-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      position: relative;
+      z-index: 1;
+      transform: translateY(14px);
+      opacity: 0;
+      transition: transform 0.2s ease, opacity 0.15s ease;
+    }
+
+    .mobile-menu.active .mobile-menu-actions {
+      transform: translateY(0);
+      opacity: 1;
+      transition: transform 0.45s ease 0.42s, opacity 0.4s ease 0.42s;
+    }
+
+    .mobile-menu-actions a {
+      flex: 1;
+      justify-content: center;
+    }
+
+    /* Small height (landscape phone) */
+    @media (max-height: 600px) {
+      .mobile-menu nav a {
+        font-size: 26px;
+        padding: 9px 0;
+      }
+      .mobile-menu {
+        padding-top: 64px;
+      }
+    }
   }
 
   @media (prefers-color-scheme: light) {
-    #header.scrolled,
-    #header.menu-open {
+    #header.scrolled {
       background: rgba(255, 255, 255, 0.95);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    #header.menu-open {
+      background: #f8fafc;
+      box-shadow: none;
     }
 
     .logo-circle {
@@ -200,11 +305,16 @@ const homeHref = '/#hero';
     }
 
     .mobile-menu {
-      border-top-color: rgba(0, 0, 0, 0.1);
+      background: #f8fafc;
     }
 
-    .mobile-menu-actions {
-      border-top-color: rgba(0, 0, 0, 0.1);
+    .mobile-menu nav a {
+      color: #111827;
+      border-bottom-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .mobile-menu nav a:first-child {
+      border-top-color: rgba(0, 0, 0, 0.08);
     }
   }
 </style>
@@ -253,12 +363,12 @@ const homeHref = '/#hero';
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
       <nav>
-        <a href={sectionHref('about')}>About</a>
-        <a href={sectionHref('skills')}>Skills</a>
-        <a href={sectionHref('experience')}>Experience</a>
-        <a href={sectionHref('projects')}>Projects</a>
-        <a href="/blog">Blog</a>
-        <a href={sectionHref('contact')}>Contact</a>
+        <a href={sectionHref('about')} style="--i:0"><span class="nav-num">01</span>About</a>
+        <a href={sectionHref('skills')} style="--i:1"><span class="nav-num">02</span>Skills</a>
+        <a href={sectionHref('experience')} style="--i:2"><span class="nav-num">03</span>Experience</a>
+        <a href={sectionHref('projects')} style="--i:3"><span class="nav-num">04</span>Projects</a>
+        <a href="/blog" style="--i:4"><span class="nav-num">05</span>Blog</a>
+        <a href={sectionHref('contact')} style="--i:5"><span class="nav-num">06</span>Contact</a>
       </nav>
       <div class="mobile-menu-actions">
         <a href="https://github.com/Sikoso774" target="_blank" class="btn-ghost">

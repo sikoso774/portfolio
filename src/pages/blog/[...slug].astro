@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-const dateFmt = new Intl.DateTimeFormat('fr-FR', {
+const dateFmt = new Intl.DateTimeFormat('en-US', {
   day: 'numeric',
   month: 'long',
   year: 'numeric',
@@ -26,7 +26,7 @@ const dateFmt = new Intl.DateTimeFormat('fr-FR', {
   <Header />
   <main class="blog-page">
     <article class="container article">
-      <a href="/blog" class="article-back">← Retour au blog</a>
+      <a href="/blog" class="article-back">← Back to blog</a>
       <header class="article-header">
         <div class="tags">
           {post.data.tags.map((tag) => <span>{tag}</span>)}
@@ -38,7 +38,7 @@ const dateFmt = new Intl.DateTimeFormat('fr-FR', {
           </time>
           {
             post.data.updatedDate && (
-              <span>· mis à jour le {dateFmt.format(post.data.updatedDate)}</span>
+              <span>· updated on {dateFmt.format(post.data.updatedDate)}</span>
             )
           }
         </div>
@@ -47,7 +47,7 @@ const dateFmt = new Intl.DateTimeFormat('fr-FR', {
         <Content />
       </div>
       <footer class="article-footer">
-        <a href="/blog" class="btn-outline">← Tous les articles</a>
+        <a href="/blog" class="btn-outline">← All articles</a>
       </footer>
     </article>
   </main>

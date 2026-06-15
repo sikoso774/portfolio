@@ -1,109 +1,109 @@
 ---
-title: "Le vocabulaire de la 3D : le lexique pour bien débuter"
-description: "Mesh, vertex, topologie, UV, PBR… Le glossaire des termes essentiels que j'ai dû apprivoiser en démarrant la modélisation 3D sur Blender."
+title: "3D Vocabulary: the Essential Glossary for Beginners"
+description: "Mesh, vertex, topology, UV, PBR… A glossary of the essential terms I had to learn when starting 3D modeling with Blender."
 pubDate: 2026-06-11
-tags: ["Blender", "3D", "Débutant", "Apprentissage"]
+tags: ["Blender", "3D", "Beginner", "Learning"]
 ---
 
-Je me suis lancé dans la 3D avec Blender, et la première barrière n'a pas été le logiciel : c'est le **vocabulaire**. La 3D utilise l'anglais comme langue commune, et croiser des mots comme *mesh*, *normale* ou *topologie* sans les comprendre rend n'importe quel tutoriel illisible.
+I started learning 3D with Blender, and the first barrier wasn't the software: it was the **vocabulary**. 3D uses English as its common language, and running into words like *mesh*, *normal*, or *topology* without understanding them makes any tutorial unreadable.
 
-Voici donc le lexique que je me suis constitué pour poser des bases solides. Je le garde ici autant pour moi que pour quiconque débute.
+Here's the glossary I put together to build a solid foundation. I'm keeping it here as much for myself as for anyone just getting started.
 
-> 💡 Petit conseil que j'ai retenu : **n'utilisez pas une version traduite de votre logiciel 3D**. Les termes traduits ne correspondent à rien dans les tutoriels, qui sont presque tous en anglais.
+> 💡 One tip I picked up: **don't use a translated version of your 3D software**. Translated terms don't match anything in tutorials, which are almost all in English.
 
-## La géométrie de base
+## Basic Geometry
 
-Tout objet 3D est construit à partir de quelques briques élémentaires :
+Every 3D object is built from a few fundamental building blocks:
 
-| Terme | Définition |
+| Term | Definition |
 |---|---|
-| **Mesh** (maillage) | Un ensemble de polygones formant un objet 3D |
-| **Vertex** (sommet) | Un point dans l'espace ; pluriel *vertices* |
-| **Edge** (arête) | Un segment reliant deux vertices |
-| **Face** | Une surface plane définie par plusieurs edges — synonyme de polygone |
-| **Normale** | Un vecteur indiquant l'orientation d'une face (crucial pour l'éclairage) |
-| **Triangle / Quad / N-gon** | Types de face selon le nombre de sommets : 3, 4, ou plus |
+| **Mesh** | A set of polygons forming a 3D object |
+| **Vertex** | A point in space; plural *vertices* |
+| **Edge** | A segment connecting two vertices |
+| **Face** | A flat surface defined by several edges — synonym for polygon |
+| **Normal** | A vector indicating the orientation of a face (crucial for lighting) |
+| **Triangle / Quad / N-gon** | Face types by vertex count: 3, 4, or more |
 
-La **normale** revient sans arrêt dès qu'on parle d'éclairage ou de rendu : si elle est mal orientée, une face peut devenir invisible ou mal éclairée.
+The **normal** comes up constantly whenever lighting or rendering is discussed: if it's pointing the wrong way, a face can become invisible or poorly lit.
 
-## Topologie et maillage
+## Topology and Mesh
 
-Une fois qu'on manipule la géométrie, ces termes deviennent indispensables :
+Once you start manipulating geometry, these terms become essential:
 
-- **Topologie** — l'organisation des vertices, edges et faces d'un modèle. Une « bonne » topologie facilite l'animation et le rendu.
-- **Rétopologie** — refaire un maillage simplifié par-dessus un modèle trop lourd (typiquement après une sculpture) pour l'optimiser.
-- **Décimation** — la réduction *automatique* du nombre de polygones.
-- **High poly / Low poly** — modèles à haute ou basse densité de polygones. Le high poly est très détaillé, le low poly très léger.
-- **Subdivision** (souvent *subd*) — l'ajout de détail par lissage automatique du maillage.
-- **Remesh** — un recalcul automatique du maillage pour uniformiser les polygones.
+- **Topology** — the organization of vertices, edges, and faces in a model. "Good" topology makes animation and rendering easier.
+- **Retopology** — rebuilding a simplified mesh on top of a heavy model (typically after sculpting) to optimize it.
+- **Decimation** — the *automatic* reduction of polygon count.
+- **High poly / Low poly** — models with high or low polygon density. High poly is very detailed, low poly is very lightweight.
+- **Subdivision** (often *subd*) — adding detail through automatic mesh smoothing.
+- **Remesh** — an automatic recalculation of the mesh to even out the polygons.
 
-## La sculpture
+## Sculpting
 
-Blender permet de sculpter comme avec de l'argile. Quelques termes propres à cette discipline :
+Blender lets you sculpt like clay. A few terms specific to this discipline:
 
-- **Sculpting** — la modélisation organique (visages, créatures…), à la manière de ZBrush.
-- **Dyntopo** (dynamic topology) — un mode où le maillage se densifie là où l'on travaille, et reste léger ailleurs.
-- **Masking** — protéger une zone de la sculpture pour ne travailler que sur le reste.
+- **Sculpting** — organic modeling (faces, creatures…), in the style of ZBrush.
+- **Dyntopo** (dynamic topology) — a mode where the mesh becomes denser where you work, and stays light elsewhere.
+- **Masking** — protecting an area from sculpting so you only work on the rest.
 
-## Matériaux et textures
+## Materials and Textures
 
-C'est la partie qui donne vie à un modèle :
+This is the part that brings a model to life:
 
-| Terme | Définition |
+| Term | Definition |
 |---|---|
-| **Shader** | Un programme qui détermine comment la lumière interagit avec une surface |
-| **Texture** | Une simple image appliquée sur un modèle pour définir son apparence |
-| **Texture map** | Un fichier image contenant *une* propriété d'un matériau |
-| **Base color** | La couleur de base d'une matière |
-| **Normal map** | Simule du relief sans modifier la géométrie (l'image rose/bleue typique) |
-| **Bump map** | Alternative plus simple à la normal map, en niveaux de gris |
-| **Height / Displacement map** | Déforme réellement le maillage à partir d'une image |
-| **Ambient occlusion** | Simule des ombres douces dans les creux, pour plus de réalisme |
-| **Alpha channel** | Le contrôle de la transparence d'un matériau |
+| **Shader** | A program that determines how light interacts with a surface |
+| **Texture** | A simple image applied to a model to define its appearance |
+| **Texture map** | An image file containing *one* property of a material |
+| **Base color** | The base color of a material |
+| **Normal map** | Simulates surface detail without modifying geometry (the typical pink/blue image) |
+| **Bump map** | A simpler alternative to a normal map, in grayscale |
+| **Height / Displacement map** | Actually deforms the mesh from an image |
+| **Ambient occlusion** | Simulates soft shadows in crevices, for added realism |
+| **Alpha channel** | Controls the transparency of a material |
 
-Deux notions reviennent partout : le **Principled BSDF**, le shader le plus complet et le plus simple de Blender, et le **PBR** (*Physically Based Rendering*), une méthode de rendu réaliste basée sur la physique.
+Two concepts come up everywhere: the **Principled BSDF**, Blender's most complete and straightforward shader, and **PBR** (*Physically Based Rendering*), a realistic rendering method grounded in physics.
 
-Mention spéciale au **subsurface scattering** : la simulation de la lumière qui pénètre puis se diffuse dans un matériau comme la peau, la cire d'une bougie ou les oreilles. C'est ce qui rend un visage crédible.
+Special mention goes to **subsurface scattering**: the simulation of light penetrating and scattering inside a material like skin, candle wax, or ears. It's what makes a face look convincing.
 
-## UV et rendu
+## UV and Rendering
 
-- **UV mapping** — la projection d'une texture 2D sur un modèle 3D.
-- **UV unwrapping** — « déplier » un objet 3D à plat pour le texturer sans distorsion.
-- **Rendering** (rendu) — la génération d'une image finale à partir d'une scène 3D.
-- **Render engine** — le moteur qui calcule le rendu. Sur Blender : **Cycles** (puissant mais lent) et **EEVEE** (temps réel, ultra rapide, un peu moins réaliste).
-- **Real-time rendering** — un rendu calculé sans attente, comme avec EEVEE.
-- **HDRI** — une image à 360° servant de source d'éclairage réaliste très facilement.
+- **UV mapping** — projecting a 2D texture onto a 3D model.
+- **UV unwrapping** — "unfolding" a 3D object flat so it can be textured without distortion.
+- **Rendering** — generating a final image from a 3D scene.
+- **Render engine** — the engine that computes the render. In Blender: **Cycles** (powerful but slow) and **EEVEE** (real-time, ultra fast, slightly less realistic).
+- **Real-time rendering** — a render computed without waiting, like with EEVEE.
+- **HDRI** — a 360° image used as a realistic lighting source, very easy to set up.
 
-## Animation et rigging
+## Animation and Rigging
 
-| Terme | Définition |
+| Term | Definition |
 |---|---|
-| **Armature** | Un squelette pour animer un objet |
-| **Bone** | Un segment du squelette |
-| **Rigging** | L'ajout d'un squelette et de contrôles d'animation |
-| **Skinning** | L'attachement du maillage aux os |
-| **Weight painting** | La répartition de l'influence de chaque os sur le maillage |
-| **IK / FK** | *Inverse* (depuis l'extrémité) ou *Forward* (os par os) kinematics |
-| **Keyframe** | Une image clé marquant un changement dans l'animation |
-| **Motion capture** | La capture d'un mouvement réel pour l'appliquer à un modèle |
+| **Armature** | A skeleton for animating an object |
+| **Bone** | A segment of the skeleton |
+| **Rigging** | Adding a skeleton and animation controls |
+| **Skinning** | Attaching the mesh to the bones |
+| **Weight painting** | Distributing each bone's influence over the mesh |
+| **IK / FK** | *Inverse* (from the end) or *Forward* (bone by bone) kinematics |
+| **Keyframe** | A key frame marking a change in the animation |
+| **Motion capture** | Capturing real movement to apply to a model |
 
-Côté outils d'animation : la **timeline** représente l'animation dans le temps, et le **graph editor** affiche les courbes pour régler finement les transitions entre keyframes.
+On the animation tooling side: the **timeline** represents the animation over time, and the **graph editor** shows curves for fine-tuning transitions between keyframes.
 
-## Outils, formats et écosystème
+## Tools, Formats, and Ecosystem
 
-Pour finir, le vocabulaire « de la pipeline » :
+Finally, the "pipeline" vocabulary:
 
-- **Pipeline** — la suite d'étapes d'une production 3D : modélisation → texturing → rigging → animation → rendu.
-- **Modifier** — un effet *non destructif* appliqué à un modèle (mirror, array, subdivision…).
-- **Boolean** — fusionner, soustraire ou croiser deux objets.
-- **Gizmo** — le contrôleur visuel pour déplacer, pivoter ou redimensionner.
-- **Outliner** — la vue hiérarchique des objets de la scène.
-- **Autres logiciels** : ZBrush, Maya, 3DS Max, Houdini. **Unreal Engine** et **Unity** sont des moteurs de jeu temps réel.
-- **Formats** : FBX, OBJ, BLEND, MAX pour la 3D ; PNG (avec transparence) et JPEG pour les textures.
-- **CG / CGI** — *Computer Generated Imagery*, les images créées par ordinateur (effets spéciaux, animation, jeux vidéo).
+- **Pipeline** — the sequence of steps in a 3D production: modeling → texturing → rigging → animation → rendering.
+- **Modifier** — a *non-destructive* effect applied to a model (mirror, array, subdivision…).
+- **Boolean** — merge, subtract, or intersect two objects.
+- **Gizmo** — the visual controller for moving, rotating, or scaling.
+- **Outliner** — the hierarchical view of objects in the scene.
+- **Other software**: ZBrush, Maya, 3DS Max, Houdini. **Unreal Engine** and **Unity** are real-time game engines.
+- **Formats**: FBX, OBJ, BLEND, MAX for 3D; PNG (with transparency) and JPEG for textures.
+- **CG / CGI** — *Computer Generated Imagery*, images created by computer (special effects, animation, video games).
 
 ---
 
-Avec ce lexique en tête, les tutoriels deviennent d'un coup beaucoup plus lisibles. La prochaine étape pour moi : mettre les mains dans l'interface de Blender — ce sera le sujet du prochain article.
+With this glossary in mind, tutorials suddenly become much more readable. My next step: getting my hands on Blender's interface — that'll be the subject of the next article.
 
-*Notes prises à partir de la vidéo « Vocabulaire 3D » de la chaîne Apprendre Blender.*
+*Notes taken from the "Vocabulaire 3D" video by the Apprendre Blender channel.*
