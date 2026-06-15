@@ -78,18 +78,19 @@ function bindGlobals() {
 
         // Toggle du menu mobile
         if (e.target.closest('#mobileMenuBtn')) {
-            btn?.classList.toggle('active');
+            const isOpen = btn?.classList.toggle('active');
             menu?.classList.toggle('active');
             header?.classList.toggle('menu-open');
+            btn?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             return;
         }
 
         // Clic sur un lien du menu mobile : on le ferme (section, blog…).
-        // (le scroll fluide est géré nativement par `scroll-behavior: smooth`)
         if (e.target.closest('#mobileMenu a')) {
             btn?.classList.remove('active');
             menu?.classList.remove('active');
             header?.classList.remove('menu-open');
+            btn?.setAttribute('aria-expanded', 'false');
         }
     });
 }

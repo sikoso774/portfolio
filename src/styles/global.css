@@ -1,7 +1,8 @@
 :root {
     /* Couleurs principales */
     --clr-accent: #10b981;
-    --clr-accent-dark: #059669;
+    --clr-accent-dark: #047857;
+    --clr-accent-darker: #065f46;
     --clr-accent-rgb: 16, 185, 129;
     --clr-bg-start: #064e3b;
     --clr-bg-end: #000000;
@@ -95,11 +96,11 @@ body {
 
 .btn-primary {
     color: var(--clr-text);
-    background: var(--clr-accent);
+    background: var(--clr-accent-dark);
 }
 
 .btn-primary:hover {
-    background: var(--clr-accent-dark);
+    background: var(--clr-accent-darker);
     transform: translateY(-1px);
 }
 
@@ -467,6 +468,7 @@ section {
     :root {
         --clr-accent:      #059669;
         --clr-accent-dark: #047857;
+        --clr-accent-darker: #065f46;
         --clr-accent-rgb:  5, 150, 105;
         --clr-bg-start:    #d1fae5;
         --clr-bg-end:      #e2e8f0;
