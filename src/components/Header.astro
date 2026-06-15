@@ -38,6 +38,7 @@ const homeHref = '/#hero';
     gap: 12px;
     text-decoration: none;
     color: var(--clr-text);
+    flex-shrink: 0;
   }
 
   .logo-circle {
@@ -50,11 +51,13 @@ const homeHref = '/#hero';
     justify-content: center;
     font-weight: 700;
     font-size: 18px;
+    flex-shrink: 0;
   }
 
   .logo-text {
     font-weight: 600;
     font-size: 18px;
+    white-space: nowrap;
   }
 
   .desktop-nav {
@@ -149,6 +152,29 @@ const homeHref = '/#hero';
   .mobile-menu-actions a {
     flex: 1;
     justify-content: center;
+  }
+
+  /* Tablette / desktop étroit : logo réduit, nav resserrée, GitHub masqué */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .logo-text {
+      display: none;
+    }
+
+    .desktop-nav {
+      gap: 16px;
+    }
+
+    .desktop-nav a {
+      font-size: 13px;
+    }
+
+    .header-buttons .btn-ghost {
+      display: none;
+    }
+
+    .header-buttons a {
+      white-space: nowrap;
+    }
   }
 
   @media (max-width: 768px) {

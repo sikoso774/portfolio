@@ -1,6 +1,90 @@
 ---
 ---
 
+<style>
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .experience-card {
+    padding: 24px;
+  }
+
+  .experience-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(var(--clr-accent-rgb), 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-wrapper svg {
+    color: var(--clr-accent);
+  }
+
+  .year {
+    color: var(--clr-text-dim);
+    font-size: 14px;
+  }
+
+  .experience-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--clr-text);
+    margin-bottom: 8px;
+  }
+
+  .company {
+    color: var(--clr-accent);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .description {
+    color: var(--clr-text-muted);
+    line-height: 1.6;
+  }
+
+  .education-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .education-card {
+    padding: 24px;
+  }
+
+  .education-card .year {
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .education-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--clr-text);
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .education-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
 <section id="experience" class="experience">
   <div class="container">
     <div class="section-header">

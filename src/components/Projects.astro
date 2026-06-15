@@ -1,6 +1,54 @@
 ---
 ---
 
+<style>
+  .projects {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .project-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .project-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--clr-text);
+    transition: color 0.2s ease;
+  }
+
+  .project-card:hover h3 {
+    color: var(--clr-accent);
+  }
+
+  .project-card > p {
+    color: var(--clr-text-muted);
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    .projects {
+      background: rgba(0, 0, 0, 0.03);
+    }
+  }
+</style>
+
 <section id="projects" class="projects">
   <div class="container">
     <div class="section-header">

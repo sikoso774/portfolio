@@ -1,6 +1,43 @@
 ---
 ---
 
+<style>
+  .card p {
+    font-size: 18px;
+    color: var(--clr-text-muted);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .quote-box {
+    background: linear-gradient(to right, rgba(var(--clr-accent-rgb), 0.1), transparent);
+    border-left: 4px solid var(--clr-accent);
+    padding: 24px;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .quote-box svg {
+    flex-shrink: 0;
+    color: var(--clr-accent);
+    margin-top: 4px;
+  }
+
+  .quote-box p {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--clr-text);
+    font-style: italic;
+    margin: 0;
+  }
+</style>
+
 <section id="about" class="about">
   <div class="container">
     <div class="section-header">
