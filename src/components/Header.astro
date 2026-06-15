@@ -1,20 +1,203 @@
 ---
+// Liens indépendants de la page : toujours absolus vers la home + ancre.
+// Indispensable car le header est `transition:persist` (non re-rendu d'une
+// page à l'autre) — un lien relatif resterait collé à la page d'origine.
+// Sur la home, `/#about` se comporte comme une ancre interne (scroll smooth) ;
+// depuis /blog, il navigue vers la home puis défile jusqu'à la section.
+const sectionHref = (id: string) => `/#${id}`;
+const homeHref = '/#hero';
 ---
 
-<header id="header">
+<style>
+  #header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: var(--transition);
+  }
+
+  #header.scrolled,
+  #header.menu-open {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--clr-text);
+  }
+
+  .logo-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--grad-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .logo-text {
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .desktop-nav {
+    display: flex;
+    gap: 32px;
+  }
+
+  .desktop-nav a {
+    color: var(--clr-text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .desktop-nav a:hover {
+    color: var(--clr-accent);
+  }
+
+  .header-buttons {
+    display: flex;
+    gap: 16px;
+  }
+
+  .mobile-menu {
+    display: none;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-menu.active {
+    display: block;
+  }
+
+  .mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    flex-shrink: 0;
+    z-index: 100;
+  }
+
+  .mobile-menu-btn span {
+    width: 24px;
+    height: 2px;
+    background: var(--clr-text);
+    transition: var(--transition);
+    flex-shrink: 0;
+  }
+
+  .mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+  }
+
+  .mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+
+  .mobile-menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-menu a {
+    color: var(--clr-text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .mobile-menu nav > a:hover {
+    color: var(--clr-accent);
+  }
+
+  .mobile-menu-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-menu-actions a {
+    flex: 1;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .desktop-nav,
+    .header-buttons {
+      display: none;
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    #header.scrolled,
+    #header.menu-open {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo-circle {
+      color: #ffffff;
+    }
+
+    .mobile-menu {
+      border-top-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-menu-actions {
+      border-top-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+</style>
+
+<header id="header" transition:persist>
   <div class="container">
     <div class="header-content">
-      <a href="#hero" class="logo">
+      <a href={homeHref} class="logo">
         <div class="logo-circle">ZK</div>
         <span class="logo-text">Zoléni Kokolo</span>
       </a>
 
       <nav class="desktop-nav">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+        <a href={sectionHref('about')}>About</a>
+        <a href={sectionHref('skills')}>Skills</a>
+        <a href={sectionHref('experience')}>Experience</a>
+        <a href={sectionHref('projects')}>Projects</a>
+        <a href="/blog">Blog</a>
+        <a href={sectionHref('contact')}>Contact</a>
       </nav>
 
       <div class="header-buttons">
@@ -44,11 +227,12 @@
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
       <nav>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+        <a href={sectionHref('about')}>About</a>
+        <a href={sectionHref('skills')}>Skills</a>
+        <a href={sectionHref('experience')}>Experience</a>
+        <a href={sectionHref('projects')}>Projects</a>
+        <a href="/blog">Blog</a>
+        <a href={sectionHref('contact')}>Contact</a>
       </nav>
       <div class="mobile-menu-actions">
         <a href="https://github.com/Sikoso774" target="_blank" class="btn-ghost">

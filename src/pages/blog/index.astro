@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const dateFmt = new Intl.DateTimeFormat('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Layout
+  title="Blog — Zoléni Kokolo Zassi"
+  description="Carnet d'apprentissage : mes notes et retours d'expérience sur la 3D, le développement et l'infrastructure."
+>
+  <Header />
+  <main class="blog-page">
+    <div class="container">
+      <div class="section-header">
+        <h2>Blog</h2>
+        <div class="underline"></div>
+        <p class="section-description">
+          Mon carnet d'apprentissage : notes, synthèses et retours
+          d'expérience sur ce que j'explore en ce moment.
+        </p>
+      </div>
+
+      {
+        posts.length === 0 ? (
+          <p class="blog-empty">Les premiers articles arrivent bientôt.</p>
+        ) : (
+          <div class="blog-list">
+            {posts.map((post) => (
+              <a href={`/blog/${post.id}`} class="card blog-card">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {dateFmt.format(post.data.pubDate)}
+                </time>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <div class="tags">
+                  {post.data.tags.map((tag) => (
+                    <span>{tag}</span>
+                  ))}
+                </div>
+                <span class="blog-card-link">Lire l'article →</span>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </main>
+  <Footer />
+</Layout>

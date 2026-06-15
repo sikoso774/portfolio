@@ -1,4 +1,7 @@
 ---
+// Liens absolus (voir Header.astro) pour rester cohérents sur toutes les pages.
+const sectionHref = (id: string) => `/#${id}`;
+const homeHref = '/#hero';
 ---
 
 <footer id="contact" class="footer">
@@ -37,23 +40,20 @@
           Download CV
         </a>
       </div>
-      <script is:inline>
-        var u = "zolenikokolozassi", d = "outlook.com";
-        document.getElementById("footer-cta-email").href = "mailto:" + u + "@" + d;
-      </script>
     </div>
 
     <!-- Bar -->
     <div class="footer-bar">
-      <a href="#hero" class="logo">
+      <a href={homeHref} class="logo">
         <div class="logo-circle">ZK</div>
         <span class="logo-text">Zoléni Kokolo</span>
       </a>
       <nav class="footer-nav">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
+        <a href={sectionHref('about')}>About</a>
+        <a href={sectionHref('skills')}>Skills</a>
+        <a href={sectionHref('experience')}>Experience</a>
+        <a href={sectionHref('projects')}>Projects</a>
+        <a href="/blog">Blog</a>
       </nav>
       <div class="social-icons">
         <a href="https://github.com/Sikoso774" target="_blank" class="social-icon-btn" aria-label="GitHub">

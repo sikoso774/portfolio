@@ -1,0 +1,55 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFmt = new Intl.DateTimeFormat('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Layout title={`${post.data.title} — Zoléni Kokolo Zassi`} description={post.data.description}>
+  <Header />
+  <main class="blog-page">
+    <article class="container article">
+      <a href="/blog" class="article-back">← Retour au blog</a>
+      <header class="article-header">
+        <div class="tags">
+          {post.data.tags.map((tag) => <span>{tag}</span>)}
+        </div>
+        <h1>{post.data.title}</h1>
+        <div class="article-meta">
+          <time datetime={post.data.pubDate.toISOString()}>
+            {dateFmt.format(post.data.pubDate)}
+          </time>
+          {
+            post.data.updatedDate && (
+              <span>· mis à jour le {dateFmt.format(post.data.updatedDate)}</span>
+            )
+          }
+        </div>
+      </header>
+      <div class="prose">
+        <Content />
+      </div>
+      <footer class="article-footer">
+        <a href="/blog" class="btn-outline">← Tous les articles</a>
+      </footer>
+    </article>
+  </main>
+  <Footer />
+</Layout>

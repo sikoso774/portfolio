@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const dateFmt = new Intl.DateTimeFormat('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+{
+  posts.length > 0 && (
+    <section id="writing" class="writing">
+      <div class="container">
+        <div class="section-header">
+          <h2>From the Blog</h2>
+          <div class="underline" />
+          <p class="section-description">
+            My learning journal — notes and write-ups on what I'm currently
+            exploring.
+          </p>
+        </div>
+
+        <div class="blog-list">
+          {posts.map((post) => (
+            <a href={`/blog/${post.id}`} class="card blog-card">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {dateFmt.format(post.data.pubDate)}
+              </time>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <div class="tags">
+                {post.data.tags.slice(0, 3).map((tag) => (
+                  <span>{tag}</span>
+                ))}
+              </div>
+              <span class="blog-card-link">Lire l'article →</span>
+            </a>
+          ))}
+        </div>
+
+        <div class="writing-cta">
+          <a href="/blog" class="btn-outline">Voir tous les articles →</a>
+        </div>
+      </div>
+    </section>
+  )
+}
