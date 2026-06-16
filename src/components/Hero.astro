@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import profilePhoto from '../images/photo_profile.jpg';
+import { Image } from "astro:assets";
+import profilePhoto from "../images/photo_profile.jpg";
 ---
 
 <style>
@@ -27,7 +27,11 @@ import profilePhoto from '../images/photo_profile.jpg';
   .profile-halo {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle, rgba(var(--clr-accent-rgb), 0.3), transparent);
+    background: radial-gradient(
+      circle,
+      rgba(var(--clr-accent-rgb), 0.3),
+      transparent
+    );
     border-radius: 50%;
     filter: blur(60px);
   }
@@ -85,12 +89,6 @@ import profilePhoto from '../images/photo_profile.jpg';
     margin-bottom: 32px;
     line-height: 1.8;
   }
-
-  .highlight {
-    color: var(--clr-accent);
-    font-weight: 600;
-  }
-
   .hero-buttons {
     display: flex;
     gap: 16px;
@@ -169,11 +167,11 @@ import profilePhoto from '../images/photo_profile.jpg';
         <div class="badge">Welcome to my portfolio</div>
         <h1>Hi there!</h1>
         <p>
-          I'm <span class="highlight">Zoléni Kokolo Zassi</span> — a Python
-          Developer & Junior Full Stack Developer passionate about
-          automation, infrastructure migration (Docker/LXC), and building
-          concrete end-to-end software solutions. I'm driven by curiosity,
-          creativity, and the desire to solve real-world problems.
+          I'm <span class="highlight">Zoléni Kokolo Zassi</span> — a Python Developer
+          & Junior Full Stack Developer passionate about automation, infrastructure
+          migration (Docker/LXC), and building concrete end-to-end software solutions.
+          I'm driven by curiosity, creativity, and the desire to solve real-world
+          problems.
         </p>
         <div class="hero-buttons">
           <a href="#projects" class="btn-primary">See My Work</a>

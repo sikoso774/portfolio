@@ -158,9 +158,11 @@ section {
     box-shadow: 0 10px 30px rgba(var(--clr-accent-rgb), 0.1);
 }
 
-
-
-
+/* hightlight */
+.highlight {
+    color: var(--clr-accent);
+    font-weight: 600;
+}
 
 .tags {
     display: flex;
