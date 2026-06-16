@@ -47,6 +47,10 @@
 
 html {
     scroll-behavior: smooth;
+    /* Décale les ancres sous le header fixe (~72px) pour qu'une section ciblée
+       par #hash n'atterrisse pas cachée derrière le header. Vaut pour la
+       navigation interne ET le scroll vers le hash après navigation ClientRouter. */
+    scroll-padding-top: 80px;
     color-scheme: dark light;
 }
 
