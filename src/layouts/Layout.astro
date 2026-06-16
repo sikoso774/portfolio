@@ -14,14 +14,17 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL('/assets/img/photo_profile.jpg', Astro.site);
+// Bannière dédiée 1200×630 pour le partage social (généré via scripts/generate-og.mjs).
+const ogImage = new URL('/assets/img/og-image.png', Astro.site);
+// Photo réelle pour le schema.org Person (Google préfère un portrait, pas la bannière).
+const personImage = new URL('/assets/img/photo_profile.jpg', Astro.site);
 
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Zoléni Kokolo Zassi",
   url: Astro.site?.toString(),
-  image: ogImage.toString(),
+  image: personImage.toString(),
   jobTitle: "Python Developer & Junior Full Stack Developer",
   alumniOf: {
     "@type": "CollegeOrUniversity",
@@ -69,6 +72,9 @@ const personSchema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Zoléni Kokolo Zassi — Python Developer, Data Science, Linux Infrastructure" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
