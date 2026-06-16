@@ -95,3 +95,4 @@ android-sdk/ -e
 CLAUDE.md
 .claude/
 others/
+tests/*.json

@@ -78,6 +78,32 @@
     margin-bottom: 8px;
   }
 
+  .experience-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .see-more-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--clr-text-dim);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border: 1px solid rgba(var(--clr-accent-rgb), 0.2);
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+  }
+
+  .see-more-link:hover {
+    color: var(--clr-accent);
+    border-color: rgba(var(--clr-accent-rgb), 0.5);
+    background: rgba(var(--clr-accent-rgb), 0.05);
+  }
+
   @media (max-width: 768px) {
     .education-grid {
       grid-template-columns: 1fr;
@@ -210,6 +236,15 @@
         </p>
       </div>
 
+    </div>
+    <div class="experience-footer">
+      <a href="/experience" class="see-more-link">
+        View full timeline & education details
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
     </div>
   </div>
 </section>

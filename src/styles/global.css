@@ -47,6 +47,10 @@
 
 html {
     scroll-behavior: smooth;
+    /* Décale les ancres sous le header fixe (~72px) pour qu'une section ciblée
+       par #hash n'atterrisse pas cachée derrière le header. Vaut pour la
+       navigation interne ET le scroll vers le hash après navigation ClientRouter. */
+    scroll-padding-top: 80px;
     color-scheme: dark light;
 }
 
@@ -158,9 +162,11 @@ section {
     box-shadow: 0 10px 30px rgba(var(--clr-accent-rgb), 0.1);
 }
 
-
-
-
+/* hightlight */
+.highlight {
+    color: var(--clr-accent);
+    font-weight: 600;
+}
 
 .tags {
     display: flex;

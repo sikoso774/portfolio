@@ -128,6 +128,32 @@
     }
   }
 
+  .skills-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .see-more-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--clr-text-dim);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 20px;
+    border: 1px solid rgba(var(--clr-accent-rgb), 0.2);
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+  }
+
+  .see-more-link:hover {
+    color: var(--clr-accent);
+    border-color: rgba(var(--clr-accent-rgb), 0.5);
+    background: rgba(var(--clr-accent-rgb), 0.05);
+  }
+
   @media (prefers-color-scheme: light) {
     .skills {
       background: rgba(0, 0, 0, 0.03);
@@ -214,13 +240,13 @@
         <div class="skills-icons-row">
           <div class="skill-icon-card">
             <!-- prettier-ignore -->
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.922 0h2.623v18.104h-2.623zm-4.126 12.94h2.623v2.57h-2.623zm0-7.037h2.623v5.446h-2.623zm0 11.197h2.623v5.446h-2.623zM4.456 5.896h2.622V24H4.455zm4.213 2.559h2.623v2.57H8.67zm0 4.151h2.623v5.447H8.67zm0-11.187h2.623v5.446H8.67Z"/></svg>
-            <span>Pandas</span>
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10.315 4.876L6.3048 2.8517l-4.401 2.1965 4.1186 2.0683zm1.8381.9277l4.2045 2.1223-4.3622 2.1906-4.125-2.0718zm5.6153-2.9213l4.3193 2.1658-3.863 1.9402-4.2131-2.1252zm-1.859-.9329L12.021 0 8.1742 1.9193l4.0068 2.0208zm-3.0401 16.7443V24l4.7107-2.3507-.0053-5.3085zm4.7037-4.2057l-.0052-5.2528-4.6985 2.3356v5.2546zm5.6553-.9845v5.327l-4.0178 2.0052-.0029-5.3028zm0-1.8626V6.4214l-4.0253 2.001.0034 5.2633zM11.2062 11.571L8.0333 9.9756v6.895s-3.8804-8.2564-4.2399-8.998c-.0463-.0957-.2371-.2007-.2858-.2262C2.8118 7.2812.773 6.2485.773 6.2485V18.43l2.8204 1.5076v-6.3674s3.8392 7.3775 3.878 7.458c.0389.0807.4245.8582.8362 1.1314.5485.363 2.8992 1.7766 2.8992 1.7766z"/></svg>
+            <span>NumPy</span>
           </div>
           <div class="skill-icon-card">
             <!-- prettier-ignore -->
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10.315 4.876L6.3048 2.8517l-4.401 2.1965 4.1186 2.0683zm1.8381.9277l4.2045 2.1223-4.3622 2.1906-4.125-2.0718zm5.6153-2.9213l4.3193 2.1658-3.863 1.9402-4.2131-2.1252zm-1.859-.9329L12.021 0 8.1742 1.9193l4.0068 2.0208zm-3.0401 16.7443V24l4.7107-2.3507-.0053-5.3085zm4.7037-4.2057l-.0052-5.2528-4.6985 2.3356v5.2546zm5.6553-.9845v5.327l-4.0178 2.0052-.0029-5.3028zm0-1.8626V6.4214l-4.0253 2.001.0034 5.2633zM11.2062 11.571L8.0333 9.9756v6.895s-3.8804-8.2564-4.2399-8.998c-.0463-.0957-.2371-.2007-.2858-.2262C2.8118 7.2812.773 6.2485.773 6.2485V18.43l2.8204 1.5076v-6.3674s3.8392 7.3775 3.878 7.458c.0389.0807.4245.8582.8362 1.1314.5485.363 2.8992 1.7766 2.8992 1.7766z"/></svg>
-            <span>NumPy</span>
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.922 0h2.623v18.104h-2.623zm-4.126 12.94h2.623v2.57h-2.623zm0-7.037h2.623v5.446h-2.623zm0 11.197h2.623v5.446h-2.623zM4.456 5.896h2.622V24H4.455zm4.213 2.559h2.623v2.57H8.67zm0 4.151h2.623v5.447H8.67zm0-11.187h2.623v5.446H8.67Z"/></svg>
+            <span>Pandas</span>
           </div>
           <div class="skill-icon-card">
             <img
@@ -240,7 +266,7 @@
           </div>
           <div class="skill-icon-card">
             <!-- prettier-ignore -->
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.17 1H2.83C1.27 1 0 2.27 0 3.83v16.34C0 21.73 1.27 23 2.83 23h18.34C22.73 23 24 21.73 24 20.17V3.83C24 2.27 22.73 1 21.17 1zM14.28 17.5h-2.1L10 14.18 7.82 17.5H5.72l3.27-5.5L5.72 6.5h2.1L10 9.82 12.18 6.5h2.1l-3.27 5.5 3.27 5.5zM18.5 17.5h-3V6.5h1.5v9.5h1.5v1.5z"/></svg>
+            <svg width="36" height="36" viewBox="0 0 2080 2080" fill="currentColor" aria-hidden="true"><path d="M1981,297.1v1436.2h-941V297.1H1981 M1981,198.1h-941c-54.7,0-99,44.3-99,99v1436.2c0,54.7,44.3,99,99,99h941c54.7,0,99-44.3,99-99V297.1C2080,242.4,2035.7,198.1,1981,198.1z"/><rect x="1485.7" y="445.7" width="346.7" height="148.6"/><rect x="1485.7" y="693.3" width="346.7" height="148.6"/><rect x="1485.7" y="941" width="346.7" height="148.6"/><rect x="1485.7" y="1188.6" width="346.7" height="148.6"/><rect x="1485.7" y="1436.2" width="346.7" height="148.6"/><rect x="1040" y="445.7" width="346.7" height="148.6"/><rect x="1040" y="693.3" width="346.7" height="148.6"/><rect x="1040" y="941" width="346.7" height="148.6"/><rect x="1040" y="1188.6" width="346.7" height="148.6"/><rect x="1040" y="1436.2" width="346.7" height="148.6"/><path d="M1238.1,0L0,216.9v1646.2L1238.1,2080V0z"/><path fill="#fff" d="M884.5,594.3l-172.8,10.4L606.2,852.3l-6.9,22.3l-5,16.8l-4.5,16.3l-3.5,13.4l0,0c0-6.6-1.5-12.9-4.5-18.8l-4.5-17.3l-5-16.3l-5.4-14.9l-90.6-235.2L309.5,629l177.8,385.3l-196.6,385.3l162.9,9.9l109.4-252.6l5-17.3l4-15.4l3.5-12.9v-10.4l0,0l3.5,18.3l3.5,15.4l3,11.9l3,8.4l113.9,269.4l189.2,11.9l-213-424.4L884.5,594.3"/></svg>
             <span>Excel</span>
           </div>
         </div>
@@ -360,6 +386,16 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="skills-footer">
+      <a href="/skills" class="see-more-link">
+        View proficiency levels & full details
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
