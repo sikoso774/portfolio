@@ -65,13 +65,13 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <!-- Sous-titre -->
   <text x="600" y="378" text-anchor="middle" font-family="Inter, sans-serif" font-size="24" fill="#9ca3af">Python · Linux · Data Science</text>
 
-  <!-- Globe + URL -->
-  <g transform="translate(485,432)">
-    <circle cx="0" cy="0" r="13" fill="none" stroke="#10b981" stroke-width="1.6"/>
-    <ellipse cx="0" cy="0" rx="6.5" ry="13" fill="none" stroke="#10b981" stroke-width="1.1"/>
-    <line x1="-13" y1="0" x2="13" y2="0" stroke="#10b981" stroke-width="1.1"/>
+  <!-- CTA : bouton-pilule outline (cohérent avec le btn-outline du thème) -->
+  <rect x="382" y="414" width="436" height="60" rx="30" fill="#10b981" fill-opacity="0.10" stroke="#10b981" stroke-width="2" stroke-opacity="0.55"/>
+  <text x="578" y="453" text-anchor="middle" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="#34d399">Visit zolenikokolo.com</text>
+  <g stroke="#34d399" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <line x1="752" y1="444" x2="784" y2="444"/>
+    <polyline points="773,433 784,444 773,455"/>
   </g>
-  <text x="512" y="441" font-family="Inter, sans-serif" font-size="30" fill="#ffffff">zolenikokolo.com</text>
 
   <!-- Rangée d'icônes tech -->
   ${iconRow}

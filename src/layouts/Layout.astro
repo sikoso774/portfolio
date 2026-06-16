@@ -10,7 +10,7 @@ interface Props {
 
 const {
   title = "Zoléni Kokolo Zassi - Portfolio",
-  description = "Portfolio of Zoléni Kokolo Zassi — Computer Science student at ENSEA, passionate about Python, data science, Linux infrastructure, and web development."
+  description = "Portfolio of Zoléni Kokolo Zassi — ENSEA computer science student focused on Python, data science & Linux infrastructure."
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -68,6 +68,7 @@ const personSchema = {
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Zoléni Kokolo Zassi" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
