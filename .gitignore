@@ -91,6 +91,9 @@ android-sdk/ -e
 *.env
 *.env.*
 
+# Graphify
+graphify-out/
+
 # claude-agent
 CLAUDE.md
 .claude/

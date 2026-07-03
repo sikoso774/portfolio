@@ -28,8 +28,8 @@ function refreshChrome() {
 function setFooterEmail() {
     const link = document.getElementById('footer-cta-email');
     if (link && !link.href.startsWith('mailto:')) {
-        const u = 'zolenikokolozassi';
-        const d = 'outlook.com';
+        const u = 'contact';
+        const d = 'zolenikokolo.com';
         link.href = 'mailto:' + u + '@' + d;
     }
 }
