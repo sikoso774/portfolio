@@ -1,0 +1,6 @@
+dist/
+graphify-out/
+public/
+package-lock.json
+CLAUDE.md
+.claude/
