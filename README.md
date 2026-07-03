@@ -69,9 +69,9 @@ All colors are CSS variables in `src/styles/global.css`:
 
 ```css
 :root {
-    --clr-accent: #10b981;       /* main green */
-    --clr-accent-dark: #059669;  /* hover/gradient green */
-    --clr-bg-start: #064e3b;     /* left side of background gradient */
+  --clr-accent: #10b981; /* main green */
+  --clr-accent-dark: #059669; /* hover/gradient green */
+  --clr-bg-start: #064e3b; /* left side of background gradient */
 }
 ```
 
@@ -93,10 +93,10 @@ Pushing to `master` triggers the GitHub Actions workflow (`.github/workflows/dep
 
 ## Branches
 
-| Branch | Role |
-|--------|------|
+| Branch   | Role                      |
+| -------- | ------------------------- |
 | `master` | Production (GitHub Pages) |
-| `dev` | Active development |
+| `dev`    | Active development        |
 
 ---
 

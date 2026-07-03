@@ -1,7 +1,7 @@
 ---
-import '@fontsource-variable/inter';
-import '../styles/global.css';
-import { ClientRouter } from 'astro:transitions';
+import "@fontsource-variable/inter";
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title?: string;
@@ -10,14 +10,14 @@ interface Props {
 
 const {
   title = "Zoléni Kokolo Zassi - Portfolio",
-  description = "Portfolio of Zoléni Kokolo Zassi — ENSEA computer science student focused on Python, data science & Linux infrastructure."
+  description = "Portfolio of Zoléni Kokolo Zassi — ENSEA computer science student focused on Python, data science & Linux infrastructure.",
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 // Bannière dédiée 1200×630 pour le partage social (généré via scripts/generate-og.mjs).
-const ogImage = new URL('/assets/img/og-image.png', Astro.site);
+const ogImage = new URL("/assets/img/og-image.png", Astro.site);
 // Photo réelle pour le schema.org Person (Google préfère un portrait, pas la bannière).
-const personImage = new URL('/assets/img/photo_profile.jpg', Astro.site);
+const personImage = new URL("/assets/img/photo_profile.jpg", Astro.site);
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -52,6 +52,13 @@ const personSchema = {
 ---
 
 <!doctype html>
+<!--
+  © 2026 Zoléni Kokolo Zassi — All Rights Reserved.
+  Design, content and source code are the exclusive property of Zoléni Kokolo Zassi.
+  This site is shared for portfolio purposes only. Copying or reusing any part
+  without prior written authorization is strictly prohibited.
+  Contact: https://zolenikokolo.com/contact
+-->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -75,7 +82,10 @@ const personSchema = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Zoléni Kokolo Zassi — Python Developer, Data Science, Linux Infrastructure" />
+    <meta
+      property="og:image:alt"
+      content="Zoléni Kokolo Zassi — Python Developer, Data Science, Linux Infrastructure"
+    />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
@@ -85,7 +95,11 @@ const personSchema = {
     <meta name="twitter:image" content={ogImage} />
 
     <!-- Structured data -->
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(personSchema)}
+    />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
@@ -110,7 +124,7 @@ const personSchema = {
       </svg>
     </button>
     <script>
-      import '../scripts/main.js';
+      import "../scripts/main.js";
     </script>
   </body>
 </html>
