@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Icon from "../components/Icon.astro";
+import { EMAIL_USER, EMAIL_DOMAIN } from "../site.js";
 ---
 
 <Layout
@@ -114,32 +116,9 @@ import Footer from "../components/Footer.astro";
                   rel="noopener noreferrer"
                   class="social-link"
                 >
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-                    ></path>
-                  </svg>
+                  <Icon name="github" size={20} />
                   <span>GitHub</span>
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    class="external-icon"
-                  >
-                    <path
-                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                    ></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
+                  <Icon name="external-link" size={12} class="external-icon" />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/zoléni-kokolo-zassi-280a282ba"
@@ -147,32 +126,9 @@ import Footer from "../components/Footer.astro";
                   rel="noopener noreferrer"
                   class="social-link"
                 >
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="20"
-                    height="20"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.14-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"
-                    ></path>
-                  </svg>
+                  <Icon name="linkedin" size={20} />
                   <span>LinkedIn</span>
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    class="external-icon"
-                  >
-                    <path
-                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                    ></path>
-                    <polyline points="15 3 21 3 21 9"></polyline>
-                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                  </svg>
+                  <Icon name="external-link" size={12} class="external-icon" />
                 </a>
               </div>
             </div>
@@ -186,7 +142,7 @@ import Footer from "../components/Footer.astro";
               ready to send.
             </p>
 
-            <form id="contact-form" novalidate>
+            <form id="contact-form">
               <div class="form-row">
                 <div class="form-group">
                   <label for="name">Full name</label>
@@ -233,10 +189,6 @@ import Footer from "../components/Footer.astro";
                   required></textarea>
               </div>
 
-              <div id="form-error" class="form-error" hidden>
-                Please fill in all fields before sending.
-              </div>
-
               <button type="submit" class="btn-primary submit-btn">
                 <svg
                   width="16"
@@ -260,10 +212,8 @@ import Footer from "../components/Footer.astro";
   <Footer />
 </Layout>
 
-<script is:inline>
+<script is:inline define:vars={{ u: EMAIL_USER, d: EMAIL_DOMAIN }}>
   // Email obfuscation
-  const u = "contact";
-  const d = "zolenikokolo.com";
   const email = u + "@" + d;
 
   const emailLink = document.getElementById("contact-email");
@@ -273,22 +223,17 @@ import Footer from "../components/Footer.astro";
   }
 
   const form = document.getElementById("contact-form");
-  const formError = document.getElementById("form-error");
 
+  // La validation (champs requis, format email) est native : le submit ne
+  // se déclenche que si le formulaire est valide.
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const name = form.querySelector("#name").value.trim();
-    const senderEmail = form.querySelector("#email").value.trim();
-    const subject = form.querySelector("#subject").value.trim();
-    const message = form.querySelector("#message").value.trim();
-
-    if (!name || !senderEmail || !subject || !message) {
-      formError.hidden = false;
-      return;
-    }
-
-    formError.hidden = true;
+    const data = new FormData(form);
+    const name = data.get("name").trim();
+    const senderEmail = data.get("email").trim();
+    const subject = data.get("subject").trim();
+    const message = data.get("message").trim();
 
     const body = "Name: " + name + "\nEmail: " + senderEmail + "\n\n" + message;
     window.location.href =
@@ -462,12 +407,14 @@ import Footer from "../components/Footer.astro";
     flex: 1;
   }
 
-  .external-icon {
+  /* :global() requis : le svg est rendu par le composant enfant Icon.astro,
+     il ne porte donc pas l'attribut de scoping de cette page. */
+  .social-link :global(.external-icon) {
     opacity: 0.4;
     transition: opacity 0.2s ease;
   }
 
-  .social-link:hover .external-icon {
+  .social-link:hover :global(.external-icon) {
     opacity: 0.8;
   }
 
@@ -543,15 +490,6 @@ import Footer from "../components/Footer.astro";
     resize: vertical;
     min-height: 140px;
     line-height: 1.6;
-  }
-
-  .form-error {
-    font-size: 13px;
-    color: #f87171;
-    padding: 10px 14px;
-    background: rgba(248, 113, 113, 0.08);
-    border: 1px solid rgba(248, 113, 113, 0.2);
-    border-radius: var(--radius-sm);
   }
 
   .submit-btn {

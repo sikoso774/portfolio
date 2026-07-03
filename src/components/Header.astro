@@ -1,11 +1,13 @@
 ---
+import Icon from "./Icon.astro";
+
 // Liens indépendants de la page : toujours absolus vers la home + ancre.
 // Indispensable car le header est `transition:persist` (non re-rendu d'une
 // page à l'autre) — un lien relatif resterait collé à la page d'origine.
 // Sur la home, `/#about` se comporte comme une ancre interne (scroll smooth) ;
 // depuis /blog, il navigue vers la home puis défile jusqu'à la section.
 const sectionHref = (id: string) => `/#${id}`;
-const homeHref = '/#hero';
+const homeHref = "/#hero";
 ---
 
 <style>
@@ -186,25 +188,33 @@ const homeHref = '/#hero';
 
     /* Grid pattern */
     .mobile-menu::before {
-      content: '';
+      content: "";
       position: absolute;
       inset: 0;
       background-image:
         linear-gradient(rgba(var(--clr-accent-rgb), 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(var(--clr-accent-rgb), 0.05) 1px, transparent 1px);
+        linear-gradient(
+          90deg,
+          rgba(var(--clr-accent-rgb), 0.05) 1px,
+          transparent 1px
+        );
       background-size: 48px 48px;
       pointer-events: none;
     }
 
     /* Ambient glow bottom-right */
     .mobile-menu::after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -120px;
       right: -120px;
       width: 520px;
       height: 520px;
-      background: radial-gradient(circle, rgba(var(--clr-accent-rgb), 0.12) 0%, transparent 65%);
+      background: radial-gradient(
+        circle,
+        rgba(var(--clr-accent-rgb), 0.12) 0%,
+        transparent 65%
+      );
       pointer-events: none;
     }
 
@@ -234,7 +244,10 @@ const homeHref = '/#hero';
       border-bottom: 1px solid rgba(255, 255, 255, 0.07);
       transform: translateX(-28px);
       opacity: 0;
-      transition: transform 0.2s ease, opacity 0.15s ease, color 0.2s ease;
+      transition:
+        transform 0.2s ease,
+        opacity 0.15s ease,
+        color 0.2s ease;
     }
 
     .mobile-menu nav a:first-child {
@@ -250,7 +263,8 @@ const homeHref = '/#hero';
       transform: translateX(0);
       opacity: 1;
       transition:
-        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 60ms + 0.05s),
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)
+          calc(var(--i, 0) * 60ms + 0.05s),
         opacity 0.4s ease calc(var(--i, 0) * 60ms + 0.05s),
         color 0.2s ease;
     }
@@ -263,13 +277,17 @@ const homeHref = '/#hero';
       z-index: 1;
       transform: translateY(14px);
       opacity: 0;
-      transition: transform 0.2s ease, opacity 0.15s ease;
+      transition:
+        transform 0.2s ease,
+        opacity 0.15s ease;
     }
 
     .mobile-menu.active .mobile-menu-actions {
       transform: translateY(0);
       opacity: 1;
-      transition: transform 0.45s ease 0.42s, opacity 0.4s ease 0.42s;
+      transition:
+        transform 0.45s ease 0.42s,
+        opacity 0.4s ease 0.42s;
     }
 
     .mobile-menu-actions a {
@@ -328,32 +346,41 @@ const homeHref = '/#hero';
       </a>
 
       <nav class="desktop-nav">
-        <a href={sectionHref('about')}>About</a>
-        <a href={sectionHref('skills')}>Skills</a>
-        <a href={sectionHref('experience')}>Experience</a>
-        <a href={sectionHref('projects')}>Projects</a>
+        <a href={sectionHref("about")}>About</a>
+        <a href={sectionHref("skills")}>Skills</a>
+        <a href={sectionHref("experience")}>Experience</a>
+        <a href={sectionHref("projects")}>Projects</a>
         <a href="/blog">Blog</a>
-        <a href={sectionHref('contact')}>Contact</a>
+        <a href={sectionHref("contact")}>Contact</a>
       </nav>
 
       <div class="header-buttons">
-        <a href="https://github.com/Sikoso774" target="_blank" rel="noopener noreferrer" class="btn-ghost">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-          </svg>
+        <a
+          href="https://github.com/Sikoso774"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-ghost"
+        >
+          <Icon name="github-outline" size={16} />
           GitHub
         </a>
-        <a href="/assets/docs/CV_Zoleni_KOKOLO_ZASSI.pdf" download class="btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
+        <a
+          href="/assets/docs/CV_Zoleni_KOKOLO_ZASSI.pdf"
+          download
+          class="btn-primary"
+        >
+          <Icon name="download" size={16} />
           Download CV
         </a>
       </div>
 
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobileMenu">
+      <button
+        class="mobile-menu-btn"
+        id="mobileMenuBtn"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -363,26 +390,39 @@ const homeHref = '/#hero';
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
       <nav>
-        <a href={sectionHref('about')} style="--i:0"><span class="nav-num">01</span>About</a>
-        <a href={sectionHref('skills')} style="--i:1"><span class="nav-num">02</span>Skills</a>
-        <a href={sectionHref('experience')} style="--i:2"><span class="nav-num">03</span>Experience</a>
-        <a href={sectionHref('projects')} style="--i:3"><span class="nav-num">04</span>Projects</a>
+        <a href={sectionHref("about")} style="--i:0"
+          ><span class="nav-num">01</span>About</a
+        >
+        <a href={sectionHref("skills")} style="--i:1"
+          ><span class="nav-num">02</span>Skills</a
+        >
+        <a href={sectionHref("experience")} style="--i:2"
+          ><span class="nav-num">03</span>Experience</a
+        >
+        <a href={sectionHref("projects")} style="--i:3"
+          ><span class="nav-num">04</span>Projects</a
+        >
         <a href="/blog" style="--i:4"><span class="nav-num">05</span>Blog</a>
-        <a href={sectionHref('contact')} style="--i:5"><span class="nav-num">06</span>Contact</a>
+        <a href={sectionHref("contact")} style="--i:5"
+          ><span class="nav-num">06</span>Contact</a
+        >
       </nav>
       <div class="mobile-menu-actions">
-        <a href="https://github.com/Sikoso774" target="_blank" rel="noopener noreferrer" class="btn-ghost">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-          </svg>
+        <a
+          href="https://github.com/Sikoso774"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-ghost"
+        >
+          <Icon name="github-outline" size={16} />
           GitHub
         </a>
-        <a href="/assets/docs/CV_Zoleni_KOKOLO_ZASSI.pdf" download class="btn-outline">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
+        <a
+          href="/assets/docs/CV_Zoleni_KOKOLO_ZASSI.pdf"
+          download
+          class="btn-outline"
+        >
+          <Icon name="download" size={16} />
           Download CV
         </a>
       </div>
