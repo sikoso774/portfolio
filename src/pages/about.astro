@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import About from "../components/About.astro";
+import Languages from "../components/Languages.astro";
+---
+
+<Layout
+  title="About — Zoléni Kokolo Zassi"
+  description="A closer look at Zoléni Kokolo Zassi — background, interests, and the languages he speaks."
+>
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="section-header">
+          <h1>About Me</h1>
+          <div class="underline"></div>
+          <p class="section-description">
+            A closer look at who I am, what I care about, and what keeps me
+            curious outside of code.
+          </p>
+        </div>
+      </div>
+    </section>
+    <About />
+    <Languages />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 160px 0 32px;
+  }
+
+  .page-hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 120px 0 24px;
+    }
+
+    .page-hero h1 {
+      font-size: 32px;
+    }
+  }
+</style>

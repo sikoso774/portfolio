@@ -1,0 +1,89 @@
+---
+---
+
+<style>
+  .projects-preview {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .projects-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .project-preview-card {
+    padding: 20px;
+  }
+
+  .project-preview-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--clr-text);
+    margin-bottom: 8px;
+    transition: color 0.2s ease;
+  }
+
+  .project-preview-card p {
+    color: var(--clr-text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .projects-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  @media (max-width: 900px) {
+    .projects-preview-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    .projects-preview {
+      background: rgba(0, 0, 0, 0.03);
+    }
+  }
+</style>
+
+<section id="projects" class="projects-preview">
+  <div class="container">
+    <div class="section-header">
+      <h2>Featured Projects</h2>
+      <div class="underline"></div>
+      <p class="section-description">
+        A selection of projects showcasing my skills in software development,
+        data science, and digital innovation.
+      </p>
+    </div>
+    <div class="projects-preview-grid">
+      <div class="card project-preview-card">
+        <h3>Nebulux — Obsidian Theme</h3>
+        <p>
+          Custom dark theme for Obsidian, published on the community
+          marketplace with 300+ downloads.
+        </p>
+      </div>
+      <div class="card project-preview-card">
+        <h3>Music Player</h3>
+        <p>
+          Desktop music player built with Python and Tkinter for browsing and
+          playing local audio files.
+        </p>
+      </div>
+      <div class="card project-preview-card">
+        <h3>HYPNOTICA</h3>
+        <p>
+          A 2nd year ENSEA project exploring interactive applications with
+          modern technologies.
+        </p>
+      </div>
+    </div>
+    <div class="projects-cta">
+      <a href="/projects" class="btn-outline">View all projects →</a>
+    </div>
+  </div>
+</section>
