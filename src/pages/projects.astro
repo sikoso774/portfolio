@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Projects from "../components/Projects.astro";
+---
+
+<Layout
+  title="Projects — Zoléni Kokolo Zassi"
+  description="A selection of projects showcasing Zoléni Kokolo Zassi's skills in software development, data science, and digital innovation."
+>
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="section-header">
+          <h1>Projects</h1>
+          <div class="underline"></div>
+        </div>
+      </div>
+    </section>
+    <Projects />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 160px 0 32px;
+  }
+
+  .page-hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 120px 0 24px;
+    }
+
+    .page-hero h1 {
+      font-size: 32px;
+    }
+  }
+</style>

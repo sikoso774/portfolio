@@ -1,9 +1,5 @@
 ---
 import Icon from "./Icon.astro";
-
-// Liens absolus (voir Header.astro) pour rester cohérents sur toutes les pages.
-const sectionHref = (id: string) => `/#${id}`;
-const homeHref = "/#hero";
 ---
 
 <style>
@@ -308,15 +304,15 @@ const homeHref = "/#hero";
 
     <!-- Bar -->
     <div class="footer-bar">
-      <a href={homeHref} class="logo">
+      <a href="/" class="logo">
         <div class="logo-circle">ZK</div>
         <span class="logo-text">Zoléni Kokolo</span>
       </a>
       <nav class="footer-nav">
-        <a href={sectionHref("about")}>About</a>
+        <a href="/about">About</a>
         <a href="/skills">Skills</a>
         <a href="/experience">Experience</a>
-        <a href={sectionHref("projects")}>Projects</a>
+        <a href="/projects">Projects</a>
         <a href="/blog">Blog</a>
         <a href="/contact">Contact</a>
       </nav>
