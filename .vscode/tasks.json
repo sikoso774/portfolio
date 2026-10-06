@@ -1,0 +1,48 @@
+// For more information, visit: https://go.microsoft.com/fwlink/?LinkId=733558
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "\\[types\\]|\\[content\\]|ready in"
+          },
+          "endsPattern": {
+            "regexp": "watching for file changes"
+          }
+        }
+      }
+    },
+    {
+      "type": "npm",
+      "script": "test",
+      "group": "test"
+    },
+    {
+      "label": "preview: build + serve",
+      "type": "shell",
+      "command": "npm run build && npm run preview",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": "$tsc",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": {
+            "regexp": "\\[build\\]|building"
+          },
+          "endsPattern": {
+            "regexp": "localhost:\\d+"
+          }
+        }
+      }
+    }
+  ]
+}

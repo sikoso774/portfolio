@@ -1,0 +1,29 @@
+{
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Onglet dans VS Code (navigateur intégré), débogueur attaché
+      "name": "astro dev (VS Code)",
+      "type": "editor-browser",
+      "request": "launch",
+      "preLaunchTask": "npm: dev",
+      "url": "http://localhost:4321/"
+    },
+    {
+      "name": "astro preview (VS Code)",
+      "type": "editor-browser",
+      "request": "launch",
+      "preLaunchTask": "preview: build + serve",
+      "url": "http://localhost:4321/"
+    },
+    {
+      // Fenêtre Chrome externe
+      "name": "astro dev (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "npm: dev",
+      "url": "http://localhost:4321/"
+    }
+  ]
+}
