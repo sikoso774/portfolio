@@ -103,6 +103,14 @@ describe("built site SEO", () => {
     );
   });
 
+  it("never leaks truncated <svg> tags as visible text", () => {
+    // Régression : prettier-plugin-astro amputait `<svg w` devant un prettier-ignore.
+    const truncated = /(^|[>\s])(idth|dth|le|vg width)=?"/;
+    for (const file of htmlFiles(OUT_DIR)) {
+      expect(readFileSync(file, "utf-8"), file).not.toMatch(truncated);
+    }
+  });
+
   it("redirects the old French slugs to the English ones", () => {
     const redirects = {
       "blog/vocabulaire-3d": "/blog/3d-glossary/",
