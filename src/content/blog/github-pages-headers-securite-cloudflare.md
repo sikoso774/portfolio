@@ -1,6 +1,6 @@
 ---
-title: "GitHub Pages & Security Headers: Problem and Cloudflare Fix"
-description: "This site scored a D on securityheaders.com because GitHub Pages can't set custom HTTP headers. Here's the root cause and how putting Cloudflare in front fixed it — D to A."
+title: "GitHub Pages Security Headers: Cloudflare Fix"
+description: "GitHub Pages doesn't support custom HTTP headers, so securityheaders.com gave this site a D. How I fixed it with Cloudflare Transform Rules and reached an A."
 pubDate: 2026-06-12
 tags: ["Security", "HTTP Headers", "GitHub Pages", "Cloudflare", "DNS"]
 ---
@@ -31,7 +31,7 @@ No. These are **hardening** layers (defense in depth). For a static site with no
 
 1. **`<meta http-equiv="Content-Security-Policy">`** in the `<head>` — free but partial: only CSP works as a meta tag, and scanners only read HTTP headers → still a D
 2. **Migrate to Netlify / Cloudflare Pages** — they support a native `_headers` file
-3. ✅ **Put [Cloudflare](/blog/cloudflare-cest-quoi) (free) in front of GitHub Pages** — the option I went with: keep the current host, let Cloudflare inject the headers on the way through
+3. ✅ **Put [Cloudflare](/blog/cloudflare-cest-quoi/) (free) in front of GitHub Pages** — the option I went with: keep the current host, let Cloudflare inject the headers on the way through
 
 ## The Setup (~45 min)
 

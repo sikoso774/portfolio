@@ -2,7 +2,6 @@
 
 # IDE and editors
 .idea/
-.vscode/
 
 # Dependencies
 node_modules/
@@ -99,3 +98,5 @@ CLAUDE.md
 .claude/
 others/
 tests/*.json
+# Sortie de build des tests SEO
+.vitest-dist/

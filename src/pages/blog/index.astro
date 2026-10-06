@@ -37,7 +37,7 @@ const dateFmt = new Intl.DateTimeFormat("en-US", {
         ) : (
           <div class="blog-list">
             {posts.map((post) => (
-              <a href={`/blog/${post.id}`} class="card blog-card">
+              <a href={`/blog/${post.id}/`} class="card blog-card">
                 <time datetime={post.data.pubDate.toISOString()}>
                   {dateFmt.format(post.data.pubDate)}
                 </time>
