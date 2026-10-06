@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -20,5 +21,22 @@ describe("formatting hygiene", () => {
       readFileSync(file, "utf-8").includes("prettier-ignore"),
     );
     expect(offenders).toEqual([]);
+  });
+
+  it("keeps LF line endings in every tracked text file", () => {
+    // Prettier écrit du LF (`endOfLine: "lf"`). Du CRLF sur disque (VS Code ou
+    // `core.autocrlf=true` sous Windows) fait échouer `npm run format:check` sur presque
+    // tous les fichiers : .gitattributes, .editorconfig et .vscode/settings.json l'évitent.
+    const textFile = /\.(astro|js|mjs|ts|json|md|css|yml|yaml|svg|txt)$/;
+    const tracked = execFileSync("git", ["ls-files", "-z"], {
+      encoding: "utf-8",
+    })
+      .split("\0")
+      .filter((file) => textFile.test(file));
+
+    const withCrlf = tracked.filter((file) =>
+      readFileSync(file, "utf-8").includes("\r\n"),
+    );
+    expect(withCrlf).toEqual([]);
   });
 });
