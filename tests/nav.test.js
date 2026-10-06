@@ -4,12 +4,12 @@ import Header from "../src/components/Header.astro";
 import Footer from "../src/components/Footer.astro";
 
 const EXPECTED_ROUTES = [
-  "/about",
-  "/skills",
-  "/experience",
-  "/projects",
-  "/blog",
-  "/contact",
+  "/about/",
+  "/skills/",
+  "/experience/",
+  "/projects/",
+  "/blog/",
+  "/contact/",
 ];
 
 function extractHrefs(html) {

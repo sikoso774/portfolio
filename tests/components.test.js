@@ -13,8 +13,8 @@ describe("Hero", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Hero);
 
-    expect(html).toContain('href="/projects"');
-    expect(html).toContain('href="/contact"');
+    expect(html).toContain('href="/projects/"');
+    expect(html).toContain('href="/contact/"');
   });
 });
 
@@ -36,7 +36,7 @@ describe("About", () => {
       props: { showLink: true },
     });
     expect(withLink).toContain("Learn more about me");
-    expect(withLink).toContain('href="/about"');
+    expect(withLink).toContain('href="/about/"');
   });
 });
 
@@ -55,7 +55,7 @@ describe("SkillsPreview", () => {
     ]) {
       expect(html).toContain(category);
     }
-    expect(html).toContain('href="/skills"');
+    expect(html).toContain('href="/skills/"');
   });
 });
 
@@ -66,7 +66,7 @@ describe("ExperiencePreview", () => {
 
     expect(html).toContain("Python Developer");
     expect(html).toContain("NOXIA Security");
-    expect(html).toContain('href="/experience"');
+    expect(html).toContain('href="/experience/"');
   });
 });
 
@@ -76,7 +76,7 @@ describe("ProjectsPreview", () => {
     const html = await container.renderToString(ProjectsPreview);
 
     expect(html).toContain("Nebulux");
-    expect(html).toContain('href="/projects"');
+    expect(html).toContain('href="/projects/"');
   });
 });
 
@@ -102,6 +102,6 @@ describe("BlogPreview", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(BlogPreview);
 
-    expect(html).toContain('href="/blog"');
+    expect(html).toContain('href="/blog/"');
   });
 });

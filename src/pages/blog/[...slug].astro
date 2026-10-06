@@ -29,7 +29,7 @@ const dateFmt = new Intl.DateTimeFormat("en-US", {
   <Header />
   <main class="blog-page">
     <article class="container article">
-      <a href="/blog" class="article-back">← Back to blog</a>
+      <a href="/blog/" class="article-back">← Back to blog</a>
       <header class="article-header">
         <div class="tags">
           {post.data.tags.map((tag) => <span>{tag}</span>)}
@@ -50,7 +50,7 @@ const dateFmt = new Intl.DateTimeFormat("en-US", {
         <Content />
       </div>
       <footer class="article-footer">
-        <a href="/blog" class="btn-outline">← All articles</a>
+        <a href="/blog/" class="btn-outline">← All articles</a>
       </footer>
     </article>
   </main>
