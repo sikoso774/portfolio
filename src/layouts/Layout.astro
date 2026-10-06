@@ -6,11 +6,22 @@ import { ClientRouter } from "astro:transitions";
 interface Props {
   title?: string;
   description?: string;
+  ogType?: "website" | "article" | "profile";
+  noindex?: boolean;
+  publishedTime?: Date;
+  modifiedTime?: Date;
+  // Entités schema.org supplémentaires (ProfilePage, BlogPosting…) ajoutées au @graph.
+  schema?: Record<string, unknown>[];
 }
 
 const {
-  title = "Zoléni Kokolo Zassi - Portfolio",
-  description = "Portfolio of Zoléni Kokolo Zassi — ENSEA computer science student focused on Python, data science & Linux infrastructure.",
+  title = "Zoléni Kokolo Zassi — Python, Data & Linux Infrastructure",
+  description = "Zoléni Kokolo Zassi is a Python developer and Bachelor Human IT student at ENSEA Cergy, focused on data science and Linux infrastructure. Portfolio, projects and blog.",
+  ogType = "website",
+  noindex = false,
+  publishedTime,
+  modifiedTime,
+  schema = [],
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -19,11 +30,17 @@ const ogImage = new URL("/assets/img/og-image.png", Astro.site);
 // Photo réelle pour le schema.org Person (Google préfère un portrait, pas la bannière).
 const personImage = new URL("/assets/img/photo_profile.jpg", Astro.site);
 
+const siteURL = Astro.site?.toString() ?? "https://zolenikokolo.com/";
+// Identifiants stables : les autres entités (BlogPosting, ProfilePage…) y renvoient.
+const personId = `${siteURL}#person`;
+const websiteId = `${siteURL}#website`;
+
 const personSchema = {
-  "@context": "https://schema.org",
   "@type": "Person",
+  "@id": personId,
   name: "Zoléni Kokolo Zassi",
-  url: Astro.site?.toString(),
+  alternateName: ["Zoléni KOKOLO ZASSI", "Zoleni Kokolo Zassi"],
+  url: siteURL,
   image: personImage.toString(),
   jobTitle: "Python Developer & Junior Full Stack Developer",
   alumniOf: {
@@ -49,6 +66,20 @@ const personSchema = {
     "Automation",
   ],
 };
+
+const websiteSchema = {
+  "@type": "WebSite",
+  "@id": websiteId,
+  url: siteURL,
+  name: "Zoléni Kokolo Zassi",
+  inLanguage: "en",
+  publisher: { "@id": personId },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [personSchema, websiteSchema, ...schema],
+};
 ---
 
 <!doctype html>
@@ -69,12 +100,15 @@ const personSchema = {
     <!-- SEO -->
     <meta name="description" content={description} />
     <meta name="author" content="Zoléni Kokolo Zassi" />
-    <meta name="robots" content="index, follow" />
+    <meta
+      name="robots"
+      content={noindex ? "noindex, follow" : "index, follow"}
+    />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Zoléni Kokolo Zassi" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
@@ -87,6 +121,25 @@ const personSchema = {
       content="Zoléni Kokolo Zassi — Python Developer, Data Science, Linux Infrastructure"
     />
     <meta property="og:locale" content="en_US" />
+    {
+      ogType === "article" && (
+        <>
+          {publishedTime && (
+            <meta
+              property="article:published_time"
+              content={publishedTime.toISOString()}
+            />
+          )}
+          {modifiedTime && (
+            <meta
+              property="article:modified_time"
+              content={modifiedTime.toISOString()}
+            />
+          )}
+          <meta property="article:author" content={siteURL} />
+        </>
+      )
+    }
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -98,7 +151,7 @@ const personSchema = {
     <script
       is:inline
       type="application/ld+json"
-      set:html={JSON.stringify(personSchema)}
+      set:html={JSON.stringify(jsonLd)}
     />
 
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />

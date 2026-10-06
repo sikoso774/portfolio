@@ -4,11 +4,18 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import About from "../components/About.astro";
 import Languages from "../components/Languages.astro";
+import { profilePage } from "../utils/schema";
+
+const schema = [
+  profilePage(Astro.site!, "/about/", "About Zoléni Kokolo Zassi"),
+];
 ---
 
 <Layout
-  title="About — Zoléni Kokolo Zassi"
-  description="A closer look at Zoléni Kokolo Zassi — background, interests, and the languages he speaks."
+  title="About Zoléni Kokolo Zassi — Student at ENSEA Cergy"
+  description="Who is Zoléni Kokolo Zassi? A Python developer and Bachelor Human IT student at ENSEA Cergy — background, interests and languages."
+  ogType="profile"
+  schema={schema}
 >
   <Header />
   <main>
