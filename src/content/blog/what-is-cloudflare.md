@@ -41,7 +41,7 @@ The key mechanism is **DNS**. When a browser looks up `zolenikokolo.com`, it que
 
 ## Why It Solved Our Problem
 
-The problem (see [the full write-up](/blog/github-pages-headers-securite-cloudflare/)): GitHub Pages doesn't let you add custom HTTP security headers.
+The problem (see [the full write-up](/blog/github-pages-security-headers/)): GitHub Pages doesn't let you add custom HTTP security headers.
 
 Since **every response now passes through Cloudflare**, it can be modified on the fly with a **Response Header Transform Rule**: Cloudflare receives the page from GitHub, **adds the 5 missing headers**, then forwards it to the visitor. GitHub knows nothing about it, the repo doesn't change a single line — the infrastructure handles it.
 

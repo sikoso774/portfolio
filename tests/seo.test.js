@@ -80,7 +80,7 @@ describe("built site SEO", () => {
   });
 
   it("marks articles as og:type article with a BlogPosting", () => {
-    const html = read("blog/vocabulaire-3d/index.html");
+    const html = read("blog/3d-glossary/index.html");
     expect(html).toContain('<meta property="og:type" content="article"');
     expect(html).toContain("article:published_time");
     expect(html).toContain('rel="author"');
@@ -91,7 +91,7 @@ describe("built site SEO", () => {
     expect(posting.author).toEqual({
       "@id": "https://zolenikokolo.com/#person",
     });
-    expect(posting.url).toBe("https://zolenikokolo.com/blog/vocabulaire-3d/");
+    expect(posting.url).toBe("https://zolenikokolo.com/blog/3d-glossary/");
   });
 
   it("publishes an RSS feed linked from the head, with every post", () => {
@@ -99,8 +99,26 @@ describe("built site SEO", () => {
     const feed = read("rss.xml");
     expect(feed.match(/<item>/g).length).toBeGreaterThanOrEqual(4);
     expect(feed).toContain(
-      "<link>https://zolenikokolo.com/blog/vocabulaire-3d/</link>",
+      "<link>https://zolenikokolo.com/blog/3d-glossary/</link>",
     );
+  });
+
+  it("redirects the old French slugs to the English ones", () => {
+    const redirects = {
+      "blog/vocabulaire-3d": "/blog/3d-glossary/",
+      "blog/premiers-pas-blender": "/blog/blender-first-steps/",
+      "blog/cloudflare-cest-quoi": "/blog/what-is-cloudflare/",
+      "blog/github-pages-headers-securite-cloudflare":
+        "/blog/github-pages-security-headers/",
+    };
+    const sitemap = read("sitemap-0.xml");
+
+    for (const [oldPath, target] of Object.entries(redirects)) {
+      const html = read(`${oldPath}/index.html`);
+      expect(html, oldPath).toContain(`url=${target}`);
+      expect(sitemap, oldPath).not.toContain(oldPath);
+      expect(sitemap, target).toContain(target);
+    }
   });
 
   it("keeps the 404 page out of the sitemap", () => {

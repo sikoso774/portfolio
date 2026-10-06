@@ -31,7 +31,7 @@ No. These are **hardening** layers (defense in depth). For a static site with no
 
 1. **`<meta http-equiv="Content-Security-Policy">`** in the `<head>` — free but partial: only CSP works as a meta tag, and scanners only read HTTP headers → still a D
 2. **Migrate to Netlify / Cloudflare Pages** — they support a native `_headers` file
-3. ✅ **Put [Cloudflare](/blog/cloudflare-cest-quoi/) (free) in front of GitHub Pages** — the option I went with: keep the current host, let Cloudflare inject the headers on the way through
+3. ✅ **Put [Cloudflare](/blog/what-is-cloudflare/) (free) in front of GitHub Pages** — the option I went with: keep the current host, let Cloudflare inject the headers on the way through
 
 ## The Setup (~45 min)
 
