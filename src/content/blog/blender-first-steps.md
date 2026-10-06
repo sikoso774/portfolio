@@ -5,7 +5,7 @@ pubDate: 2026-06-12
 tags: ["Blender", "3D", "Beginner", "Tutorial"]
 ---
 
-After digesting [the 3D vocabulary](/blog/vocabulaire-3d/), it was time to open Blender for real. First reflex that every tutorial hammers home: **you work with the keyboard, not the menus**. Learning shortcuts from the start changes everything in terms of speed.
+After digesting [the 3D vocabulary](/blog/3d-glossary/), it was time to open Blender for real. First reflex that every tutorial hammers home: **you work with the keyboard, not the menus**. Learning shortcuts from the start changes everything in terms of speed.
 
 Here are my startup notes, condensed in one place.
 
