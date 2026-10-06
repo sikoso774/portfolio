@@ -6,7 +6,4 @@ export default defineConfig({
   site: "https://zolenikokolo.com",
   trailingSlash: "always",
   integrations: [sitemap()],
-  server: {
-    open: true,
-  },
 });
