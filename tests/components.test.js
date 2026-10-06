@@ -7,6 +7,7 @@ import ExperiencePreview from "../src/components/ExperiencePreview.astro";
 import ProjectsPreview from "../src/components/ProjectsPreview.astro";
 import Projects from "../src/components/Projects.astro";
 import BlogPreview from "../src/components/BlogPreview.astro";
+import en from "../src/i18n/en";
 
 describe("Hero", () => {
   it("renders the CTA buttons to real routes", async () => {
@@ -45,15 +46,9 @@ describe("SkillsPreview", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(SkillsPreview);
 
-    for (const category of [
-      "Code",
-      "Web",
-      "Data Science",
-      "Back End / DevOps",
-      "OS & Shell",
-      "Dev Tools",
-    ]) {
-      expect(html).toContain(category);
+    for (const category of en.skills.previewCategories) {
+      // Astro échappe le `&` des textes issus d'expressions.
+      expect(html).toContain(category.replaceAll("&", "&amp;"));
     }
     expect(html).toContain('href="/skills/"');
   });

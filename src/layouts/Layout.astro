@@ -2,6 +2,17 @@
 import "@fontsource-variable/inter";
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import {
+  alternatePath,
+  defaultLocale,
+  getLocale,
+  htmlLang,
+  localePath,
+  locales,
+  ogLocale,
+  useT,
+  type Locale,
+} from "../i18n";
 
 interface Props {
   title?: string;
@@ -12,17 +23,37 @@ interface Props {
   modifiedTime?: Date;
   // Entités schema.org supplémentaires (ProfilePage, BlogPosting…) ajoutées au @graph.
   schema?: Record<string, unknown>[];
+  // Chemins de cette page dans chaque langue où elle existe (hreflang). Par défaut :
+  // même chemin dans toutes les langues. Un article sans traduction passe sa seule langue.
+  alternates?: Partial<Record<Locale, string>>;
 }
 
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
+
 const {
-  title = "Zoléni Kokolo Zassi — Python, Data & Linux Infrastructure",
-  description = "Zoléni Kokolo Zassi is a Python developer and Bachelor Human IT student at ENSEA Cergy, focused on data science and Linux infrastructure. Portfolio, projects and blog.",
+  title = t.meta.home.title,
+  description = t.meta.home.description,
   ogType = "website",
   noindex = false,
   publishedTime,
   modifiedTime,
   schema = [],
+  alternates = Object.fromEntries(
+    locales.map((l) => [l, alternatePath(Astro.url.pathname, l)]),
+  ) as Partial<Record<Locale, string>>,
 } = Astro.props;
+
+// hreflang : une entrée par langue disponible + x-default (anglais). Inutile pour
+// une page 404 ou une page qui n'existe que dans une langue.
+const alternateEntries = (Object.entries(alternates) as [Locale, string][]).map(
+  ([l, path]) => ({ locale: l, url: new URL(path, Astro.site) }),
+);
+const showHreflang = !noindex && alternateEntries.length > 1;
+const defaultAlternate = alternateEntries.find(
+  (a) => a.locale === defaultLocale,
+);
+const otherLocales = alternateEntries.filter((a) => a.locale !== lang);
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 // Bannière dédiée 1200×630 pour le partage social (généré via scripts/generate-og.mjs).
@@ -42,7 +73,9 @@ const personSchema = {
   alternateName: ["Zoléni KOKOLO ZASSI", "Zoleni Kokolo Zassi"],
   url: siteURL,
   image: personImage.toString(),
-  jobTitle: "Python Developer & Junior Full Stack Developer",
+  jobTitle: t.person.jobTitle,
+  description: t.person.description,
+  knowsLanguage: ["fr", "en", "es"],
   alumniOf: {
     "@type": "CollegeOrUniversity",
     name: "ENSEA Cergy",
@@ -72,7 +105,7 @@ const websiteSchema = {
   "@id": websiteId,
   url: siteURL,
   name: "Zoléni Kokolo Zassi",
-  inLanguage: "en",
+  inLanguage: locales.map((l) => htmlLang[l]),
   publisher: { "@id": personId },
 };
 
@@ -90,7 +123,7 @@ const jsonLd = {
   without prior written authorization is strictly prohibited.
   Contact: https://zolenikokolo.com/contact
 -->
-<html lang="en">
+<html lang={htmlLang[lang]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -109,9 +142,25 @@ const jsonLd = {
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="Zoléni Kokolo Zassi — Blog"
-      href="/rss.xml"
+      title={t.blog.rssTitle}
+      href={localePath("/rss.xml", lang)}
     />
+    {
+      showHreflang && (
+        <>
+          {alternateEntries.map((a) => (
+            <link rel="alternate" hreflang={htmlLang[a.locale]} href={a.url} />
+          ))}
+          {defaultAlternate && (
+            <link
+              rel="alternate"
+              hreflang="x-default"
+              href={defaultAlternate.url}
+            />
+          )}
+        </>
+      )
+    }
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
@@ -122,11 +171,14 @@ const jsonLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Zoléni Kokolo Zassi — Python Developer, Data Science, Linux Infrastructure"
-    />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:image:alt" content={t.meta.ogImageAlt} />
+    <meta property="og:locale" content={ogLocale[lang]} />
+    {
+      showHreflang &&
+        otherLocales.map((a) => (
+          <meta property="og:locale:alternate" content={ogLocale[a.locale]} />
+        ))
+    }
     {
       ogType === "article" && (
         <>
@@ -170,7 +222,7 @@ const jsonLd = {
   <body>
     <div id="scroll-progress"></div>
     <slot />
-    <button id="back-to-top" aria-label="Back to top">
+    <button id="back-to-top" aria-label={t.common.backToTop}>
       <svg
         width="20"
         height="20"

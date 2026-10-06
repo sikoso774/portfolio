@@ -3,11 +3,27 @@ import { readFileSync, readdirSync, rmSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { blogPosting, profilePage } from "../src/utils/schema";
+import en from "../src/i18n/en";
+import fr from "../src/i18n/fr";
 
 const SITE = new URL("https://zolenikokolo.com");
 const OUT_DIR = ".vitest-dist";
 
 const read = (file) => readFileSync(join(OUT_DIR, file), "utf-8");
+
+// Slugs partagés par les articles anglais et français.
+const blogSlugs = readdirSync(join("src", "content", "blog", "en"))
+  .filter((name) => name.endsWith(".md"))
+  .map((name) => name.replace(/\.md$/, ""));
+
+function leaves(value, path = "") {
+  if (typeof value === "string") return [[path, value]];
+  if (Array.isArray(value))
+    return value.flatMap((item, i) => leaves(item, `${path}[${i}]`));
+  return Object.entries(value).flatMap(([key, child]) =>
+    leaves(child, path ? `${path}.${key}` : key),
+  );
+}
 
 function extractGraph(html) {
   const match = html.match(
@@ -126,6 +142,144 @@ describe("built site SEO", () => {
       expect(html, oldPath).toContain(`url=${target}`);
       expect(sitemap, oldPath).not.toContain(oldPath);
       expect(sitemap, target).toContain(target);
+    }
+  });
+
+  it("serves every page in French under /fr/ with <html lang>", () => {
+    const pages = [
+      "",
+      "about/",
+      "skills/",
+      "experience/",
+      "projects/",
+      "contact/",
+      "blog/",
+    ];
+    for (const page of pages) {
+      const en = read(`${page}index.html`);
+      const fr = read(`fr/${page}index.html`);
+      expect(en, page).toContain('<html lang="en"');
+      expect(fr, page).toContain('<html lang="fr"');
+      expect(fr, page).toContain(
+        `<link rel="canonical" href="https://zolenikokolo.com/fr/${page}"`,
+      );
+    }
+    for (const slug of blogSlugs) {
+      expect(read(`fr/blog/${slug}/index.html`), slug).toContain(
+        '<html lang="fr"',
+      );
+    }
+  });
+
+  it("declares reciprocal hreflang (and x-default) on every translated page", () => {
+    const pages = new Map(); // canonical -> { file, alternates: Map(hreflang -> url) }
+    for (const file of htmlFiles(OUT_DIR)) {
+      const html = readFileSync(file, "utf-8");
+      if (html.includes('http-equiv="refresh"')) continue; // page de redirection
+      const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)[1];
+      const alternates = new Map(
+        [
+          ...html.matchAll(
+            /<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g,
+          ),
+        ].map((m) => [m[1], m[2]]),
+      );
+      pages.set(canonical, { file, alternates });
+    }
+
+    let checked = 0;
+    for (const [canonical, { file, alternates }] of pages) {
+      if (alternates.size === 0) continue; // 404
+      checked++;
+      expect([...alternates.keys()].sort(), file).toEqual([
+        "en",
+        "fr",
+        "x-default",
+      ]);
+      expect(alternates.get("x-default"), file).toBe(alternates.get("en"));
+      expect([...alternates.values()], `${file} self-reference`).toContain(
+        canonical,
+      );
+      for (const url of alternates.values()) {
+        const twin = pages.get(url);
+        expect(twin, `${file} -> ${url} must exist`).toBeDefined();
+        expect(
+          [...twin.alternates.values()],
+          `${url} must point back`,
+        ).toContain(canonical);
+      }
+    }
+    expect(checked).toBeGreaterThanOrEqual(2 * (7 + blogSlugs.length));
+  });
+
+  it("links the language switcher to the other-language twin", () => {
+    const en = read("about/index.html");
+    const fr = read("fr/about/index.html");
+    expect(en).toMatch(
+      /<a href="\/fr\/about\/" hreflang="fr"[^>]*data-astro-reload/,
+    );
+    expect(fr).toMatch(
+      /<a href="\/about\/" hreflang="en"[^>]*data-astro-reload/,
+    );
+    expect(read("fr/blog/3d-glossary/index.html")).toMatch(
+      /<a href="\/blog\/3d-glossary\/" hreflang="en"/,
+    );
+  });
+
+  it("keeps French pages free of English interface strings", () => {
+    const decode = (html) =>
+      html
+        .replaceAll("&amp;", "&")
+        .replaceAll("&#39;", "'")
+        .replaceAll("&quot;", '"')
+        .replaceAll("&lt;", "<")
+        .replaceAll("&gt;", ">");
+    const frByPath = new Map(leaves(fr));
+    const englishOnly = leaves(en).filter(
+      ([path, text]) => text.length >= 12 && frByPath.get(path) !== text,
+    );
+
+    for (const page of [
+      "",
+      "about/",
+      "skills/",
+      "experience/",
+      "projects/",
+      "contact/",
+      "blog/",
+    ]) {
+      // Texte visible uniquement : le JSON-LD garde des noms de sujets en anglais.
+      const html = decode(
+        read(`fr/${page}index.html`).replace(/<script[\s\S]*?<\/script>/g, ""),
+      );
+      const leaked = englishOnly
+        .filter(([, text]) => html.includes(text))
+        .map(([path]) => path);
+      expect(leaked, `fr/${page}`).toEqual([]);
+    }
+  });
+
+  it("publishes a French RSS feed with French article URLs", () => {
+    const feed = read("fr/rss.xml");
+    expect(feed).toContain("<language>fr</language>");
+    expect(feed.match(/<item>/g).length).toBe(blogSlugs.length);
+    for (const slug of blogSlugs) {
+      expect(feed).toContain(
+        `<link>https://zolenikokolo.com/fr/blog/${slug}/</link>`,
+      );
+    }
+    expect(read("fr/index.html")).toContain('href="/fr/rss.xml"');
+  });
+
+  it("lists every page with its alternates in the sitemap", () => {
+    const sitemap = read("sitemap-0.xml");
+    expect(sitemap).toContain(
+      '<loc>https://zolenikokolo.com/fr/about/</loc><xhtml:link rel="alternate" hreflang="en" href="https://zolenikokolo.com/about/"/>',
+    );
+    for (const slug of blogSlugs) {
+      expect(sitemap).toContain(
+        `<loc>https://zolenikokolo.com/fr/blog/${slug}/</loc>`,
+      );
     }
   });
 

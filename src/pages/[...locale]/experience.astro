@@ -1,0 +1,276 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import {
+  getLocale,
+  htmlLang,
+  localePath,
+  localeStaticPaths,
+  useT,
+} from "../../i18n";
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
+---
+
+<Layout
+  title={t.meta.experience.title}
+  description={t.meta.experience.description}
+>
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="section-header">
+          <h1>{t.experience.pageTitle}</h1>
+          <div class="underline"></div>
+          <p class="section-description">
+            {t.experience.pageIntro}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="xp-section">
+      <div class="container">
+        <div class="block-header">
+          <h2>{t.experience.workTitle}</h2>
+        </div>
+
+        <div class="timeline">
+          {
+            Object.values(t.experience.jobs).map((job) => (
+              <div class="timeline-item card">
+                <div class="timeline-dot" />
+                <div class="timeline-date">{job.date}</div>
+                <h3>{job.title}</h3>
+                <p class="company">
+                  {job.company} &nbsp;·&nbsp; {job.place}
+                </p>
+                <p class="description">{job.description}</p>
+                <div class="tech-tags">
+                  {job.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="block-header" style="margin-top: 80px">
+          <h2>{t.experience.educationTitle}</h2>
+        </div>
+
+        <div class="education-grid">
+          {
+            Object.values(t.experience.education).map((edu) => (
+              <div class="card education-card">
+                <div class="edu-year">{edu.year}</div>
+                <h3>{edu.title}</h3>
+                <p class="company">
+                  {edu.school} &nbsp;·&nbsp; {edu.place}
+                </p>
+                <p class="description">{edu.description}</p>
+                <div class="tech-tags" style="margin-top: 16px;">
+                  {edu.tags.map((tag) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 160px 0 32px;
+  }
+
+  .page-hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+  }
+
+  .xp-section {
+    padding-top: 0;
+  }
+
+  .block-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .block-header svg {
+    color: var(--clr-accent);
+    flex-shrink: 0;
+  }
+
+  .block-header h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--clr-text);
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 52px;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(var(--clr-accent-rgb), 0.35) 8%,
+      rgba(var(--clr-accent-rgb), 0.35) 92%,
+      transparent
+    );
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -44px;
+    top: 30px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--clr-accent);
+    border: 3px solid rgba(var(--clr-accent-rgb), 0.2);
+    box-shadow: 0 0 0 4px rgba(var(--clr-accent-rgb), 0.08);
+    z-index: 1;
+  }
+
+  .timeline-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--clr-accent);
+    margin-bottom: 10px;
+  }
+
+  .timeline-item h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--clr-text);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .company {
+    color: var(--clr-accent);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .description {
+    color: var(--clr-text-muted);
+    font-size: 14px;
+    line-height: 1.65;
+    margin-bottom: 0;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .tag {
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    background: rgba(var(--clr-accent-rgb), 0.1);
+    border: 1px solid rgba(var(--clr-accent-rgb), 0.3);
+    color: var(--clr-accent);
+    border-radius: var(--radius-lg);
+  }
+
+  /* Education grid */
+  .education-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .education-card {
+    padding: 28px;
+  }
+
+  .edu-year {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--clr-accent);
+    background: rgba(var(--clr-accent-rgb), 0.1);
+    border: 1px solid rgba(var(--clr-accent-rgb), 0.2);
+    border-radius: 24px;
+    padding: 3px 12px;
+    margin-bottom: 16px;
+  }
+
+  .education-card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--clr-text);
+    margin-bottom: 6px;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 120px 0 24px;
+    }
+
+    .page-hero h1 {
+      font-size: 32px;
+    }
+
+    .timeline {
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      left: 8px;
+    }
+
+    .timeline-dot {
+      left: -28px;
+      top: 24px;
+    }
+
+    .timeline-item {
+      padding: 20px;
+    }
+
+    .education-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,5 +1,7 @@
 ---
-
+import { getLocale, useT } from "../i18n";
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
 ---
 
 <style>
@@ -121,23 +123,23 @@
               d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
             ></path>
           </svg>
-          <h2>Languages</h2>
+          <h2>{t.languages.title}</h2>
         </div>
         <div class="language-list">
           <div class="card language-card">
             <span class="flag">🇫🇷</span>
-            <span class="lang-name">French</span>
-            <span class="level">Native</span>
+            <span class="lang-name">{t.languages.items[0].name}</span>
+            <span class="level">{t.languages.items[0].level}</span>
           </div>
           <div class="card language-card">
             <span class="flag">🇬🇧</span>
-            <span class="lang-name">English</span>
-            <span class="level">B1</span>
+            <span class="lang-name">{t.languages.items[1].name}</span>
+            <span class="level">{t.languages.items[1].level}</span>
           </div>
           <div class="card language-card">
             <span class="flag">🇪🇸</span>
-            <span class="lang-name">Spanish</span>
-            <span class="level">B1</span>
+            <span class="lang-name">{t.languages.items[2].name}</span>
+            <span class="level">{t.languages.items[2].level}</span>
           </div>
         </div>
       </div>
@@ -158,7 +160,7 @@
               d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
             ></path>
           </svg>
-          <h2>Interests</h2>
+          <h2>{t.languages.interestsTitle}</h2>
         </div>
         <div class="interests-grid">
           <div class="card interest-card">
@@ -180,7 +182,7 @@
               <path d="M8 13L3 14.5"></path>
               <path d="M12 16v6"></path>
             </svg>
-            <span>Football</span>
+            <span>{t.languages.interests[0]}</span>
           </div>
 
           <div class="card interest-card">
@@ -198,7 +200,7 @@
               <path d="M2 12c3-4 7-4 10 0s7 4 10 0"></path>
               <path d="M12 2c-4 3-4 7 0 10s4 7 0 10"></path>
             </svg>
-            <span>Handball</span>
+            <span>{t.languages.interests[1]}</span>
           </div>
 
           <div class="card interest-card">
@@ -214,7 +216,7 @@
               <circle cx="6" cy="18" r="3"></circle>
               <circle cx="18" cy="16" r="3"></circle>
             </svg>
-            <span>Music</span>
+            <span>{t.languages.interests[2]}</span>
           </div>
 
           <div class="card interest-card">
@@ -238,7 +240,7 @@
               <line x1="14" y1="11" x2="14.01" y2="11"></line>
               <line x1="18" y1="11" x2="18.01" y2="11"></line>
             </svg>
-            <span>Gaming</span>
+            <span>{t.languages.interests[3]}</span>
           </div>
 
           <div class="card interest-card">
@@ -254,7 +256,7 @@
               <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
               <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
             </svg>
-            <span>Data Science</span>
+            <span>{t.languages.interests[4]}</span>
           </div>
         </div>
       </div>

@@ -1,5 +1,9 @@
 ---
+import { getLocale, localePath, useT } from "../i18n";
+
 const { showLink = false } = Astro.props;
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
 ---
 
 <style>
@@ -72,38 +76,29 @@ const { showLink = false } = Astro.props;
 <section id="about" class="about">
   <div class="container">
     <div class="section-header">
-      <h2>My Journey So Far</h2>
+      <h2>{t.about.title}</h2>
       <div class="underline"></div>
     </div>
     <div class="card">
       <p>
-        I'm currently pursuing my
-        <span class="highlight">Bachelor Human-IT at ENSEA de Cergy (95)</span>,
-        focusing on information technologies and their impact on society. My
-        experiences span infrastructure migration (Docker to LXC/Waydroid),
-        Python/Bash automation scripting, and full stack development.
+        {t.about.p1Before}<span class="highlight">{t.about.p1Highlight}</span>{
+          t.about.p1After
+        }
       </p>
       <div class="quote-box">
         <!-- prettier-ignore -->
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
         </svg>
-        <p>
-          "Fuelled by curiosity, committed to quality, inspired by technology."
-        </p>
+        <p>{t.about.quote}</p>
       </div>
-      <p>
-        My passion lies in automation and building concrete end-to-end solutions
-        — from Linux server deployment to full stack web applications. I love
-        turning complex infrastructure and software challenges into clean,
-        working systems.
-      </p>
+      <p>{t.about.p2}</p>
     </div>
     {
       showLink && (
         <div class="about-footer">
-          <a href="/about/" class="see-more-link">
-            Learn more about me & my interests
+          <a href={localePath("/about/", lang)} class="see-more-link">
+            {t.about.learnMore}
             <svg
               width="14"
               height="14"
@@ -112,8 +107,8 @@ const { showLink = false } = Astro.props;
               stroke="currentColor"
               stroke-width="2.5"
             >
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
             </svg>
           </a>
         </div>

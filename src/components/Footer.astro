@@ -1,5 +1,8 @@
 ---
 import Icon from "./Icon.astro";
+import { getLocale, localePath, useT } from "../i18n";
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
 ---
 
 <style>
@@ -245,7 +248,7 @@ import Icon from "./Icon.astro";
       <div class="footer-meta">
         <span class="status-badge">
           <span class="status-dot"></span>
-          Available for opportunities
+          {t.common.available}
         </span>
         <span class="footer-location">
           <svg
@@ -259,12 +262,12 @@ import Icon from "./Icon.astro";
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
             <circle cx="12" cy="10" r="3"></circle>
           </svg>
-          Chauconin-Neufmontiers, France
+          {t.common.location}
         </span>
       </div>
-      <h2>Let's build something<br />together.</h2>
+      <h2>{t.footer.headingLine1}<br />{t.footer.headingLine2}</h2>
       <div class="footer-cta-actions">
-        <a href="/contact/" class="btn-primary">
+        <a href={localePath("/contact/", lang)} class="btn-primary">
           <svg
             width="16"
             height="16"
@@ -278,7 +281,7 @@ import Icon from "./Icon.astro";
             ></path>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
-          Contact me
+          {t.footer.contactMe}
         </a>
         <a
           href="/assets/docs/CV_Zoleni_KOKOLO_ZASSI.pdf"
@@ -297,24 +300,24 @@ import Icon from "./Icon.astro";
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
-          Download CV
+          {t.nav.downloadCv}
         </a>
       </div>
     </div>
 
     <!-- Bar -->
     <div class="footer-bar">
-      <a href="/" class="logo">
+      <a href={localePath("/", lang)} class="logo">
         <div class="logo-circle">ZK</div>
         <span class="logo-text">Zoléni Kokolo</span>
       </a>
       <nav class="footer-nav">
-        <a href="/about/">About</a>
-        <a href="/skills/">Skills</a>
-        <a href="/experience/">Experience</a>
-        <a href="/projects/">Projects</a>
-        <a href="/blog/">Blog</a>
-        <a href="/contact/">Contact</a>
+        <a href={localePath("/about/", lang)}>{t.nav.about}</a>
+        <a href={localePath("/skills/", lang)}>{t.nav.skills}</a>
+        <a href={localePath("/experience/", lang)}>{t.nav.experience}</a>
+        <a href={localePath("/projects/", lang)}>{t.nav.projects}</a>
+        <a href={localePath("/blog/", lang)}>{t.nav.blog}</a>
+        <a href={localePath("/contact/", lang)}>{t.nav.contact}</a>
       </nav>
       <div class="social-icons">
         <a
@@ -341,11 +344,10 @@ import Icon from "./Icon.astro";
     <!-- Bottom -->
     <div class="footer-bottom">
       <p>
-        © 2026 Zoléni Kokolo Zassi — All rights reserved. Design & content
-        protected.
+        {t.footer.rights}
       </p>
       <p class="built-with">
-        Built with
+        {t.footer.builtWith}
         <svg
           class="heart-icon"
           width="16"
@@ -358,7 +360,7 @@ import Icon from "./Icon.astro";
             d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
           ></path>
         </svg>
-        by Zoléni Kokolo Zassi
+        {t.footer.by}
       </p>
     </div>
   </div>

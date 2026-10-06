@@ -1,4 +1,7 @@
 ---
+import { getLocale, localePath, useT } from "../i18n";
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
 ---
 
 <style>
@@ -52,38 +55,36 @@
 <section id="projects" class="projects-preview">
   <div class="container">
     <div class="section-header">
-      <h2>Featured Projects</h2>
+      <h2>{t.projects.title}</h2>
       <div class="underline"></div>
       <p class="section-description">
-        A selection of projects showcasing my skills in software development,
-        data science, and digital innovation.
+        {t.projects.intro}
       </p>
     </div>
     <div class="projects-preview-grid">
       <div class="card project-preview-card">
-        <h3>Nebulux — Obsidian Theme</h3>
+        <h3>{t.projects.previewItems[0].title}</h3>
         <p>
-          Custom dark theme for Obsidian, published on the community
-          marketplace with 300+ downloads.
+          {t.projects.previewItems[0].description}
         </p>
       </div>
       <div class="card project-preview-card">
-        <h3>Music Player</h3>
+        <h3>{t.projects.previewItems[1].title}</h3>
         <p>
-          Desktop music player built with Python and Tkinter for browsing and
-          playing local audio files.
+          {t.projects.previewItems[1].description}
         </p>
       </div>
       <div class="card project-preview-card">
-        <h3>HYPNOTICA</h3>
+        <h3>{t.projects.previewItems[2].title}</h3>
         <p>
-          A 2nd year ENSEA project exploring interactive applications with
-          modern technologies.
+          {t.projects.previewItems[2].description}
         </p>
       </div>
     </div>
     <div class="projects-cta">
-      <a href="/projects/" class="btn-outline">View all projects →</a>
+      <a href={localePath("/projects/", lang)} class="btn-outline"
+        >{t.projects.viewAll}</a
+      >
     </div>
   </div>
 </section>

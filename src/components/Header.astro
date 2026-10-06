@@ -1,5 +1,30 @@
 ---
 import Icon from "./Icon.astro";
+import {
+  alternatePath,
+  getLocale,
+  htmlLang,
+  localeLabel,
+  localePath,
+  locales,
+  useT,
+  type Locale,
+} from "../i18n";
+
+interface Props {
+  // Chemins de la page courante dans chaque langue (par défaut : toutes).
+  alternates?: Partial<Record<Locale, string>>;
+}
+
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
+const {
+  alternates = Object.fromEntries(
+    locales.map((l) => [l, alternatePath(Astro.url.pathname, l)]),
+  ) as Partial<Record<Locale, string>>,
+} = Astro.props;
+// Sélecteur affiché seulement si la page existe dans au moins une autre langue.
+const switchable = locales.filter((l) => alternates[l]);
 ---
 
 <style>
@@ -327,26 +352,96 @@ import Icon from "./Icon.astro";
       border-top-color: rgba(0, 0, 0, 0.08);
     }
   }
+
+  .lang-switch {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid rgba(var(--clr-accent-rgb), 0.3);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .lang-switch a,
+  .lang-switch .lang-current {
+    padding: 6px 9px;
+    border-radius: 6px;
+  }
+
+  .lang-switch a {
+    text-decoration: none;
+    color: var(--clr-text-muted);
+    transition: var(--transition-fast);
+  }
+
+  .lang-switch a:hover {
+    color: var(--clr-accent);
+  }
+
+  .lang-switch .lang-current {
+    background: rgba(var(--clr-accent-rgb), 0.2);
+    color: var(--clr-accent);
+  }
+
+  /* Mobile : le sélecteur occupe sa propre ligne, en contrôle segmenté pleine largeur. */
+  .mobile-menu-actions {
+    flex-wrap: wrap;
+  }
+
+  .mobile-menu-actions .lang-switch {
+    flex: 0 0 100%;
+  }
+
+  .mobile-menu-actions .lang-switch a,
+  .mobile-menu-actions .lang-switch .lang-current {
+    flex: 1;
+    text-align: center;
+  }
 </style>
 
-<header id="header" transition:persist>
+<header id="header">
   <div class="container">
     <div class="header-content">
-      <a href="/" class="logo">
+      <a href={localePath("/", lang)} class="logo">
         <div class="logo-circle">ZK</div>
         <span class="logo-text">Zoléni Kokolo</span>
       </a>
 
       <nav class="desktop-nav">
-        <a href="/about/">About</a>
-        <a href="/skills/">Skills</a>
-        <a href="/experience/">Experience</a>
-        <a href="/projects/">Projects</a>
-        <a href="/blog/">Blog</a>
-        <a href="/contact/">Contact</a>
+        <a href={localePath("/about/", lang)}>{t.nav.about}</a>
+        <a href={localePath("/skills/", lang)}>{t.nav.skills}</a>
+        <a href={localePath("/experience/", lang)}>{t.nav.experience}</a>
+        <a href={localePath("/projects/", lang)}>{t.nav.projects}</a>
+        <a href={localePath("/blog/", lang)}>{t.nav.blog}</a>
+        <a href={localePath("/contact/", lang)}>{t.nav.contact}</a>
       </nav>
 
       <div class="header-buttons">
+        {
+          switchable.length > 1 && (
+            <div class="lang-switch" role="group" aria-label={t.nav.language}>
+              {switchable.map((l) =>
+                l === lang ? (
+                  <span class="lang-current" aria-current="true">
+                    {l.toUpperCase()}
+                  </span>
+                ) : (
+                  <a
+                    href={alternates[l]}
+                    hreflang={htmlLang[l]}
+                    lang={htmlLang[l]}
+                    title={localeLabel[l]}
+                    data-astro-reload
+                  >
+                    {l.toUpperCase()}
+                  </a>
+                ),
+              )}
+            </div>
+          )
+        }
         <a
           href="https://github.com/Sikoso774"
           target="_blank"
@@ -354,7 +449,7 @@ import Icon from "./Icon.astro";
           class="btn-ghost"
         >
           <Icon name="github-outline" size={16} />
-          GitHub
+          {t.nav.github}
         </a>
         <a
           href="/assets/docs/CV_Zoleni_KOKOLO_ZASSI.pdf"
@@ -362,14 +457,14 @@ import Icon from "./Icon.astro";
           class="btn-primary"
         >
           <Icon name="download" size={16} />
-          Download CV
+          {t.nav.downloadCv}
         </a>
       </div>
 
       <button
         class="mobile-menu-btn"
         id="mobileMenuBtn"
-        aria-label="Toggle navigation"
+        aria-label={t.nav.toggleMenu}
         aria-expanded="false"
         aria-controls="mobileMenu"
       >
@@ -382,24 +477,49 @@ import Icon from "./Icon.astro";
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
       <nav>
-        <a href="/about/" style="--i:0"
-          ><span class="nav-num">01</span>About</a
+        <a href={localePath("/about/", lang)} style="--i:0"
+          ><span class="nav-num">01</span>{t.nav.about}</a
         >
-        <a href="/skills/" style="--i:1"
-          ><span class="nav-num">02</span>Skills</a
+        <a href={localePath("/skills/", lang)} style="--i:1"
+          ><span class="nav-num">02</span>{t.nav.skills}</a
         >
-        <a href="/experience/" style="--i:2"
-          ><span class="nav-num">03</span>Experience</a
+        <a href={localePath("/experience/", lang)} style="--i:2"
+          ><span class="nav-num">03</span>{t.nav.experience}</a
         >
-        <a href="/projects/" style="--i:3"
-          ><span class="nav-num">04</span>Projects</a
+        <a href={localePath("/projects/", lang)} style="--i:3"
+          ><span class="nav-num">04</span>{t.nav.projects}</a
         >
-        <a href="/blog/" style="--i:4"><span class="nav-num">05</span>Blog</a>
-        <a href="/contact/" style="--i:5"
-          ><span class="nav-num">06</span>Contact</a
+        <a href={localePath("/blog/", lang)} style="--i:4"
+          ><span class="nav-num">05</span>{t.nav.blog}</a
+        >
+        <a href={localePath("/contact/", lang)} style="--i:5"
+          ><span class="nav-num">06</span>{t.nav.contact}</a
         >
       </nav>
       <div class="mobile-menu-actions">
+        {
+          switchable.length > 1 && (
+            <div class="lang-switch" role="group" aria-label={t.nav.language}>
+              {switchable.map((l) =>
+                l === lang ? (
+                  <span class="lang-current" aria-current="true">
+                    {l.toUpperCase()}
+                  </span>
+                ) : (
+                  <a
+                    href={alternates[l]}
+                    hreflang={htmlLang[l]}
+                    lang={htmlLang[l]}
+                    title={localeLabel[l]}
+                    data-astro-reload
+                  >
+                    {l.toUpperCase()}
+                  </a>
+                ),
+              )}
+            </div>
+          )
+        }
         <a
           href="https://github.com/Sikoso774"
           target="_blank"
@@ -407,7 +527,7 @@ import Icon from "./Icon.astro";
           class="btn-ghost"
         >
           <Icon name="github-outline" size={16} />
-          GitHub
+          {t.nav.github}
         </a>
         <a
           href="/assets/docs/CV_Zoleni_KOKOLO_ZASSI.pdf"
@@ -415,7 +535,7 @@ import Icon from "./Icon.astro";
           class="btn-outline"
         >
           <Icon name="download" size={16} />
-          Download CV
+          {t.nav.downloadCv}
         </a>
       </div>
     </div>

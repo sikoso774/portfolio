@@ -1,13 +1,19 @@
 // Fabriques d'entités schema.org, rattachées au Person/WebSite définis dans Layout.astro
 // via leurs @id (`<site>#person`, `<site>#website`).
 
-export function profilePage(site: URL, pathname: string, name: string) {
+export function profilePage(
+  site: URL,
+  pathname: string,
+  name: string,
+  inLanguage: string,
+) {
   const url = new URL(pathname, site).toString();
   return {
     "@type": "ProfilePage",
     "@id": `${url}#profilepage`,
     url,
     name,
+    inLanguage,
     isPartOf: { "@id": `${site}#website` },
     mainEntity: { "@id": `${site}#person` },
   };
@@ -22,6 +28,7 @@ interface BlogPostingInput {
   tags: string[];
   pubDate: Date;
   updatedDate?: Date;
+  inLanguage: string;
 }
 
 export function blogPosting({
@@ -33,6 +40,7 @@ export function blogPosting({
   tags,
   pubDate,
   updatedDate,
+  inLanguage,
 }: BlogPostingInput) {
   const url = new URL(pathname, site).toString();
   return {
@@ -44,7 +52,7 @@ export function blogPosting({
     description,
     image: image.toString(),
     keywords: tags.join(", "),
-    inLanguage: "en",
+    inLanguage,
     datePublished: pubDate.toISOString(),
     dateModified: (updatedDate ?? pubDate).toISOString(),
     author: { "@id": `${site}#person` },

@@ -1,11 +1,12 @@
 ---
-import { getCollection } from "astro:content";
+import { dateLocale, getLocale, localePath, useT } from "../i18n";
+import { getPosts, postPath, postSlug } from "../i18n/blog";
 
-const posts = (await getCollection("blog", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
+const posts = (await getPosts(lang)).slice(0, 3);
 
-const dateFmt = new Intl.DateTimeFormat("en-US", {
+const dateFmt = new Intl.DateTimeFormat(dateLocale[lang], {
   day: "numeric",
   month: "long",
   year: "numeric",
@@ -17,17 +18,14 @@ const dateFmt = new Intl.DateTimeFormat("en-US", {
     <section id="writing" class="writing">
       <div class="container">
         <div class="section-header">
-          <h2>From the Blog</h2>
+          <h2>{t.blog.previewTitle}</h2>
           <div class="underline" />
-          <p class="section-description">
-            My learning journal — notes and write-ups on what I'm currently
-            exploring.
-          </p>
+          <p class="section-description">{t.blog.previewDescription}</p>
         </div>
 
         <div class="blog-list">
           {posts.map((post) => (
-            <a href={`/blog/${post.id}/`} class="card blog-card">
+            <a href={postPath(postSlug(post), lang)} class="card blog-card">
               <time datetime={post.data.pubDate.toISOString()}>
                 {dateFmt.format(post.data.pubDate)}
               </time>
@@ -43,8 +41,8 @@ const dateFmt = new Intl.DateTimeFormat("en-US", {
         </div>
 
         <div class="writing-cta">
-          <a href="/blog/" class="btn-outline">
-            View all articles →
+          <a href={localePath("/blog/", lang)} class="btn-outline">
+            {t.blog.viewAll}
           </a>
         </div>
       </div>
