@@ -11,13 +11,13 @@ Scanning `zolenikokolo.com` on [securityheaders.com](https://securityheaders.com
 
 5 missing HTTP security headers:
 
-| Header                     | Role                                                              |
-| --------------------------- | ------------------------------------------------------------------ |
-| `Content-Security-Policy`   | Whitelists allowed content sources → blocks XSS                   |
-| `X-Frame-Options`           | Forbids embedding the site in an iframe → anti-clickjacking       |
-| `X-Content-Type-Options`    | Stops the browser from "guessing" a file's MIME type              |
-| `Referrer-Policy`           | Controls what the browser reveals to sites reached through links  |
-| `Permissions-Policy`        | Disables sensitive APIs (camera, mic, geolocation)                |
+| Header                    | Role                                                             |
+| ------------------------- | ---------------------------------------------------------------- |
+| `Content-Security-Policy` | Whitelists allowed content sources → blocks XSS                  |
+| `X-Frame-Options`         | Forbids embedding the site in an iframe → anti-clickjacking      |
+| `X-Content-Type-Options`  | Stops the browser from "guessing" a file's MIME type             |
+| `Referrer-Policy`         | Controls what the browser reveals to sites reached through links |
+| `Permissions-Policy`      | Disables sensitive APIs (camera, mic, geolocation)               |
 
 Only `Strict-Transport-Security` (HSTS) was present — sent by GitHub itself.
 
@@ -58,7 +58,7 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 
 > **Why not an A+?** The CSP contains `'unsafe-inline'` in `script-src`, needed for the Footer's inline email-obfuscation script (`is:inline`) and for `main.js` (which Astro inlines into the HTML since it's small enough). An A+ is possible by replacing `'unsafe-inline'` with SHA-256 hashes of the inline scripts.
 >
-> **Decision: staying at A.** A hash-based CSP is fragile: the fingerprint matches the script's *exact* content, so any deployed JS change would break the hashes and block the scripts in production (mobile menu, animations). For a personal site, a solid A beats an A+ that needs the Cloudflare rule manually updated on every deploy. Security is also a trade-off with maintainability.
+> **Decision: staying at A.** A hash-based CSP is fragile: the fingerprint matches the script's _exact_ content, so any deployed JS change would break the hashes and block the scripts in production (mobile menu, animations). For a personal site, a solid A beats an A+ that needs the Cloudflare rule manually updated on every deploy. Security is also a trade-off with maintainability.
 
 ## Takeaways
 

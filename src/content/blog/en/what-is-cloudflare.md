@@ -32,10 +32,10 @@ The key mechanism is **DNS**. When a browser looks up `zolenikokolo.com`, it que
 2. At the **registrar** (Infomaniak in my case), the nameservers get replaced with Cloudflare's (`xxx.ns.cloudflare.com`)
 3. From then on, Cloudflare answers the DNS queries, with two possible modes per record:
 
-| Mode         | Cloud      | Behavior                                                                       |
-| ------------ | ---------- | ------------------------------------------------------------------------------- |
+| Mode         | Cloud     | Behavior                                                                       |
+| ------------ | --------- | ------------------------------------------------------------------------------ |
 | **Proxied**  | 🟠 orange | Cloudflare answers with **its own IPs** → all HTTP traffic goes through it     |
-| **DNS only** | ⚪ grey    | Cloudflare answers with the real IP → direct traffic, Cloudflare only does DNS |
+| **DNS only** | ⚪ grey   | Cloudflare answers with the real IP → direct traffic, Cloudflare only does DNS |
 
 > **Tip — the proxy trap:** anything that isn't "classic" web traffic (email, autoconfig…) needs to stay on **DNS only**. The proxy only understands HTTP/HTTPS and would break everything else.
 
