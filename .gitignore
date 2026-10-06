@@ -99,3 +99,5 @@ CLAUDE.md
 .claude/
 others/
 tests/*.json
+# Sortie de build des tests SEO
+.vitest-dist/
