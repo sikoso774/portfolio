@@ -4,3 +4,8 @@ public/
 package-lock.json
 CLAUDE.md
 .claude/
+
+# Bug prettier-plugin-astro : `<!-- prettier-ignore -->` devant un <svg> inline en tronque
+# le début (`<svg w` -> `idth=`), ce qui avait cassé les icônes de /skills/ (commit dc8b746).
+src/pages/skills.astro
+src/components/Projects.astro
