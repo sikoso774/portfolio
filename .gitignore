@@ -97,6 +97,6 @@ graphify-out/
 CLAUDE.md
 .claude/
 others/
-tests/*.json
+frontend/tests/*.json
 # Sortie de build des tests SEO
 .vitest-dist/
