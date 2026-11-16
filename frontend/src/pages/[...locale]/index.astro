@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Hero from "../../components/Hero.astro";
+import About from "../../components/About.astro";
+import SkillsPreview from "../../components/SkillsPreview.astro";
+import ExperiencePreview from "../../components/ExperiencePreview.astro";
+import ProjectsPreview from "../../components/ProjectsPreview.astro";
+import BlogPreview from "../../components/BlogPreview.astro";
+import Footer from "../../components/Footer.astro";
+import { profilePage } from "../../utils/schema";
+import {
+  getLocale,
+  htmlLang,
+  localePath,
+  localeStaticPaths,
+  useT,
+} from "../../i18n";
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
+const schema = [
+  profilePage(
+    Astro.site!,
+    localePath("/", lang),
+    t.meta.siteName,
+    htmlLang[lang],
+  ),
+];
+---
+
+<Layout schema={schema}>
+  <Header />
+  <Hero />
+  <About showLink />
+  <SkillsPreview />
+  <ExperiencePreview />
+  <ProjectsPreview />
+  <BlogPreview />
+  <Footer />
+</Layout>

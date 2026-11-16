@@ -18,34 +18,21 @@ Personal portfolio website built with [Astro](https://astro.build), deployed on 
 ## Project Structure
 
 ```
-src/
-├── layouts/
-│   └── Layout.astro        # Base layout: <head>, SEO meta, fonts
-├── components/
-│   ├── Header.astro
-│   ├── Hero.astro
-│   ├── About.astro
-│   ├── Skills.astro
-│   ├── Experience.astro
-│   ├── Projects.astro
-│   ├── Languages.astro
-│   └── Footer.astro
-├── pages/
-│   └── index.astro         # Assembles all components
-├── styles/
-│   └── global.css          # All styles (CSS variables in :root)
-└── scripts/
-    └── main.js             # Scroll, mobile menu, animations
-
-public/
-├── assets/
-│   ├── img/                # Profile photo
-│   ├── docs/               # CV PDF
-│   └── svg/                # Tech icons (Matplotlib, Waydroid…)
-├── favicon.svg
-├── sitemap.xml
-├── robots.txt
-└── CNAME                   # Custom domain
+.github/workflows/          # CI (ci.yml) and GitHub Pages deploy (deploy.yml)
+frontend/                   # The Astro app: run every npm command from here
+├── astro.config.mjs
+├── package.json
+├── src/
+│   ├── layouts/Layout.astro    # Base layout: <head>, SEO meta, fonts
+│   ├── components/             # Header, Hero, About, Projects, Footer…
+│   ├── pages/                  # One file per route (EN at /, FR under /fr/)
+│   ├── i18n/                   # en.ts / fr.ts dictionaries
+│   ├── content/blog/{en,fr}/   # Markdown articles
+│   ├── styles/global.css       # Shared styles (CSS variables in :root)
+│   └── scripts/main.js         # Scroll, mobile menu, animations
+├── public/                     # Copied as-is: CNAME, robots.txt, favicons, assets/
+├── scripts/                    # generate-og.mjs
+└── tests/                      # Vitest
 ```
 
 ---
@@ -53,6 +40,7 @@ public/
 ## Getting Started
 
 ```bash
+cd frontend
 npm install
 npm run dev       # Dev server at localhost:4321
 npm run build     # Static build → dist/
@@ -65,7 +53,7 @@ npm run preview   # Preview the build locally
 
 ### Theme colors
 
-All colors are CSS variables in `src/styles/global.css`:
+All colors are CSS variables in `frontend/src/styles/global.css`:
 
 ```css
 :root {
@@ -77,11 +65,11 @@ All colors are CSS variables in `src/styles/global.css`:
 
 ### Content
 
-Each section is an independent component in `src/components/`. Edit the relevant `.astro` file to update content.
+Each section is an independent component in `frontend/src/components/`. Edit the relevant `.astro` file to update content.
 
 ### SEO / meta
 
-Default title and description are defined as props in `src/layouts/Layout.astro`. Override them per page by passing props to `<Layout>`.
+Default title and description are defined as props in `frontend/src/layouts/Layout.astro`. Override them per page by passing props to `<Layout>`.
 
 ---
 

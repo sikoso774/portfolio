@@ -1,0 +1,5 @@
+dist/
+.astro/
+.vitest-dist/
+public/
+package-lock.json

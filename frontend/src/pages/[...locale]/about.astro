@@ -1,0 +1,75 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import About from "../../components/About.astro";
+import Languages from "../../components/Languages.astro";
+import { profilePage } from "../../utils/schema";
+import {
+  getLocale,
+  htmlLang,
+  localePath,
+  localeStaticPaths,
+  useT,
+} from "../../i18n";
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
+const schema = [
+  profilePage(
+    Astro.site!,
+    localePath("/about/", lang),
+    t.meta.about.title,
+    htmlLang[lang],
+  ),
+];
+---
+
+<Layout
+  title={t.meta.about.title}
+  description={t.meta.about.description}
+  ogType="profile"
+  schema={schema}
+>
+  <Header />
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="section-header">
+          <h1>{t.about.pageTitle}</h1>
+          <div class="underline"></div>
+          <p class="section-description">
+            {t.about.pageIntro}
+          </p>
+        </div>
+      </div>
+    </section>
+    <About />
+    <Languages />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    padding: 160px 0 32px;
+  }
+
+  .page-hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .page-hero {
+      padding: 120px 0 24px;
+    }
+
+    .page-hero h1 {
+      font-size: 32px;
+    }
+  }
+</style>

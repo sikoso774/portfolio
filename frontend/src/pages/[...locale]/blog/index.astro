@@ -1,0 +1,64 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import {
+  dateLocale,
+  getLocale,
+  localePath,
+  localeStaticPaths,
+  useT,
+} from "../../../i18n";
+import { getPosts, postPath, postSlug } from "../../../i18n/blog";
+
+export function getStaticPaths() {
+  return localeStaticPaths();
+}
+
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
+const posts = await getPosts(lang);
+
+const dateFmt = new Intl.DateTimeFormat(dateLocale[lang], {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+---
+
+<Layout title={t.meta.blog.title} description={t.meta.blog.description}>
+  <Header />
+  <main class="blog-page">
+    <div class="container">
+      <div class="section-header">
+        <h2>{t.blog.pageTitle}</h2>
+        <div class="underline"></div>
+        <p class="section-description">{t.blog.pageIntro}</p>
+      </div>
+
+      {
+        posts.length === 0 ? (
+          <p class="blog-empty">{t.blog.empty}</p>
+        ) : (
+          <div class="blog-list">
+            {posts.map((post) => (
+              <a href={postPath(postSlug(post), lang)} class="card blog-card">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {dateFmt.format(post.data.pubDate)}
+                </time>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <div class="tags">
+                  {post.data.tags.map((tag) => (
+                    <span>{tag}</span>
+                  ))}
+                </div>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </main>
+  <Footer />
+</Layout>

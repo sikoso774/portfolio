@@ -1,0 +1,117 @@
+---
+import { render } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import { blogPosting } from "../../../utils/schema";
+import {
+  dateLocale,
+  defaultLocale,
+  getLocale,
+  htmlLang,
+  localePath,
+  locales,
+  useT,
+  type Locale,
+} from "../../../i18n";
+import { getPosts, postPath, postSlug } from "../../../i18n/blog";
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const locale of locales) {
+    for (const post of await getPosts(locale)) {
+      paths.push({
+        params: {
+          locale: locale === defaultLocale ? undefined : locale,
+          slug: postSlug(post),
+        },
+        props: { post },
+      });
+    }
+  }
+  return paths;
+}
+
+const { post } = Astro.props;
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
+const slug = postSlug(post);
+const { Content } = await render(post);
+
+// L'article existe-t-il dans l'autre langue ? Seules les traductions réelles
+// sont proposées (sélecteur de langue et hreflang).
+const alternates: Partial<Record<Locale, string>> = {};
+for (const locale of locales) {
+  const exists = (await getPosts(locale)).some((p) => postSlug(p) === slug);
+  if (exists) alternates[locale] = postPath(slug, locale);
+}
+
+const articleSchema = blogPosting({
+  site: Astro.site!,
+  pathname: Astro.url.pathname,
+  title: post.data.title,
+  description: post.data.description,
+  image: new URL("/assets/img/og-image.png", Astro.site),
+  tags: post.data.tags,
+  pubDate: post.data.pubDate,
+  updatedDate: post.data.updatedDate,
+  inLanguage: htmlLang[lang],
+});
+
+const dateFmt = new Intl.DateTimeFormat(dateLocale[lang], {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+---
+
+<Layout
+  title={`${post.data.title} — ${t.meta.siteName}`}
+  description={post.data.description}
+  ogType="article"
+  publishedTime={post.data.pubDate}
+  modifiedTime={post.data.updatedDate ?? post.data.pubDate}
+  schema={[articleSchema]}
+  alternates={alternates}
+>
+  <Header alternates={alternates} />
+  <main class="blog-page">
+    <article class="container article">
+      <a href={localePath("/blog/", lang)} class="article-back">{t.blog.back}</a
+      >
+      <header class="article-header">
+        <div class="tags">
+          {post.data.tags.map((tag) => <span>{tag}</span>)}
+        </div>
+        <h1>{post.data.title}</h1>
+        <div class="article-meta">
+          <span>
+            {t.blog.by}
+            <a href={localePath("/about/", lang)} rel="author"
+              >{t.meta.siteName}</a
+            > ·
+          </span>
+          <time datetime={post.data.pubDate.toISOString()}>
+            {dateFmt.format(post.data.pubDate)}
+          </time>
+          {
+            post.data.updatedDate && (
+              <span>
+                · {t.blog.updatedOn} {dateFmt.format(post.data.updatedDate)}
+              </span>
+            )
+          }
+        </div>
+      </header>
+      <div class="prose">
+        <Content />
+      </div>
+      <footer class="article-footer">
+        <a href={localePath("/blog/", lang)} class="btn-outline"
+          >{t.blog.allArticles}</a
+        >
+      </footer>
+    </article>
+  </main>
+  <Footer />
+</Layout>

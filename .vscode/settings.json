@@ -1,0 +1,4 @@
+{
+  // LF partout, comme .gitattributes et Prettier (sous Windows, VS Code écrit du CRLF par défaut).
+  "files.eol": "\n"
+}

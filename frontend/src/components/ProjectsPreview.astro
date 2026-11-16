@@ -1,0 +1,90 @@
+---
+import { getLocale, localePath, useT } from "../i18n";
+const lang = getLocale(Astro.currentLocale);
+const t = useT(lang);
+---
+
+<style>
+  .projects-preview {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .projects-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .project-preview-card {
+    padding: 20px;
+  }
+
+  .project-preview-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--clr-text);
+    margin-bottom: 8px;
+    transition: color 0.2s ease;
+  }
+
+  .project-preview-card p {
+    color: var(--clr-text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .projects-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  @media (max-width: 900px) {
+    .projects-preview-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    .projects-preview {
+      background: rgba(0, 0, 0, 0.03);
+    }
+  }
+</style>
+
+<section id="projects" class="projects-preview">
+  <div class="container">
+    <div class="section-header">
+      <h2>{t.projects.title}</h2>
+      <div class="underline"></div>
+      <p class="section-description">
+        {t.projects.intro}
+      </p>
+    </div>
+    <div class="projects-preview-grid">
+      <div class="card project-preview-card">
+        <h3>{t.projects.previewItems[0].title}</h3>
+        <p>
+          {t.projects.previewItems[0].description}
+        </p>
+      </div>
+      <div class="card project-preview-card">
+        <h3>{t.projects.previewItems[1].title}</h3>
+        <p>
+          {t.projects.previewItems[1].description}
+        </p>
+      </div>
+      <div class="card project-preview-card">
+        <h3>{t.projects.previewItems[2].title}</h3>
+        <p>
+          {t.projects.previewItems[2].description}
+        </p>
+      </div>
+    </div>
+    <div class="projects-cta">
+      <a href={localePath("/projects/", lang)} class="btn-outline"
+        >{t.projects.viewAll}</a
+      >
+    </div>
+  </div>
+</section>

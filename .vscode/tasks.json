@@ -3,8 +3,10 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "npm: dev",
       "type": "npm",
       "script": "dev",
+      "path": "frontend",
       "isBackground": true,
       "problemMatcher": {
         "owner": "typescript",
@@ -21,14 +23,17 @@
       }
     },
     {
+      "label": "npm: test",
       "type": "npm",
       "script": "test",
+      "path": "frontend",
       "group": "test"
     },
     {
       "label": "preview: build + serve",
       "type": "shell",
       "command": "npm run build && npm run preview",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
       "isBackground": true,
       "problemMatcher": {
         "owner": "typescript",
