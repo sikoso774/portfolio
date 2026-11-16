@@ -78,6 +78,55 @@ const t = useT(lang);
     }
   }
 
+  .about-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .about-info-card {
+    padding: 32px;
+  }
+
+  .about-info-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--clr-accent);
+    margin-bottom: 12px;
+  }
+
+  .about-info-card p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .info-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .info-tag {
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    background: rgba(var(--clr-accent-rgb), 0.1);
+    border: 1px solid rgba(var(--clr-accent-rgb), 0.3);
+    color: var(--clr-accent);
+    border-radius: var(--radius-lg);
+  }
+
+  @media (max-width: 768px) {
+    .about-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .about-info-card {
+      padding: 24px;
+    }
+  }
+
   .card p {
     font-size: 18px;
     color: var(--clr-text-muted);
@@ -143,27 +192,52 @@ const t = useT(lang);
         )
       }
       <div class="about-text">
-        <p>
-          {t.about.p1Before}<span class="highlight">{t.about.p1Highlight}</span
-          >{t.about.p1After}
-        </p>
-        <div class="quote-box">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-            ></path>
-          </svg>
-          <p>{t.about.quote}</p>
-        </div>
-        <p>{t.about.p2}</p>
+        {
+          showPhoto ? (
+            <p>{t.about.page.intro}</p>
+          ) : (
+            <>
+              <p>
+                {t.about.p1Before}
+                <span class="highlight">{t.about.p1Highlight}</span>
+                {t.about.p1After}
+              </p>
+              <div class="quote-box">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+                <p>{t.about.quote}</p>
+              </div>
+              <p>{t.about.p2}</p>
+            </>
+          )
+        }
       </div>
     </div>
+    {
+      showPhoto && (
+        <div class="about-cards">
+          {t.about.page.cards.map((card) => (
+            <div class="card about-info-card">
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+              <div class="info-tags">
+                {card.tags.map((tag) => (
+                  <span class="info-tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )
+    }
     {
       showLink && (
         <div class="about-footer">

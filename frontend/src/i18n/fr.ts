@@ -53,7 +53,7 @@ const fr: Dictionary = {
   person: {
     jobTitle: "Développeur Python & Développeur Full Stack junior",
     description:
-      "Développeur Python et étudiant en Bachelor Human IT à l'Université Paris 1 Panthéon-Sorbonne, orienté data science et infrastructure Linux.",
+      "Développeur Python et étudiant en M1 MIAGE SBI à l'Université Paris 1 Panthéon-Sorbonne, orienté data science et infrastructure Linux.",
   },
 
   nav: {
@@ -101,6 +101,33 @@ const fr: Dictionary = {
     pageTitle: "À propos de moi",
     pageIntro:
       "Un regard plus proche sur qui je suis, ce qui compte pour moi et ce qui me passionne en dehors du code.",
+    // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).
+    page: {
+      intro:
+        "Je viens de Meaux, en Île-de-France, et mon parcours est tout sauf linéaire. Voici ce qui m'a mené à l'informatique, et ce qui me guide.",
+      cards: [
+        {
+          title: "D'où je viens",
+          text: "Je viens de Meaux, en Île-de-France. C'est là que j'ai étudié jusqu'au baccalauréat, avant d'intégrer l'ENSEA, une école d'ingénieurs.",
+          tags: ["Meaux", "Île-de-France"],
+        },
+        {
+          title: "Un parcours atypique",
+          text: "J'ai commencé à l'ENSEA en pensant ne faire que de la data. En chemin, j'ai compris que c'est l'informatique dans son ensemble qui me plaît vraiment, pas seulement un de ses recoins.",
+          tags: ["ENSEA", "Data", "Informatique"],
+        },
+        {
+          title: "Le déclic",
+          text: "Apprendre Python en deuxième année m'a redonné le goût de l'informatique et poussé à continuer. J'ai exploré des projets open source comme YASB Reborn, appris sur YouTube, regardé comment on fait des jeux vidéo, et expérimenté.",
+          tags: ["Python", "Open source", "YASB Reborn", "Jeux vidéo"],
+        },
+        {
+          title: "Mes valeurs",
+          text: "Ce qui me guide dans tout ce que j'apprends et construis.",
+          tags: ["Curiosité", "Sérieux", "Envie d'apprendre"],
+        },
+      ],
+    },
   },
 
   languages: {

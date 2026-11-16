@@ -52,7 +52,7 @@ const en = {
   person: {
     jobTitle: "Python Developer & Junior Full Stack Developer",
     description:
-      "Python developer and Bachelor Human IT student at Université Paris 1 Panthéon-Sorbonne, focused on data science and Linux infrastructure.",
+      "Python developer and M1 MIAGE SBI student at Université Paris 1 Panthéon-Sorbonne, focused on data science and Linux infrastructure.",
   },
 
   nav: {
@@ -100,6 +100,33 @@ const en = {
     pageTitle: "About Me",
     pageIntro:
       "A closer look at who I am, what I care about, and what keeps me curious outside of code.",
+    // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).
+    page: {
+      intro:
+        "I'm from Meaux, in Île-de-France, and my path has been anything but linear. Here is what led me to computing, and what guides me.",
+      cards: [
+        {
+          title: "Where I come from",
+          text: "I come from Meaux, in Île-de-France. That is where I studied up to my baccalauréat, before joining ENSEA, an engineering school.",
+          tags: ["Meaux", "Île-de-France"],
+        },
+        {
+          title: "An atypical path",
+          text: "I started at ENSEA thinking I would only do data. Along the way I realised that computing as a whole really appeals to me, not just one corner of it.",
+          tags: ["ENSEA", "Data", "Computing"],
+        },
+        {
+          title: "The spark",
+          text: "Learning Python in my second year made me fall back in love with computing and pushed me to keep going. I explored open source projects such as YASB Reborn, learned from YouTube, looked at how video games are made, and experimented.",
+          tags: ["Python", "Open source", "YASB Reborn", "Video games"],
+        },
+        {
+          title: "My values",
+          text: "What guides me in everything I learn and build.",
+          tags: ["Curiosity", "Seriousness", "Drive to learn"],
+        },
+      ],
+    },
   },
 
   languages: {
