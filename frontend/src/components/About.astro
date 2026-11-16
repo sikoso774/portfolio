@@ -36,6 +36,11 @@ const t = useT(lang);
     background: rgba(var(--clr-accent-rgb), 0.05);
   }
 
+  /* Sur /about/, la section suit directement l'en-tête de page : pas de grand vide entre les deux. */
+  .about.on-page {
+    padding: 24px 0 48px;
+  }
+
   .about-card.with-photo {
     display: grid;
     grid-template-columns: 240px 1fr;
@@ -113,7 +118,7 @@ const t = useT(lang);
   }
 </style>
 
-<section id="about" class="about">
+<section id="about" class:list={["about", { "on-page": showPhoto }]}>
   <div class="container">
     <div class="section-header">
       <h2>{t.about.title}</h2>
