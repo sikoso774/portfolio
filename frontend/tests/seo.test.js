@@ -235,8 +235,13 @@ describe("built site SEO", () => {
         .replaceAll("&lt;", "<")
         .replaceAll("&gt;", ">");
     const frByPath = new Map(leaves(fr));
+    // Le nom du site est un nom propre : il peut légitimement être identique en anglais
+    // (ex. `meta.home.title`) et apparaître tel quel sur les pages françaises.
     const englishOnly = leaves(en).filter(
-      ([path, text]) => text.length >= 12 && frByPath.get(path) !== text,
+      ([path, text]) =>
+        text.length >= 12 &&
+        text !== en.meta.siteName &&
+        frByPath.get(path) !== text,
     );
 
     for (const page of [
