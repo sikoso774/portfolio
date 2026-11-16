@@ -1,7 +1,10 @@
 ---
+import { Image } from "astro:assets";
+import profilePhoto from "../images/photo_profile.jpg";
 import { getLocale, localePath, useT } from "../i18n";
 
-const { showLink = false } = Astro.props;
+// showPhoto : portrait à côté du texte (page /about/ uniquement — l'accueil l'a déjà dans le Hero).
+const { showLink = false, showPhoto = false } = Astro.props;
 const lang = getLocale(Astro.currentLocale);
 const t = useT(lang);
 ---
@@ -31,6 +34,43 @@ const t = useT(lang);
     color: var(--clr-accent);
     border-color: rgba(var(--clr-accent-rgb), 0.5);
     background: rgba(var(--clr-accent-rgb), 0.05);
+  }
+
+  .about-card.with-photo {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .about-photo {
+    margin: 0;
+    width: 240px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(var(--clr-accent-rgb), 0.5);
+    box-shadow: 0 0 0 8px rgba(var(--clr-accent-rgb), 0.08);
+  }
+
+  /* :global() car <Image> est un composant Astro — son <img> n'hérite pas du cid */
+  .about-photo :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .about-card.with-photo {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      justify-items: center;
+    }
+
+    .about-photo {
+      width: 180px;
+    }
   }
 
   .card p {
@@ -79,27 +119,41 @@ const t = useT(lang);
       <h2>{t.about.title}</h2>
       <div class="underline"></div>
     </div>
-    <div class="card">
-      <p>
-        {t.about.p1Before}<span class="highlight">{t.about.p1Highlight}</span>{
-          t.about.p1After
-        }
-      </p>
-      <div class="quote-box">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-          ></path>
-        </svg>
-        <p>{t.about.quote}</p>
+    <div class:list={["card", "about-card", { "with-photo": showPhoto }]}>
+      {
+        showPhoto && (
+          <figure class="about-photo">
+            <Image
+              src={profilePhoto}
+              alt={t.hero.photoAlt}
+              widths={[180, 240, 360, 480]}
+              sizes="(max-width: 768px) 180px, 240px"
+              loading="eager"
+            />
+          </figure>
+        )
+      }
+      <div class="about-text">
+        <p>
+          {t.about.p1Before}<span class="highlight">{t.about.p1Highlight}</span
+          >{t.about.p1After}
+        </p>
+        <div class="quote-box">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+            ></path>
+          </svg>
+          <p>{t.about.quote}</p>
+        </div>
+        <p>{t.about.p2}</p>
       </div>
-      <p>{t.about.p2}</p>
     </div>
     {
       showLink && (

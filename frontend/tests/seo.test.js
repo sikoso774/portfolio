@@ -1,5 +1,11 @@
 import { execFileSync } from "node:child_process";
-import { readFileSync, readdirSync, rmSync, statSync } from "node:fs";
+import {
+  existsSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  statSync,
+} from "node:fs";
 import { join } from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { blogPosting, profilePage } from "../src/utils/schema";
@@ -53,6 +59,34 @@ describe("built site SEO", () => {
 
   afterAll(() => {
     rmSync(OUT_DIR, { recursive: true, force: true });
+  });
+
+  it("shows the profile photo on the home and About pages, in both languages", () => {
+    for (const page of [
+      "index.html",
+      "fr/index.html",
+      "about/index.html",
+      "fr/about/index.html",
+    ]) {
+      const html = read(page);
+      const src = html.match(
+        /<img[^>]*src="(\/_astro\/photo_profile[^"]+)"/,
+      )?.[1];
+      expect(src, `${page} : <img> de la photo de profil`).toBeTruthy();
+      // Le fichier optimisé référencé doit exister dans le build (pas de 404).
+      expect(existsSync(join(OUT_DIR, src)), `${page} : ${src}`).toBe(true);
+    }
+  });
+
+  it("ships the profile photo used by the JSON-LD image", () => {
+    const html = read("index.html");
+    const person = extractGraph(html).find(
+      (node) => node["@type"] === "Person",
+    );
+    expect(person.image).toBe(`${SITE.origin}/assets/img/photo_profile.jpg`);
+    expect(
+      existsSync(join(OUT_DIR, "assets", "img", "photo_profile.jpg")),
+    ).toBe(true);
   });
 
   it("noindexes the 404 page but indexes the others", () => {

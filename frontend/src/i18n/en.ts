@@ -13,7 +13,7 @@ const en = {
     about: {
       title: "About Zoléni Kokolo Zassi — Student at Paris 1 Panthéon-Sorbonne",
       description:
-        "Who is Zoléni Kokolo Zassi? A Python developer and Bachelor Human IT student at Université Paris 1 Panthéon-Sorbonne — background, interests and languages.",
+        "Who is Zoléni Kokolo Zassi? A Python developer and M1 MIAGE SBI student at Université Paris 1 Panthéon-Sorbonne — background, interests and languages.",
     },
     skills: {
       title: "Skills & Expertise — Zoléni Kokolo Zassi",
@@ -90,9 +90,9 @@ const en = {
   about: {
     title: "My Journey So Far",
     p1Before: "I'm currently pursuing my ",
-    p1Highlight: "Bachelor Human-IT at Université Paris 1 Panthéon-Sorbonne",
+    p1Highlight: "M1 Master MIAGE SBI at Université Paris 1 Panthéon-Sorbonne",
     p1After:
-      ", focusing on information technologies and their impact on society. My experiences span infrastructure migration (Docker to LXC/Waydroid), Python/Bash automation scripting, and full stack development.",
+      ", after a Bachelor Human-IT at ENSEA Cergy, focusing on information technologies and their impact on society. My experiences span infrastructure migration (Docker to LXC/Waydroid), Python/Bash automation scripting, and full stack development.",
     quote:
       '"Fuelled by curiosity, committed to quality, inspired by technology."',
     p2: "My passion lies in automation and building concrete end-to-end solutions — from Linux server deployment to full stack web applications. I love turning complex infrastructure and software challenges into clean, working systems.",
@@ -267,7 +267,7 @@ const en = {
       {
         title: "Nebulux — Obsidian Theme",
         description:
-          "Custom dark theme for Obsidian, published on the community marketplace with 300+ downloads.",
+          "Custom dark theme for Obsidian, published on the community marketplace with 1000+ downloads.",
       },
       {
         title: "Music Player",
