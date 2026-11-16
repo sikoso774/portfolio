@@ -1,6 +1,6 @@
 ---
-title: "Glossaire 3D : les termes essentiels de la modélisation 3D pour débutants"
-description: "Un glossaire 3D pour débutants : mesh, vertex, topologie, UV, normales, PBR et plus encore — les termes essentiels de la modélisation 3D que j'ai appris en démarrant avec Blender."
+title: "Glossaire 3D : les termes essentiels pour débutants"
+description: "Un glossaire 3D pour débutants : mesh, vertex, topologie, UV, normales, PBR et plus — les termes essentiels appris en démarrant avec Blender."
 pubDate: 2026-06-11
 tags: ["Blender", "3D", "Débutant", "Apprentissage"]
 ---

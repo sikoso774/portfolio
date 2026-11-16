@@ -234,6 +234,13 @@ section {
 }
 
 /* Blog */
+/* Le titre de la liste du blog est un <h1> : même rendu qu'un titre de section. */
+.blog-page .section-header h1 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
 .blog-page {
   padding: 140px 0 96px;
   min-height: 100vh;
@@ -461,7 +468,8 @@ section {
     padding: 24px;
   }
 
-  .section-header h2 {
+  .section-header h2,
+  .blog-page .section-header h1 {
     font-size: 32px;
   }
 
