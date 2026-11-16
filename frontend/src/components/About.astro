@@ -120,10 +120,14 @@ const t = useT(lang);
 
 <section id="about" class:list={["about", { "on-page": showPhoto }]}>
   <div class="container">
-    <div class="section-header">
-      <h2>{t.about.title}</h2>
-      <div class="underline"></div>
-    </div>
+    {
+      !showPhoto && (
+        <div class="section-header">
+          <h2>{t.about.title}</h2>
+          <div class="underline" />
+        </div>
+      )
+    }
     <div class:list={["card", "about-card", { "with-photo": showPhoto }]}>
       {
         showPhoto && (
