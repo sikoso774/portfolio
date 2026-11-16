@@ -8,7 +8,7 @@ const fr: Dictionary = {
     home: {
       title: "Zoléni Kokolo Zassi — Python, Data & Infrastructure Linux",
       description:
-        "Zoléni Kokolo Zassi est développeur Python et étudiant en Bachelor Human IT à l'Université Paris 1 Panthéon-Sorbonne, orienté data science et infrastructure Linux. Portfolio, projets et blog.",
+        "Zoléni Kokolo Zassi est développeur Python et étudiant en M1 MIAGE SBI à l'Université Paris 1 Panthéon-Sorbonne, orienté data science et infrastructure Linux. Portfolio, projets et blog.",
     },
     about: {
       title:
@@ -245,8 +245,8 @@ const fr: Dictionary = {
       ensea: {
         year: "2023 – 2026",
         title: "Bachelor Human-IT",
-        school: "Université Paris 1 Panthéon-Sorbonne",
-        place: "Paris",
+        school: "ENSEA",
+        place: "Cergy",
         description:
           "Spécialisation en technologies de l'information et en impact sociétal, avec un accent fort sur la data science, le développement logiciel et l'interaction homme-machine.",
         tags: ["Data Science", "Python", "C", "SQL"],

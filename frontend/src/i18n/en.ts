@@ -6,9 +6,9 @@ const en = {
   meta: {
     siteName: "Zoléni Kokolo Zassi",
     home: {
-      title: "Zoléni Kokolo Zassi — Python, Data & Linux Infrastructure",
+      title: "Zoléni Kokolo Zassi",
       description:
-        "Zoléni Kokolo Zassi is a Python developer and Bachelor Human IT student at Université Paris 1 Panthéon-Sorbonne, focused on data science and Linux infrastructure. Portfolio, projects and blog.",
+        "Zoléni Kokolo Zassi is a Python developer and M1 MIAGE SBI student at Université Paris 1 Panthéon-Sorbonne, focused on data science and Linux infrastructure. Portfolio, projects and blog.",
     },
     about: {
       title: "About Zoléni Kokolo Zassi — Student at Paris 1 Panthéon-Sorbonne",
@@ -238,8 +238,8 @@ const en = {
       ensea: {
         year: "2023 – 2026",
         title: "Bachelor Human-IT",
-        school: "Université Paris 1 Panthéon-Sorbonne",
-        place: "Paris",
+        school: "ENSEA",
+        place: "Cergy",
         description:
           "Specializing in information technologies and their societal impact, with a strong focus on data science, software development, and human-computer interaction.",
         tags: ["Data Science", "Python", "C", "SQL"],
