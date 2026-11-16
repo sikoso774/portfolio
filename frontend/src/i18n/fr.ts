@@ -103,8 +103,11 @@ const fr: Dictionary = {
       "Un regard plus proche sur qui je suis, ce qui compte pour moi et ce qui me passionne en dehors du code.",
     // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).
     page: {
-      intro:
-        "Je viens de Meaux, en Île-de-France, et mon parcours est tout sauf linéaire. Voici ce qui m'a mené à l'informatique, et ce qui me guide.",
+      intro: [
+        "Salut, moi c'est Zoléni. Je viens de Meaux, en Île-de-France, et mon parcours est tout sauf linéaire.",
+        "Je suis aujourd'hui en M1 MIAGE SBI à l'Université Paris 1 Panthéon-Sorbonne, en alternance chez NOXIA Security, après un Bachelor Human-IT à l'ENSEA. J'y ai commencé par un stage de quatre mois, d'avril à août 2026, avant d'être pris en alternance. Je développe des outils internes en Python pour automatiser des tâches répétitives et fluidifier les processus de sécurité.",
+        "Ce qui me plaît, c'est de transformer des problèmes concrets en systèmes propres et fiables : de l'automatisation en Python au déploiement de serveurs Linux, jusqu'aux applications web full stack.",
+      ],
       cards: [
         {
           title: "D'où je viens",

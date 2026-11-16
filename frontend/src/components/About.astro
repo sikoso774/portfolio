@@ -194,7 +194,7 @@ const t = useT(lang);
       <div class="about-text">
         {
           showPhoto ? (
-            <p>{t.about.page.intro}</p>
+            t.about.page.intro.map((paragraph) => <p>{paragraph}</p>)
           ) : (
             <>
               <p>

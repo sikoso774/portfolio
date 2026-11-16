@@ -102,8 +102,11 @@ const en = {
       "A closer look at who I am, what I care about, and what keeps me curious outside of code.",
     // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).
     page: {
-      intro:
-        "I'm from Meaux, in Île-de-France, and my path has been anything but linear. Here is what led me to computing, and what guides me.",
+      intro: [
+        "Hi, I'm Zoléni. I'm from Meaux, in Île-de-France, and my path has been anything but linear.",
+        "I'm currently doing an M1 MIAGE SBI at Université Paris 1 Panthéon-Sorbonne, as a work-study student at NOXIA Security, after a Bachelor Human-IT at ENSEA. I started there with a four-month internship, from April to August 2026, before joining them on a work-study contract. I build internal Python tools that automate repetitive tasks and streamline security processes.",
+        "What I enjoy is turning concrete problems into clean, reliable systems: from Python automation to Linux server deployment, all the way to full stack web applications.",
+      ],
       cards: [
         {
           title: "Where I come from",
