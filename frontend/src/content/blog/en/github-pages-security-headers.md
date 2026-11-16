@@ -1,6 +1,6 @@
 ---
 title: "GitHub Pages Security Headers: Cloudflare Fix"
-description: "GitHub Pages doesn't support custom HTTP headers, so securityheaders.com gave this site a D. How I fixed it with Cloudflare Transform Rules and reached an A."
+description: "GitHub Pages doesn't support custom HTTP headers, so securityheaders.com gave this site a D. How I reached an A with Cloudflare Transform Rules."
 pubDate: 2026-06-12
 tags: ["Security", "HTTP Headers", "GitHub Pages", "Cloudflare", "DNS"]
 ---

@@ -8,11 +8,10 @@ const fr: Dictionary = {
     home: {
       title: "Zoléni Kokolo Zassi — Python, Data & Infrastructure Linux",
       description:
-        "Zoléni Kokolo Zassi est développeur Python et étudiant en M1 MIAGE SBI à l'Université Paris 1 Panthéon-Sorbonne, orienté data science et infrastructure Linux. Portfolio, projets et blog.",
+        "Développeur Python et étudiant en M1 MIAGE SBI à l'Université Paris 1 Panthéon-Sorbonne, orienté data science et infrastructure Linux. Portfolio et blog.",
     },
     about: {
-      title:
-        "À propos de Zoléni Kokolo Zassi — Étudiant à Paris 1 Panthéon-Sorbonne",
+      title: "À propos de Zoléni Kokolo Zassi — Paris 1 Panthéon-Sorbonne",
       description:
         "Qui est Zoléni Kokolo Zassi ? Développeur Python et étudiant en M1 MIAGE SBI à l'Université Paris 1 Panthéon-Sorbonne — parcours, centres d'intérêt et langues.",
     },
@@ -98,7 +97,7 @@ const fr: Dictionary = {
       "« Animé par la curiosité, attaché à la qualité, inspiré par la technologie. »",
     p2: "Ma passion, c'est l'automatisation et la création de solutions concrètes de bout en bout — du déploiement de serveurs Linux aux applications web full stack. J'aime transformer des défis d'infrastructure et de logiciel complexes en systèmes propres et fiables.",
     learnMore: "En savoir plus sur moi et mes centres d'intérêt",
-    pageTitle: "À propos de moi",
+    pageTitle: "À propos de Zoléni Kokolo Zassi",
     pageIntro:
       "Un regard plus proche sur qui je suis, ce qui compte pour moi et ce qui me passionne en dehors du code.",
     // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).

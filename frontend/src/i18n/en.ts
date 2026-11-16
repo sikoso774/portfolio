@@ -6,12 +6,12 @@ const en = {
   meta: {
     siteName: "Zoléni Kokolo Zassi",
     home: {
-      title: "Zoléni Kokolo Zassi",
+      title: "Zoléni Kokolo Zassi — Python & Linux Infrastructure",
       description:
-        "Zoléni Kokolo Zassi is a Python developer and M1 MIAGE SBI student at Université Paris 1 Panthéon-Sorbonne, focused on data science and Linux infrastructure. Portfolio, projects and blog.",
+        "Python developer and M1 MIAGE SBI student at Université Paris 1 Panthéon-Sorbonne, focused on data science and Linux infrastructure. Portfolio and blog.",
     },
     about: {
-      title: "About Zoléni Kokolo Zassi — Student at Paris 1 Panthéon-Sorbonne",
+      title: "About Zoléni Kokolo Zassi — Paris 1 Panthéon-Sorbonne",
       description:
         "Who is Zoléni Kokolo Zassi? A Python developer and M1 MIAGE SBI student at Université Paris 1 Panthéon-Sorbonne — background, interests and languages.",
     },
@@ -97,7 +97,7 @@ const en = {
       '"Fuelled by curiosity, committed to quality, inspired by technology."',
     p2: "My passion lies in automation and building concrete end-to-end solutions — from Linux server deployment to full stack web applications. I love turning complex infrastructure and software challenges into clean, working systems.",
     learnMore: "Learn more about me & my interests",
-    pageTitle: "About Me",
+    pageTitle: "About Zoléni Kokolo Zassi",
     pageIntro:
       "A closer look at who I am, what I care about, and what keeps me curious outside of code.",
     // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).

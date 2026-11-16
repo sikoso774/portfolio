@@ -105,6 +105,48 @@ describe("built site SEO", () => {
     }
   });
 
+  it("keeps titles and descriptions within search-result limits, with a single h1", () => {
+    // Google coupe les titres vers 60 caractères et les descriptions vers 160 : au-delà, la fin
+    // (souvent la partie utile) disparaît des résultats. Les pages de redirection et la 404 sont exclues.
+    const unescape = (text) =>
+      text
+        .replaceAll("&amp;", "&")
+        .replaceAll("&#39;", "'")
+        .replaceAll("&quot;", '"');
+    const pages = htmlFiles(OUT_DIR).filter((file) => {
+      const html = readFileSync(file, "utf-8");
+      return (
+        !file.endsWith("404.html") && !html.includes('http-equiv="refresh"')
+      );
+    });
+    expect(pages.length).toBeGreaterThan(10);
+
+    for (const file of pages) {
+      const html = readFileSync(file, "utf-8");
+      const title = unescape(
+        html.match(/<title>([\s\S]*?)<\/title>/)[1].trim(),
+      );
+      const description = unescape(
+        html.match(/<meta name="description" content="([^"]*)"/)[1],
+      );
+      expect(title.length, `${file} : titre « ${title} »`).toBeLessThanOrEqual(
+        60,
+      );
+      expect(
+        description.length,
+        `${file} : description « ${description} »`,
+      ).toBeGreaterThanOrEqual(70);
+      expect(
+        description.length,
+        `${file} : description « ${description} »`,
+      ).toBeLessThanOrEqual(160);
+      expect(
+        (html.match(/<h1[\s>]/g) ?? []).length,
+        `${file} : nombre de <h1>`,
+      ).toBe(1);
+    }
+  });
+
   it("never links internally to a route without trailing slash", () => {
     for (const file of htmlFiles(OUT_DIR)) {
       const html = readFileSync(file, "utf-8");

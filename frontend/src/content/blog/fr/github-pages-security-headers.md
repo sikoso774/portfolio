@@ -1,6 +1,6 @@
 ---
 title: "Headers de sécurité GitHub Pages : la solution Cloudflare"
-description: "GitHub Pages ne permet pas de configurer de headers HTTP personnalisés : securityheaders.com a donc donné un D à ce site. Comment je l'ai corrigé avec les Transform Rules de Cloudflare pour atteindre un A."
+description: "GitHub Pages ne permet pas de headers HTTP personnalisés : securityheaders.com donnait un D à ce site. Comment je suis passé à un A avec Cloudflare."
 pubDate: 2026-06-12
 tags: ["Sécurité", "Headers HTTP", "GitHub Pages", "Cloudflare", "DNS"]
 ---

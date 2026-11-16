@@ -1,6 +1,6 @@
 ---
 title: "Cloudflare: What It Is and How It Works"
-description: "A reverse proxy and CDN explained in plain terms — how Cloudflare sits in front of GitHub Pages, how nameservers wire it up, and how to check it's actually active."
+description: "A reverse proxy and CDN explained in plain terms: how Cloudflare sits in front of GitHub Pages, how nameservers wire it up, and how to check it's active."
 pubDate: 2026-06-12
 tags: ["Cloudflare", "DNS", "CDN", "Security", "Infrastructure"]
 ---
