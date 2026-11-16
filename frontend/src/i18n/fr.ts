@@ -106,7 +106,6 @@ const fr: Dictionary = {
       intro: [
         "Salut, moi c'est Zoléni. Je viens de Meaux, en Île-de-France, et mon parcours est tout sauf linéaire.",
         "Je suis aujourd'hui en M1 MIAGE SBI à l'Université Paris 1 Panthéon-Sorbonne, en alternance chez NOXIA Security, après un Bachelor Human-IT à l'ENSEA. J'y ai commencé par un stage de quatre mois, d'avril à août 2026, avant d'être pris en alternance. Je développe des outils internes en Python pour automatiser des tâches répétitives et fluidifier les processus de sécurité.",
-        "Ce qui me plaît, c'est de transformer des problèmes concrets en systèmes propres et fiables : de l'automatisation en Python au déploiement de serveurs Linux, jusqu'aux applications web full stack.",
       ],
       cards: [
         {
@@ -124,10 +123,20 @@ const fr: Dictionary = {
           text: "Apprendre Python en deuxième année m'a redonné le goût de l'informatique et poussé à continuer. J'ai exploré des projets open source comme YASB Reborn, appris sur YouTube, regardé comment on fait des jeux vidéo, et expérimenté.",
           tags: ["Python", "Open source", "YASB Reborn", "Jeux vidéo"],
         },
+      ],
+      valuesTitle: "Mes valeurs",
+      values: [
         {
-          title: "Mes valeurs",
-          text: "Ce qui me guide dans tout ce que j'apprends et construis.",
-          tags: ["Curiosité", "Sérieux", "Envie d'apprendre"],
+          name: "Curiosité",
+          text: "Comprendre comment les choses fonctionnent, de l'open source aux jeux vidéo.",
+        },
+        {
+          name: "Sérieux",
+          text: "Soigner ce que je construis et aller au bout.",
+        },
+        {
+          name: "Envie d'apprendre",
+          text: "Apprendre en pratiquant : projets, tutoriels, expérimentations.",
         },
       ],
     },

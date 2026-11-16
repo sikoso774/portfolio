@@ -105,7 +105,6 @@ const en = {
       intro: [
         "Hi, I'm Zoléni. I'm from Meaux, in Île-de-France, and my path has been anything but linear.",
         "I'm currently doing an M1 MIAGE SBI at Université Paris 1 Panthéon-Sorbonne, as a work-study student at NOXIA Security, after a Bachelor Human-IT at ENSEA. I started there with a four-month internship, from April to August 2026, before joining them on a work-study contract. I build internal Python tools that automate repetitive tasks and streamline security processes.",
-        "What I enjoy is turning concrete problems into clean, reliable systems: from Python automation to Linux server deployment, all the way to full stack web applications.",
       ],
       cards: [
         {
@@ -123,10 +122,20 @@ const en = {
           text: "Learning Python in my second year made me fall back in love with computing and pushed me to keep going. I explored open source projects such as YASB Reborn, learned from YouTube, looked at how video games are made, and experimented.",
           tags: ["Python", "Open source", "YASB Reborn", "Video games"],
         },
+      ],
+      valuesTitle: "My values",
+      values: [
         {
-          title: "My values",
-          text: "What guides me in everything I learn and build.",
-          tags: ["Curiosity", "Seriousness", "Drive to learn"],
+          name: "Curiosity",
+          text: "Understanding how things work, from open source to video games.",
+        },
+        {
+          name: "Seriousness",
+          text: "Taking care of what I build and seeing it through.",
+        },
+        {
+          name: "Drive to learn",
+          text: "Learning by doing: projects, tutorials, experiments.",
         },
       ],
     },
