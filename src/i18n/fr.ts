@@ -8,12 +8,13 @@ const fr: Dictionary = {
     home: {
       title: "Zoléni Kokolo Zassi — Python, Data & Infrastructure Linux",
       description:
-        "Zoléni Kokolo Zassi est développeur Python et étudiant en Bachelor Human IT à l'ENSEA Cergy, orienté data science et infrastructure Linux. Portfolio, projets et blog.",
+        "Zoléni Kokolo Zassi est développeur Python et étudiant en Bachelor Human IT à l'Université Paris 1 Panthéon-Sorbonne, orienté data science et infrastructure Linux. Portfolio, projets et blog.",
     },
     about: {
-      title: "À propos de Zoléni Kokolo Zassi — Étudiant à l'ENSEA Cergy",
+      title:
+        "À propos de Zoléni Kokolo Zassi — Étudiant à Paris 1 Panthéon-Sorbonne",
       description:
-        "Qui est Zoléni Kokolo Zassi ? Développeur Python et étudiant en Bachelor Human IT à l'ENSEA Cergy — parcours, centres d'intérêt et langues.",
+        "Qui est Zoléni Kokolo Zassi ? Développeur Python et étudiant en Bachelor Human IT à l'Université Paris 1 Panthéon-Sorbonne — parcours, centres d'intérêt et langues.",
     },
     skills: {
       title: "Compétences & expertise — Zoléni Kokolo Zassi",
@@ -23,7 +24,7 @@ const fr: Dictionary = {
     experience: {
       title: "Expérience & formation — Zoléni Kokolo Zassi",
       description:
-        "Parcours professionnel et formation de Zoléni Kokolo Zassi — développeur Python, ingénieur infrastructure et étudiant à l'ENSEA.",
+        "Parcours professionnel et formation de Zoléni Kokolo Zassi — développeur Python, ingénieur infrastructure et étudiant à Paris 1 Panthéon-Sorbonne.",
     },
     projects: {
       title: "Projets — Zoléni Kokolo Zassi",
@@ -52,7 +53,7 @@ const fr: Dictionary = {
   person: {
     jobTitle: "Développeur Python & Développeur Full Stack junior",
     description:
-      "Développeur Python et étudiant en Bachelor Human IT à l'ENSEA Cergy, orienté data science et infrastructure Linux.",
+      "Développeur Python et étudiant en Bachelor Human IT à l'Université Paris 1 Panthéon-Sorbonne, orienté data science et infrastructure Linux.",
   },
 
   nav: {
@@ -90,7 +91,7 @@ const fr: Dictionary = {
   about: {
     title: "Mon parcours jusqu'ici",
     p1Before: "Je prépare actuellement un ",
-    p1Highlight: "Bachelor Human-IT à l'ENSEA de Cergy (95)",
+    p1Highlight: "Bachelor Human-IT à l'Université Paris 1 Panthéon-Sorbonne",
     p1After:
       ", centré sur les technologies de l'information et leur impact sur la société. Mes expériences vont de la migration d'infrastructure (de Docker vers LXC/Waydroid) à l'automatisation en Python/Bash, en passant par le développement full stack.",
     quote:
@@ -232,11 +233,20 @@ const fr: Dictionary = {
       },
     },
     education: {
+      master: {
+        year: "2026 – Aujourd'hui",
+        title: "M1 Master MIAGE SBI",
+        school: "Université Paris 1 Panthéon-Sorbonne",
+        place: "Paris",
+        description:
+          "Première année du master MIAGE (méthodes informatiques appliquées à la gestion des entreprises), parcours SBI, qui associe technologies de l'information, conception et gestion des systèmes d'information.",
+        tags: ["MIAGE", "UML"],
+      },
       ensea: {
         year: "2023 – 2026",
         title: "Bachelor Human-IT",
-        school: "ENSEA",
-        place: "Cergy",
+        school: "Université Paris 1 Panthéon-Sorbonne",
+        place: "Paris",
         description:
           "Spécialisation en technologies de l'information et en impact sociétal, avec un accent fort sur la data science, le développement logiciel et l'interaction homme-machine.",
         tags: ["Data Science", "Python", "C", "SQL"],

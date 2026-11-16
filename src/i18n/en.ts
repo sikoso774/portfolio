@@ -8,12 +8,12 @@ const en = {
     home: {
       title: "Zoléni Kokolo Zassi — Python, Data & Linux Infrastructure",
       description:
-        "Zoléni Kokolo Zassi is a Python developer and Bachelor Human IT student at ENSEA Cergy, focused on data science and Linux infrastructure. Portfolio, projects and blog.",
+        "Zoléni Kokolo Zassi is a Python developer and Bachelor Human IT student at Université Paris 1 Panthéon-Sorbonne, focused on data science and Linux infrastructure. Portfolio, projects and blog.",
     },
     about: {
-      title: "About Zoléni Kokolo Zassi — Student at ENSEA Cergy",
+      title: "About Zoléni Kokolo Zassi — Student at Paris 1 Panthéon-Sorbonne",
       description:
-        "Who is Zoléni Kokolo Zassi? A Python developer and Bachelor Human IT student at ENSEA Cergy — background, interests and languages.",
+        "Who is Zoléni Kokolo Zassi? A Python developer and Bachelor Human IT student at Université Paris 1 Panthéon-Sorbonne — background, interests and languages.",
     },
     skills: {
       title: "Skills & Expertise — Zoléni Kokolo Zassi",
@@ -23,7 +23,7 @@ const en = {
     experience: {
       title: "Experience & Education — Zoléni Kokolo Zassi",
       description:
-        "Professional experience and academic background of Zoléni Kokolo Zassi — Python developer, infrastructure engineer, and ENSEA student.",
+        "Professional experience and academic background of Zoléni Kokolo Zassi — Python developer, infrastructure engineer, and Paris 1 Panthéon-Sorbonne student.",
     },
     projects: {
       title: "Projects — Zoléni Kokolo Zassi",
@@ -52,7 +52,7 @@ const en = {
   person: {
     jobTitle: "Python Developer & Junior Full Stack Developer",
     description:
-      "Python developer and Bachelor Human IT student at ENSEA Cergy, focused on data science and Linux infrastructure.",
+      "Python developer and Bachelor Human IT student at Université Paris 1 Panthéon-Sorbonne, focused on data science and Linux infrastructure.",
   },
 
   nav: {
@@ -90,7 +90,7 @@ const en = {
   about: {
     title: "My Journey So Far",
     p1Before: "I'm currently pursuing my ",
-    p1Highlight: "Bachelor Human-IT at ENSEA de Cergy (95)",
+    p1Highlight: "Bachelor Human-IT at Université Paris 1 Panthéon-Sorbonne",
     p1After:
       ", focusing on information technologies and their impact on society. My experiences span infrastructure migration (Docker to LXC/Waydroid), Python/Bash automation scripting, and full stack development.",
     quote:
@@ -226,11 +226,20 @@ const en = {
       },
     },
     education: {
+      master: {
+        year: "2026 – Present",
+        title: "M1 Master MIAGE SBI",
+        school: "Université Paris 1 Panthéon-Sorbonne",
+        place: "Paris",
+        description:
+          "First year of the MIAGE master (computer methods applied to business management), SBI track, combining information technology with the design and management of information systems.",
+        tags: ["MIAGE", "UML"],
+      },
       ensea: {
         year: "2023 – 2026",
         title: "Bachelor Human-IT",
-        school: "ENSEA",
-        place: "Cergy",
+        school: "Université Paris 1 Panthéon-Sorbonne",
+        place: "Paris",
         description:
           "Specializing in information technologies and their societal impact, with a strong focus on data science, software development, and human-computer interaction.",
         tags: ["Data Science", "Python", "C", "SQL"],
