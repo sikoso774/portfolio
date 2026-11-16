@@ -14,7 +14,7 @@ const fr: Dictionary = {
       title:
         "À propos de Zoléni Kokolo Zassi — Étudiant à Paris 1 Panthéon-Sorbonne",
       description:
-        "Qui est Zoléni Kokolo Zassi ? Développeur Python et étudiant en Bachelor Human IT à l'Université Paris 1 Panthéon-Sorbonne — parcours, centres d'intérêt et langues.",
+        "Qui est Zoléni Kokolo Zassi ? Développeur Python et étudiant en M1 MIAGE SBI à l'Université Paris 1 Panthéon-Sorbonne — parcours, centres d'intérêt et langues.",
     },
     skills: {
       title: "Compétences & expertise — Zoléni Kokolo Zassi",
@@ -53,7 +53,7 @@ const fr: Dictionary = {
   person: {
     jobTitle: "Développeur Python & Développeur Full Stack junior",
     description:
-      "Développeur Python et étudiant en Bachelor Human IT à l'Université Paris 1 Panthéon-Sorbonne, orienté data science et infrastructure Linux.",
+      "Développeur Python et étudiant en M1 MIAGE SBI à l'Université Paris 1 Panthéon-Sorbonne, orienté data science et infrastructure Linux.",
   },
 
   nav: {
@@ -91,9 +91,9 @@ const fr: Dictionary = {
   about: {
     title: "Mon parcours jusqu'ici",
     p1Before: "Je prépare actuellement un ",
-    p1Highlight: "Bachelor Human-IT à l'Université Paris 1 Panthéon-Sorbonne",
+    p1Highlight: "M1 Master MIAGE SBI à l'Université Paris 1 Panthéon-Sorbonne",
     p1After:
-      ", centré sur les technologies de l'information et leur impact sur la société. Mes expériences vont de la migration d'infrastructure (de Docker vers LXC/Waydroid) à l'automatisation en Python/Bash, en passant par le développement full stack.",
+      ", après un Bachelor Human-IT à l'ENSEA Cergy, centré sur les technologies de l'information et leur impact sur la société. Mes expériences vont de la migration d'infrastructure (de Docker vers LXC/Waydroid) à l'automatisation en Python/Bash, en passant par le développement full stack.",
     quote:
       "« Animé par la curiosité, attaché à la qualité, inspiré par la technologie. »",
     p2: "Ma passion, c'est l'automatisation et la création de solutions concrètes de bout en bout — du déploiement de serveurs Linux aux applications web full stack. J'aime transformer des défis d'infrastructure et de logiciel complexes en systèmes propres et fiables.",
@@ -101,6 +101,45 @@ const fr: Dictionary = {
     pageTitle: "À propos de moi",
     pageIntro:
       "Un regard plus proche sur qui je suis, ce qui compte pour moi et ce qui me passionne en dehors du code.",
+    // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).
+    page: {
+      intro: [
+        "Salut, moi c'est Zoléni. Je viens de Meaux, en Île-de-France, et mon parcours est tout sauf linéaire.",
+        "Je suis aujourd'hui en M1 MIAGE SBI à l'Université Paris 1 Panthéon-Sorbonne, en alternance chez NOXIA Security, après un Bachelor Human-IT à l'ENSEA. J'y ai commencé par un stage de quatre mois, d'avril à août 2026, avant d'être pris en alternance. Je développe des outils internes en Python pour automatiser des tâches répétitives et fluidifier les processus de sécurité.",
+      ],
+      cards: [
+        {
+          title: "D'où je viens",
+          text: "Je viens de Meaux, en Île-de-France. C'est là que j'ai étudié jusqu'au baccalauréat, avant d'intégrer l'ENSEA, une école d'ingénieurs.",
+          tags: ["Meaux", "Île-de-France"],
+        },
+        {
+          title: "Un parcours atypique",
+          text: "J'ai commencé à l'ENSEA en pensant ne faire que de la data. En chemin, j'ai compris que c'est l'informatique dans son ensemble qui me plaît vraiment, pas seulement un de ses recoins.",
+          tags: ["ENSEA", "Data", "Informatique"],
+        },
+        {
+          title: "Le déclic",
+          text: "Apprendre Python en deuxième année m'a redonné le goût de l'informatique et poussé à continuer. J'ai exploré des projets open source comme YASB Reborn, appris sur YouTube, regardé comment on fait des jeux vidéo, et expérimenté.",
+          tags: ["Python", "Open source", "YASB Reborn", "Jeux vidéo"],
+        },
+      ],
+      valuesTitle: "Mes valeurs",
+      values: [
+        {
+          name: "Curiosité",
+          text: "Comprendre comment les choses fonctionnent, de l'open source aux jeux vidéo.",
+        },
+        {
+          name: "Sérieux",
+          text: "Soigner ce que je construis et aller au bout.",
+        },
+        {
+          name: "Envie d'apprendre",
+          text: "Apprendre en pratiquant : projets, tutoriels, expérimentations.",
+        },
+      ],
+    },
   },
 
   languages: {
@@ -291,7 +330,7 @@ const fr: Dictionary = {
       nebulux: {
         title: "Nebulux — Thème Obsidian",
         description:
-          "Thème sombre personnalisé pour Obsidian, avec une palette de couleurs inspirée des nébuleuses. Publié sur la bibliothèque communautaire officielle d'Obsidian avec plus de 300 téléchargements.",
+          "Thème sombre personnalisé pour Obsidian, avec une palette de couleurs inspirée des nébuleuses. Publié sur la bibliothèque communautaire officielle d'Obsidian avec plus de 1000 téléchargements.",
         uiDesign: "Design d'interface",
         openSource: "Open Source",
       },

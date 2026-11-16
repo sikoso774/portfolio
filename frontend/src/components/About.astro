@@ -1,7 +1,10 @@
 ---
+import { Image } from "astro:assets";
+import profilePhoto from "../images/photo_profile.jpg";
 import { getLocale, localePath, useT } from "../i18n";
 
-const { showLink = false } = Astro.props;
+// showPhoto : portrait à côté du texte (page /about/ uniquement — l'accueil l'a déjà dans le Hero).
+const { showLink = false, showPhoto = false } = Astro.props;
 const lang = getLocale(Astro.currentLocale);
 const t = useT(lang);
 ---
@@ -31,6 +34,120 @@ const t = useT(lang);
     color: var(--clr-accent);
     border-color: rgba(var(--clr-accent-rgb), 0.5);
     background: rgba(var(--clr-accent-rgb), 0.05);
+  }
+
+  /* Sur /about/, la section suit directement l'en-tête de page : pas de grand vide entre les deux. */
+  .about.on-page {
+    padding: 24px 0 48px;
+  }
+
+  .about-card.with-photo {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .about-photo {
+    margin: 0;
+    width: 240px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(var(--clr-accent-rgb), 0.5);
+    box-shadow: 0 0 0 8px rgba(var(--clr-accent-rgb), 0.08);
+  }
+
+  /* :global() car <Image> est un composant Astro — son <img> n'hérite pas du cid */
+  .about-photo :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .about-card.with-photo {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      justify-items: center;
+    }
+
+    .about-photo {
+      width: 180px;
+    }
+  }
+
+  .about-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .about-info-card {
+    padding: 32px;
+  }
+
+  .about-info-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--clr-accent);
+    margin-bottom: 12px;
+  }
+
+  .about-info-card p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .values-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .values-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: var(--clr-text-muted);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .values-list strong {
+    color: var(--clr-text);
+    font-weight: 600;
+  }
+
+  .info-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .info-tag {
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    background: rgba(var(--clr-accent-rgb), 0.1);
+    border: 1px solid rgba(var(--clr-accent-rgb), 0.3);
+    color: var(--clr-accent);
+    border-radius: var(--radius-lg);
+  }
+
+  @media (max-width: 768px) {
+    .about-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .about-info-card {
+      padding: 24px;
+    }
   }
 
   .card p {
@@ -73,34 +190,88 @@ const t = useT(lang);
   }
 </style>
 
-<section id="about" class="about">
+<section id="about" class:list={["about", { "on-page": showPhoto }]}>
   <div class="container">
-    <div class="section-header">
-      <h2>{t.about.title}</h2>
-      <div class="underline"></div>
-    </div>
-    <div class="card">
-      <p>
-        {t.about.p1Before}<span class="highlight">{t.about.p1Highlight}</span>{
-          t.about.p1After
+    {
+      !showPhoto && (
+        <div class="section-header">
+          <h2>{t.about.title}</h2>
+          <div class="underline" />
+        </div>
+      )
+    }
+    <div class:list={["card", "about-card", { "with-photo": showPhoto }]}>
+      {
+        showPhoto && (
+          <figure class="about-photo">
+            <Image
+              src={profilePhoto}
+              alt={t.hero.photoAlt}
+              widths={[180, 240, 360, 480]}
+              sizes="(max-width: 768px) 180px, 240px"
+              loading="eager"
+            />
+          </figure>
+        )
+      }
+      <div class="about-text">
+        {
+          showPhoto ? (
+            t.about.page.intro.map((paragraph) => <p>{paragraph}</p>)
+          ) : (
+            <>
+              <p>
+                {t.about.p1Before}
+                <span class="highlight">{t.about.p1Highlight}</span>
+                {t.about.p1After}
+              </p>
+              <div class="quote-box">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+                <p>{t.about.quote}</p>
+              </div>
+              <p>{t.about.p2}</p>
+            </>
+          )
         }
-      </p>
-      <div class="quote-box">
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
-          ></path>
-        </svg>
-        <p>{t.about.quote}</p>
       </div>
-      <p>{t.about.p2}</p>
     </div>
+    {
+      showPhoto && (
+        <div class="about-cards">
+          {t.about.page.cards.map((card) => (
+            <div class="card about-info-card">
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+              <div class="info-tags">
+                {card.tags.map((tag) => (
+                  <span class="info-tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+          <div class="card about-info-card">
+            <h3>{t.about.page.valuesTitle}</h3>
+            <ul class="values-list">
+              {t.about.page.values.map((value) => (
+                <li>
+                  <strong>{value.name}</strong>
+                  <span>{value.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )
+    }
     {
       showLink && (
         <div class="about-footer">

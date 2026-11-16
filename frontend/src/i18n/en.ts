@@ -13,7 +13,7 @@ const en = {
     about: {
       title: "About Zoléni Kokolo Zassi — Student at Paris 1 Panthéon-Sorbonne",
       description:
-        "Who is Zoléni Kokolo Zassi? A Python developer and Bachelor Human IT student at Université Paris 1 Panthéon-Sorbonne — background, interests and languages.",
+        "Who is Zoléni Kokolo Zassi? A Python developer and M1 MIAGE SBI student at Université Paris 1 Panthéon-Sorbonne — background, interests and languages.",
     },
     skills: {
       title: "Skills & Expertise — Zoléni Kokolo Zassi",
@@ -52,7 +52,7 @@ const en = {
   person: {
     jobTitle: "Python Developer & Junior Full Stack Developer",
     description:
-      "Python developer and Bachelor Human IT student at Université Paris 1 Panthéon-Sorbonne, focused on data science and Linux infrastructure.",
+      "Python developer and M1 MIAGE SBI student at Université Paris 1 Panthéon-Sorbonne, focused on data science and Linux infrastructure.",
   },
 
   nav: {
@@ -90,9 +90,9 @@ const en = {
   about: {
     title: "My Journey So Far",
     p1Before: "I'm currently pursuing my ",
-    p1Highlight: "Bachelor Human-IT at Université Paris 1 Panthéon-Sorbonne",
+    p1Highlight: "M1 Master MIAGE SBI at Université Paris 1 Panthéon-Sorbonne",
     p1After:
-      ", focusing on information technologies and their impact on society. My experiences span infrastructure migration (Docker to LXC/Waydroid), Python/Bash automation scripting, and full stack development.",
+      ", after a Bachelor Human-IT at ENSEA Cergy, focusing on information technologies and their impact on society. My experiences span infrastructure migration (Docker to LXC/Waydroid), Python/Bash automation scripting, and full stack development.",
     quote:
       '"Fuelled by curiosity, committed to quality, inspired by technology."',
     p2: "My passion lies in automation and building concrete end-to-end solutions — from Linux server deployment to full stack web applications. I love turning complex infrastructure and software challenges into clean, working systems.",
@@ -100,6 +100,45 @@ const en = {
     pageTitle: "About Me",
     pageIntro:
       "A closer look at who I am, what I care about, and what keeps me curious outside of code.",
+    // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).
+    page: {
+      intro: [
+        "Hi, I'm Zoléni. I'm from Meaux, in Île-de-France, and my path has been anything but linear.",
+        "I'm currently doing an M1 MIAGE SBI at Université Paris 1 Panthéon-Sorbonne, as a work-study student at NOXIA Security, after a Bachelor Human-IT at ENSEA. I started there with a four-month internship, from April to August 2026, before joining them on a work-study contract. I build internal Python tools that automate repetitive tasks and streamline security processes.",
+      ],
+      cards: [
+        {
+          title: "Where I come from",
+          text: "I come from Meaux, in Île-de-France. That is where I studied up to my baccalauréat, before joining ENSEA, an engineering school.",
+          tags: ["Meaux", "Île-de-France"],
+        },
+        {
+          title: "An atypical path",
+          text: "I started at ENSEA thinking I would only do data. Along the way I realised that computing as a whole really appeals to me, not just one corner of it.",
+          tags: ["ENSEA", "Data", "Computing"],
+        },
+        {
+          title: "The spark",
+          text: "Learning Python in my second year made me fall back in love with computing and pushed me to keep going. I explored open source projects such as YASB Reborn, learned from YouTube, looked at how video games are made, and experimented.",
+          tags: ["Python", "Open source", "YASB Reborn", "Video games"],
+        },
+      ],
+      valuesTitle: "My values",
+      values: [
+        {
+          name: "Curiosity",
+          text: "Understanding how things work, from open source to video games.",
+        },
+        {
+          name: "Seriousness",
+          text: "Taking care of what I build and seeing it through.",
+        },
+        {
+          name: "Drive to learn",
+          text: "Learning by doing: projects, tutorials, experiments.",
+        },
+      ],
+    },
   },
 
   languages: {
@@ -267,7 +306,7 @@ const en = {
       {
         title: "Nebulux — Obsidian Theme",
         description:
-          "Custom dark theme for Obsidian, published on the community marketplace with 300+ downloads.",
+          "Custom dark theme for Obsidian, published on the community marketplace with 1000+ downloads.",
       },
       {
         title: "Music Player",
