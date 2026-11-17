@@ -203,13 +203,14 @@ describe("built site SEO", () => {
     }
   });
 
-  it("redirects the old French slugs to the English ones", () => {
+  it("redirects the old French slugs to the French version of the article", () => {
+    // Les anciens slugs étaient des articles français : on garde la langue du résultat.
     const redirects = {
-      "blog/vocabulaire-3d": "/blog/3d-glossary/",
-      "blog/premiers-pas-blender": "/blog/blender-first-steps/",
-      "blog/cloudflare-cest-quoi": "/blog/what-is-cloudflare/",
+      "blog/vocabulaire-3d": "/fr/blog/3d-glossary/",
+      "blog/premiers-pas-blender": "/fr/blog/blender-first-steps/",
+      "blog/cloudflare-cest-quoi": "/fr/blog/what-is-cloudflare/",
       "blog/github-pages-headers-securite-cloudflare":
-        "/blog/github-pages-security-headers/",
+        "/fr/blog/github-pages-security-headers/",
     };
     const sitemap = read("sitemap-0.xml");
 
@@ -218,6 +219,24 @@ describe("built site SEO", () => {
       expect(html, oldPath).toContain(`url=${target}`);
       expect(sitemap, oldPath).not.toContain(oldPath);
       expect(sitemap, target).toContain(target);
+    }
+  });
+
+  it("lists en, fr and x-default alternates for every URL of the sitemap", () => {
+    // Même déclaration que dans le <head> des pages : le sitemap ne doit pas la contredire.
+    const urls = read("sitemap-0.xml").match(/<url>[\s\S]*?<\/url>/g);
+    expect(urls.length).toBeGreaterThan(10);
+    for (const entry of urls) {
+      const loc = entry.match(/<loc>([^<]+)<\/loc>/)[1];
+      const langs = [...entry.matchAll(/hreflang="([^"]+)"/g)].map((m) => m[1]);
+      expect(langs.sort(), loc).toEqual(["en", "fr", "x-default"]);
+      const alt = Object.fromEntries(
+        [...entry.matchAll(/hreflang="([^"]+)" href="([^"]+)"/g)].map((m) => [
+          m[1],
+          m[2],
+        ]),
+      );
+      expect(alt["x-default"], loc).toBe(alt.en);
     }
   });
 

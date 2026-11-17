@@ -6,7 +6,7 @@ const en = {
   meta: {
     siteName: "Zoléni Kokolo Zassi",
     home: {
-      title: "Zoléni Kokolo Zassi — Python & Linux Infrastructure",
+      title: "Zoléni Kokolo Zassi — Python, Data & Linux Infrastructure",
       description:
         "Python developer and M1 MIAGE SBI student at Université Paris 1 Panthéon-Sorbonne, focused on data science and Linux infrastructure. Portfolio and blog.",
     },
@@ -323,7 +323,7 @@ const en = {
       nebulux: {
         title: "Nebulux — Obsidian Theme",
         description:
-          "Custom dark theme for Obsidian featuring a deep nebula-inspired color palette. Published on the official Obsidian community marketplace with 300+ downloads.",
+          "Custom dark theme for Obsidian featuring a deep nebula-inspired color palette. Published on the official Obsidian community marketplace with 1000+ downloads.",
         uiDesign: "UI Design",
         openSource: "Open Source",
       },
