@@ -1,89 +1,126 @@
 ---
-import { Image } from "astro:assets";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { getLocale, useT } from "../i18n";
 const t = useT(getLocale(Astro.currentLocale));
 
-// Logos déposés dans src/images/logos/<id>.(svg|png|webp). Sans fichier,
+// Logos déposés dans public/assets/images/icons/<id>.(svg|png|webp). Sans fichier,
 // la marque s'affiche en typographie : le composant fonctionne dès maintenant.
-const logoFiles = import.meta.glob<{ default: ImageMetadata }>(
-  "../images/logos/*.{svg,png,webp}",
-  { eager: true },
-);
-
+// Les commandes npm se lancent depuis frontend/, d'où process.cwd().
 function logoFor(id: string) {
-  const path = Object.keys(logoFiles).find(
-    (p) =>
-      p
-        .split("/")
-        .pop()
-        ?.replace(/\.[^.]+$/, "") === id,
-  );
-  return path ? logoFiles[path].default : undefined;
+  for (const ext of ["svg", "png", "webp"]) {
+    if (
+      existsSync(
+        join(process.cwd(), "public/assets/images/icons", `${id}.${ext}`),
+      )
+    ) {
+      return `/assets/images/icons/${id}.${ext}`;
+    }
+  }
+  return undefined;
 }
 
+// logoHeight : hauteur du logo en px, ajustée pour que les marques aient un
+// poids visuel comparable (Astéria a un texte très fin, il lui faut plus de place).
 const brands = [
-  { id: "noxia", name: "NOXIA Security", note: t.trusted.noxia },
-  { id: "asteria", name: "Maison Astéria", note: t.trusted.asteria },
-  { id: "rhon", name: "Rhôn Telecom", note: t.trusted.rhon },
+  { id: "noxia", name: "NOXIA Security", logoHeight: 48 },
+  { id: "asteria", name: "Maison Astéria", logoHeight: 88 },
+  { id: "rhon", name: "Rhôn Telecom", logoHeight: 56 },
 ].map((brand) => ({ ...brand, logo: logoFor(brand.id) }));
+
+// Le défilement est une boucle : on répète le groupe de marques. Seul le
+// premier groupe est lu par les lecteurs d'écran (les autres sont aria-hidden).
+const GROUPS = 4;
 ---
 
 <style>
   .trusted {
-    padding: 0;
-    border-block: 1px solid rgba(var(--clr-accent-rgb), 0.2);
+    margin-bottom: 56px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(var(--clr-accent-rgb), 0.15);
   }
 
-  .trusted-inner {
+  .trusted-heading {
+    margin-bottom: 40px;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .trusted-heading em {
+    color: var(--clr-accent);
+  }
+
+  /* Fenêtre du défilement : les bords s'estompent */
+  .marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+  }
+
+  /* Le décalage de -100/GROUPS % déplace la piste d'exactement un groupe :
+     la boucle est invisible. */
+  .track {
+    display: flex;
+    width: max-content;
+    animation: marquee 32s linear infinite;
+  }
+
+  .marquee:hover .track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-25%);
+    }
+  }
+
+  .group {
     display: flex;
     align-items: center;
-    gap: clamp(24px, 5vw, 72px);
-    padding-block: 36px;
-  }
-
-  .trusted-label {
     flex-shrink: 0;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--clr-text-dim);
-  }
-
-  .trusted-list {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-    flex: 1;
-    gap: 24px 48px;
+    gap: clamp(56px, 8vw, 112px);
+    padding-right: clamp(56px, 8vw, 112px);
     list-style: none;
   }
 
   .brand {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-  }
-
-  .brand:hover {
-    opacity: 1;
-  }
-
-  .brand-mark {
-    display: flex;
     align-items: center;
-    height: 32px;
+    min-height: 88px;
   }
 
-  /* Logos ramenés à une seule teinte pour rester cohérents entre eux */
-  .brand-mark :global(img) {
+  /* Le logo est une silhouette : on l'utilise comme masque d'un aplat de
+     couleur. Il suit ainsi le thème et passe au vert au survol. L'<img>
+     reste dans le DOM (taille + texte alternatif) mais est invisible. */
+  .logo {
     display: block;
-    height: 100%;
+    color: var(--clr-text-muted);
+    background: currentColor;
+    -webkit-mask: var(--logo-src) center / contain no-repeat;
+    mask: var(--logo-src) center / contain no-repeat;
+    transition: color 0.3s ease;
+  }
+
+  .brand:hover .logo,
+  .brand:hover .brand-wordmark {
+    color: var(--clr-accent);
+  }
+
+  .logo img {
+    display: block;
+    height: var(--logo-h, 48px);
     width: auto;
-    filter: brightness(0) invert(1);
+    opacity: 0;
   }
 
   .brand-wordmark {
@@ -91,54 +128,61 @@ const brands = [
     font-size: 28px;
     line-height: 1;
     white-space: nowrap;
-    color: var(--clr-text);
+    color: var(--clr-text-muted);
+    transition: color 0.3s ease;
   }
 
-  .brand-note {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--clr-text-dim);
-  }
-
-  @media (max-width: 768px) {
-    .trusted-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 20px;
-      padding-block: 28px;
+  /* Sans animation : un seul groupe, centré, sans estompage */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      mask-image: none;
     }
 
-    .trusted-list {
-      justify-content: flex-start;
+    .track {
+      width: 100%;
+      justify-content: center;
+      animation: none;
     }
-  }
 
-  @media (prefers-color-scheme: light) {
-    .brand-mark :global(img) {
-      filter: brightness(0);
+    .group[aria-hidden="true"] {
+      display: none;
+    }
+
+    .group {
+      flex-wrap: wrap;
+      justify-content: center;
+      padding-right: 0;
     }
   }
 </style>
 
-<section class="trusted" aria-label={t.trusted.ariaLabel}>
-  <div class="container trusted-inner">
-    <p class="trusted-label">{t.trusted.label}</p>
-    <ul class="trusted-list">
+<div class="trusted" role="group" aria-label={t.trusted.ariaLabel}>
+  <h2 class="trusted-heading">
+    {t.trusted.headingBefore}
+    <em>{t.trusted.headingAccent}</em>
+  </h2>
+  <div class="marquee">
+    <div class="track">
       {
-        brands.map((brand) => (
-          <li class="brand">
-            <div class="brand-mark">
-              {brand.logo ? (
-                <Image src={brand.logo} alt={brand.name} height={64} />
-              ) : (
-                <span class="brand-wordmark">{brand.name}</span>
-              )}
-            </div>
-            <span class="brand-note">{brand.note}</span>
-          </li>
+        Array.from({ length: GROUPS }, (_, i) => (
+          <ul class="group" aria-hidden={i === 0 ? undefined : "true"}>
+            {brands.map((brand) => (
+              <li class="brand">
+                {brand.logo ? (
+                  <span
+                    class="logo"
+                    style={`--logo-h: ${brand.logoHeight}px; --logo-src: url(${brand.logo})`}
+                  >
+                    <img src={brand.logo} alt={i === 0 ? brand.name : ""} />
+                  </span>
+                ) : (
+                  <span class="brand-wordmark">{brand.name}</span>
+                )}
+              </li>
+            ))}
+          </ul>
         ))
       }
-    </ul>
+    </div>
   </div>
-</section>
+</div>

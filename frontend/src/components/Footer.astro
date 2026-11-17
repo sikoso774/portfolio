@@ -1,5 +1,6 @@
 ---
 import Icon from "./Icon.astro";
+import TrustedBy from "./TrustedBy.astro";
 import { getLocale, localePath, useT } from "../i18n";
 const lang = getLocale(Astro.currentLocale);
 const t = useT(lang);
@@ -220,6 +221,8 @@ const t = useT(lang);
 
 <footer id="contact" class="footer">
   <div class="container">
+    <TrustedBy />
+
     <!-- CTA -->
     <div class="footer-cta">
       <div class="footer-meta">

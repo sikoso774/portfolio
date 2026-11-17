@@ -76,11 +76,9 @@ const fr: Dictionary = {
   },
 
   trusted: {
-    label: "Ils m'ont fait confiance",
+    headingBefore: "Ils m'ont",
+    headingAccent: "fait confiance",
     ariaLabel: "Entreprises avec lesquelles j'ai travaillé",
-    noxia: "Alternance, 2026 –",
-    asteria: "Stage, 2025",
-    rhon: "Stage, 2025",
   },
 
   hero: {

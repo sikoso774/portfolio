@@ -76,11 +76,9 @@ const en = {
   },
 
   trusted: {
-    label: "Trusted by",
+    headingBefore: "Teams that",
+    headingAccent: "trusted me",
     ariaLabel: "Companies I have worked with",
-    noxia: "Work-study, 2026 –",
-    asteria: "Internship, 2025",
-    rhon: "Internship, 2025",
   },
 
   hero: {
