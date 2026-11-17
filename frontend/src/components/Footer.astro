@@ -122,23 +122,6 @@ const t = useT(lang);
     margin-bottom: 32px;
   }
 
-  .footer-nav {
-    display: flex;
-    gap: 24px;
-  }
-
-  .footer-nav a {
-    color: var(--clr-text-dim);
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    transition: color 0.2s ease;
-  }
-
-  .footer-nav a:hover {
-    color: var(--clr-accent);
-  }
-
   .social-icons {
     display: flex;
     gap: 12px;
@@ -215,12 +198,6 @@ const t = useT(lang);
       flex-direction: column;
       text-align: center;
       gap: 20px;
-    }
-
-    .footer-nav {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 16px;
     }
 
     .footer-bottom {
@@ -311,14 +288,6 @@ const t = useT(lang);
         <div class="logo-circle">ZK</div>
         <span class="logo-text">Zoléni Kokolo</span>
       </a>
-      <nav class="footer-nav">
-        <a href={localePath("/about/", lang)}>{t.nav.about}</a>
-        <a href={localePath("/skills/", lang)}>{t.nav.skills}</a>
-        <a href={localePath("/experience/", lang)}>{t.nav.experience}</a>
-        <a href={localePath("/projects/", lang)}>{t.nav.projects}</a>
-        <a href={localePath("/blog/", lang)}>{t.nav.blog}</a>
-        <a href={localePath("/contact/", lang)}>{t.nav.contact}</a>
-      </nav>
       <div class="social-icons">
         <a
           href="https://github.com/Sikoso774"
