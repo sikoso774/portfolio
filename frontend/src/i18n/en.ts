@@ -75,6 +75,14 @@ const en = {
     backToTop: "Back to top",
   },
 
+  trusted: {
+    label: "Trusted by",
+    ariaLabel: "Companies I have worked with",
+    noxia: "Work-study, 2026 –",
+    asteria: "Internship, 2025",
+    rhon: "Internship, 2025",
+  },
+
   hero: {
     badge: "Welcome to my portfolio",
     title: "Hi, I'm Zoléni Kokolo Zassi",

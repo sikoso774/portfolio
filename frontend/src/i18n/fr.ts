@@ -75,6 +75,14 @@ const fr: Dictionary = {
     backToTop: "Retour en haut",
   },
 
+  trusted: {
+    label: "Ils m'ont fait confiance",
+    ariaLabel: "Entreprises avec lesquelles j'ai travaillé",
+    noxia: "Alternance, 2026 –",
+    asteria: "Stage, 2025",
+    rhon: "Stage, 2025",
+  },
+
   hero: {
     badge: "Bienvenue sur mon portfolio",
     title: "Bonjour, je suis Zoléni Kokolo Zassi",

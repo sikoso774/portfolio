@@ -1,0 +1,144 @@
+---
+import { Image } from "astro:assets";
+import { getLocale, useT } from "../i18n";
+const t = useT(getLocale(Astro.currentLocale));
+
+// Logos déposés dans src/images/logos/<id>.(svg|png|webp). Sans fichier,
+// la marque s'affiche en typographie : le composant fonctionne dès maintenant.
+const logoFiles = import.meta.glob<{ default: ImageMetadata }>(
+  "../images/logos/*.{svg,png,webp}",
+  { eager: true },
+);
+
+function logoFor(id: string) {
+  const path = Object.keys(logoFiles).find(
+    (p) =>
+      p
+        .split("/")
+        .pop()
+        ?.replace(/\.[^.]+$/, "") === id,
+  );
+  return path ? logoFiles[path].default : undefined;
+}
+
+const brands = [
+  { id: "noxia", name: "NOXIA Security", note: t.trusted.noxia },
+  { id: "asteria", name: "Maison Astéria", note: t.trusted.asteria },
+  { id: "rhon", name: "Rhôn Telecom", note: t.trusted.rhon },
+].map((brand) => ({ ...brand, logo: logoFor(brand.id) }));
+---
+
+<style>
+  .trusted {
+    padding: 0;
+    border-block: 1px solid rgba(var(--clr-accent-rgb), 0.2);
+  }
+
+  .trusted-inner {
+    display: flex;
+    align-items: center;
+    gap: clamp(24px, 5vw, 72px);
+    padding-block: 36px;
+  }
+
+  .trusted-label {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--clr-text-dim);
+  }
+
+  .trusted-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex: 1;
+    gap: 24px 48px;
+    list-style: none;
+  }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  .brand:hover {
+    opacity: 1;
+  }
+
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    height: 32px;
+  }
+
+  /* Logos ramenés à une seule teinte pour rester cohérents entre eux */
+  .brand-mark :global(img) {
+    display: block;
+    height: 100%;
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+
+  .brand-wordmark {
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--clr-text);
+  }
+
+  .brand-note {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--clr-text-dim);
+  }
+
+  @media (max-width: 768px) {
+    .trusted-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      padding-block: 28px;
+    }
+
+    .trusted-list {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    .brand-mark :global(img) {
+      filter: brightness(0);
+    }
+  }
+</style>
+
+<section class="trusted" aria-label={t.trusted.ariaLabel}>
+  <div class="container trusted-inner">
+    <p class="trusted-label">{t.trusted.label}</p>
+    <ul class="trusted-list">
+      {
+        brands.map((brand) => (
+          <li class="brand">
+            <div class="brand-mark">
+              {brand.logo ? (
+                <Image src={brand.logo} alt={brand.name} height={64} />
+              ) : (
+                <span class="brand-wordmark">{brand.name}</span>
+              )}
+            </div>
+            <span class="brand-note">{brand.note}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
