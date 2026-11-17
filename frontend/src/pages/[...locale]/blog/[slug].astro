@@ -51,7 +51,7 @@ const articleSchema = blogPosting({
   pathname: Astro.url.pathname,
   title: post.data.title,
   description: post.data.description,
-  image: new URL("/assets/img/og-image.png", Astro.site),
+  image: new URL("/assets/images/og-image.png", Astro.site),
   tags: post.data.tags,
   pubDate: post.data.pubDate,
   updatedDate: post.data.updatedDate,

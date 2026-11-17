@@ -1,4 +1,4 @@
-// Génère l'image Open Graph 1200×630 (public/assets/img/og-image.png)
+// Génère l'image Open Graph 1200×630 (public/assets/images/og-image.png)
 // Adaptée de la bannière LinkedIn (public/assets/networks/linkedin-banner-3.svg),
 // réagencée du format large (1584×396) vers le format OG carré-ish (1200×630).
 // Rasterisé via sharp. Lancer : node scripts/generate-og.mjs
@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const out = join(__dirname, "..", "public", "assets", "img", "og-image.png");
+const out = join(__dirname, "..", "public", "assets", "images", "og-image.png");
 
 // Place une icône 24×24 centrée sur (cx,cy), agrandie par `s`.
 const icon = (cx, cy, s, d) =>
