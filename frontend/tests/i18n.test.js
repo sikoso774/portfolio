@@ -36,6 +36,33 @@ describe("dictionaries", () => {
     expect(empty).toEqual([]);
   });
 
+  it("state the same figures and proper nouns in English and French", () => {
+    // Une traduction peut dire « 300+ » quand l'original dit « 1000+ » (déjà arrivé pour
+    // Nebulux) : on compare, clé par clé, les chiffres et les noms propres cités.
+    // « 1000+ » (EN) et « plus de 1000 » (FR) disent la même chose : on ignore le « + ».
+    const figures = (text) =>
+      (text.match(/\d[\d.,]*\+?/g) ?? [])
+        .map((figure) => figure.replace(/\+$/, ""))
+        .sort()
+        .join("|");
+    const names = (text) =>
+      (
+        text.match(
+          /(ENSEA|MIAGE|SBI|NOXIA|Paris 1|Meaux|Cergy|Obsidian|Python|Docker|LXC|Waydroid|Tkinter)/g,
+        ) ?? []
+      )
+        .sort()
+        .join("|");
+    const frByPath = new Map(leaves(fr));
+    const mismatches = leaves(en)
+      .filter(([path, text]) => {
+        const other = frByPath.get(path);
+        return figures(text) !== figures(other) || names(text) !== names(other);
+      })
+      .map(([path]) => path);
+    expect(mismatches).toEqual([]);
+  });
+
   it("translate the prose: long French strings differ from the English ones", () => {
     const frByPath = new Map(leaves(fr));
     const untranslated = leaves(en)

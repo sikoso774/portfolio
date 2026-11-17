@@ -312,7 +312,7 @@ const fr: Dictionary = {
       {
         title: "Nebulux — Thème Obsidian",
         description:
-          "Thème sombre personnalisé pour Obsidian, publié sur la bibliothèque communautaire avec plus de 300 téléchargements.",
+          "Thème sombre personnalisé pour Obsidian, publié sur la bibliothèque communautaire avec plus de 1000 téléchargements.",
       },
       {
         title: "Music Player",
