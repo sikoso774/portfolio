@@ -1,6 +1,13 @@
 ---
 title: "3D Glossary: Essential 3D Modeling Terms for Beginners"
 description: "A beginner's 3D glossary: mesh, vertex, topology, UV, normals, PBR and more — the essential 3D modeling terms I learned starting with Blender."
+summary:
+  - label: "Problem"
+    text: "3D tutorials are hard to follow until you know the vocabulary: mesh, normal, topology…"
+  - label: "Solution"
+    text: "A beginner glossary of the essential terms, grouped by topic."
+  - label: "Covered"
+    text: "Geometry, topology, sculpting, materials, UV and rendering, animation and rigging, tools and formats."
 pubDate: 2026-06-11
 tags: ["Blender", "3D", "Beginner", "Learning"]
 ---

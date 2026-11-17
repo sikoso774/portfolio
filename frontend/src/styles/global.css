@@ -462,6 +462,63 @@ section {
   border-top: 1px solid rgba(var(--clr-accent-rgb), 0.2);
 }
 
+/* Résumé « En bref » en tête d'article */
+.article-summary {
+  margin: 0 0 40px;
+  padding: 24px 28px;
+  background: linear-gradient(
+    to right,
+    rgba(var(--clr-accent-rgb), 0.1),
+    transparent
+  );
+  border-left: 4px solid var(--clr-accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.article-summary-title {
+  margin: 0 0 12px;
+  color: var(--clr-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.article-summary dl {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+}
+
+.article-summary dt {
+  color: var(--clr-text);
+  font-weight: 600;
+}
+
+.article-summary dd {
+  margin: 0;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+}
+
+/* Liens de fin d'article vers Projets et Compétences */
+.article-next {
+  margin-bottom: 32px;
+}
+
+.article-next-title {
+  margin: 0 0 16px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.article-next-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .card {

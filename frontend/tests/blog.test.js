@@ -46,6 +46,26 @@ describe("blog collection", () => {
     }
   });
 
+  it('gives every article an "in short" summary, with the same points in each language', async () => {
+    // Pyramide inversée : le problème et la solution doivent être visibles dès le haut de l'article.
+    const en = new Map((await getPosts("en")).map((p) => [postSlug(p), p]));
+
+    for (const lang of locales) {
+      for (const post of await getPosts(lang)) {
+        const id = `${lang}/${postSlug(post)}`;
+        const summary = post.data.summary ?? [];
+        expect(summary.length, `${id} summary`).toBeGreaterThanOrEqual(2);
+        for (const item of summary) {
+          expect(item.label.length, `${id} label`).toBeGreaterThan(0);
+          expect(item.text.length, `${id} text`).toBeGreaterThan(20);
+        }
+        expect(summary.length, `${id} summary points`).toBe(
+          en.get(postSlug(post)).data.summary.length,
+        );
+      }
+    }
+  });
+
   it("publishes each translation with the same date", async () => {
     const en = new Map((await getPosts("en")).map((p) => [postSlug(p), p]));
 

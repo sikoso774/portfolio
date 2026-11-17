@@ -56,6 +56,9 @@ const articleSchema = blogPosting({
   pubDate: post.data.pubDate,
   updatedDate: post.data.updatedDate,
   inLanguage: htmlLang[lang],
+  abstract: post.data.summary
+    ?.map((item) => `${item.label} : ${item.text}`)
+    .join(" "),
 });
 
 const dateFmt = new Intl.DateTimeFormat(dateLocale[lang], {
@@ -103,10 +106,36 @@ const dateFmt = new Intl.DateTimeFormat(dateLocale[lang], {
           }
         </div>
       </header>
+      {
+        post.data.summary && (
+          <aside class="article-summary" aria-label={t.blog.summaryTitle}>
+            <p class="article-summary-title">{t.blog.summaryTitle}</p>
+            <dl>
+              {post.data.summary.map((item) => (
+                <div>
+                  <dt>{item.label}</dt>
+                  <dd>{item.text}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
+        )
+      }
       <div class="prose">
         <Content />
       </div>
       <footer class="article-footer">
+        <nav class="article-next" aria-label={t.blog.nextTitle}>
+          <p class="article-next-title">{t.blog.nextTitle}</p>
+          <div class="article-next-links">
+            <a href={localePath("/projects/", lang)} class="btn-outline"
+              >{t.blog.nextProjects}</a
+            >
+            <a href={localePath("/skills/", lang)} class="btn-outline"
+              >{t.blog.nextSkills}</a
+            >
+          </div>
+        </nav>
         <a href={localePath("/blog/", lang)} class="btn-outline"
           >{t.blog.allArticles}</a
         >

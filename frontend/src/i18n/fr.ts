@@ -380,6 +380,10 @@ const fr: Dictionary = {
     allArticles: "← Tous les articles",
     by: "Par",
     updatedOn: "mis à jour le",
+    summaryTitle: "En bref",
+    nextTitle: "Pour aller plus loin",
+    nextProjects: "Voir mes projets →",
+    nextSkills: "Découvrir mes compétences →",
     rssTitle: "Zoléni Kokolo Zassi — Blog",
     rssDescription:
       "Journal d'apprentissage : notes et synthèses sur la 3D, le développement et l'infrastructure.",

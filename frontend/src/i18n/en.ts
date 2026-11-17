@@ -374,6 +374,10 @@ const en = {
     allArticles: "← All articles",
     by: "By",
     updatedOn: "updated on",
+    summaryTitle: "In short",
+    nextTitle: "Keep exploring",
+    nextProjects: "See my projects →",
+    nextSkills: "Explore my skills →",
     rssTitle: "Zoléni Kokolo Zassi — Blog",
     rssDescription:
       "Learning journal: notes and write-ups on 3D, development, and infrastructure.",

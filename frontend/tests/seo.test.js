@@ -147,6 +147,30 @@ describe("built site SEO", () => {
     }
   });
 
+  it("shows the summary and the end-of-article links on every article", () => {
+    for (const lang of ["", "fr/"]) {
+      for (const slug of blogSlugs) {
+        const file = `${lang}blog/${slug}/index.html`;
+        const html = read(file);
+        expect(html, `${file} : résumé`).toContain('class="article-summary"');
+        // Liens vers Projets et Compétences, dans la langue de l'article.
+        expect(html, `${file} : lien Projets`).toContain(
+          `href="/${lang}projects/"`,
+        );
+        expect(html, `${file} : lien Compétences`).toContain(
+          `href="/${lang}skills/"`,
+        );
+        const article = extractGraph(html).find(
+          (node) => node["@type"] === "BlogPosting",
+        );
+        expect(
+          article.abstract?.length,
+          `${file} : abstract JSON-LD`,
+        ).toBeGreaterThan(40);
+      }
+    }
+  });
+
   it("never links internally to a route without trailing slash", () => {
     for (const file of htmlFiles(OUT_DIR)) {
       const html = readFileSync(file, "utf-8");

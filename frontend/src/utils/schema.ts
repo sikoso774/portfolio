@@ -29,6 +29,7 @@ interface BlogPostingInput {
   pubDate: Date;
   updatedDate?: Date;
   inLanguage: string;
+  abstract?: string;
 }
 
 export function blogPosting({
@@ -41,6 +42,7 @@ export function blogPosting({
   pubDate,
   updatedDate,
   inLanguage,
+  abstract,
 }: BlogPostingInput) {
   const url = new URL(pathname, site).toString();
   return {
@@ -50,6 +52,7 @@ export function blogPosting({
     url,
     headline: title,
     description,
+    ...(abstract ? { abstract } : {}),
     image: image.toString(),
     keywords: tags.join(", "),
     inLanguage,
