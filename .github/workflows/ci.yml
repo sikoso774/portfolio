@@ -30,8 +30,31 @@ jobs:
 
       # Les tests passent en premier : ils échouent vite et couvrent le SEO,
       # l'i18n, les composants et le Worker (le test SEO construit aussi le site).
+      # Trois reporters : la console, les annotations sur les échecs + le bloc
+      # « Vitest Test Report » de la page Summary (github-actions), et un rapport
+      # JSON utilisé par l'étape suivante.
       - name: Run tests
-        run: npm test
+        run: >-
+          npm test --
+          --reporter=default
+          --reporter=github-actions
+          --reporter=json
+          --outputFile.json=test-results/vitest.json
+
+      # `if: always()` : le détail s'affiche aussi quand un test échoue.
+      - name: Test report (Summary tab)
+        if: always()
+        run: node scripts/test-summary.mjs >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: vitest-results
+          # `working-directory` ne s'applique pas à `with` : chemin depuis la racine
+          path: frontend/test-results/vitest.json
+          if-no-files-found: ignore
+          retention-days: 14
 
       - name: Check formatting
         run: npm run format:check

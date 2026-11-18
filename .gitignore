@@ -104,3 +104,6 @@ frontend/tests/*.json
 # Cloudflare Worker (frontend/worker) : secrets locaux et cache wrangler
 .dev.vars
 .wrangler/
+
+# Rapport JSON de Vitest (généré par la CI et par `npm test -- --reporter=json`)
+test-results/
