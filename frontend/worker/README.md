@@ -36,12 +36,13 @@ Depuis ce dossier (`frontend/worker/`) :
 ```bash
 npx wrangler login
 npx wrangler secret put RESEND_API_KEY   # colle la clé Resend
-npx wrangler secret put FROM_EMAIL       # ex. Portfolio <contact@zolenikokolo.com>
+npx wrangler secret put FROM_EMAIL       # l'adresse seule : notifications@zolenikokolo.com
 npx wrangler secret put TO_EMAIL         # l'adresse qui reçoit les messages
 npx wrangler deploy
 ```
 
-`FROM_EMAIL` doit être une adresse **sur le domaine vérifié**. Les trois valeurs sont des secrets (pas dans le
+`FROM_EMAIL` doit être une adresse **sur le domaine vérifié**, écrite **seule** : le nom affiché « Portfolio »
+est ajouté par le Worker (`FROM_NAME` dans `src/index.js`), ce qui donne `Portfolio <notifications@zolenikokolo.com>`. Les trois valeurs sont des secrets (pas dans le
 dépôt, qui est public).
 
 ### 3. Vérifier

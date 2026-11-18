@@ -1,0 +1,21 @@
+# Mises à jour automatiques des dépendances.
+# Les PR arrivent sur `dev` (branche de travail), puis suivent le flux habituel dev -> main.
+version: 2
+updates:
+  # Dépendances npm du site Astro
+  - package-ecosystem: npm
+    directory: /frontend
+    target-branch: dev
+    schedule:
+      interval: weekly
+    groups:
+      # Une seule PR pour les mises à jour mineures et correctifs
+      minor-and-patch:
+        update-types: [minor, patch]
+
+  # Versions des actions GitHub utilisées par la CI et le déploiement
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: dev
+    schedule:
+      interval: weekly

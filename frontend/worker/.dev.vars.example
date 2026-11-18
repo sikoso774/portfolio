@@ -1,6 +1,6 @@
 # Copie ce fichier en `.dev.vars` (ignoré par git) pour `npx wrangler dev`.
 RESEND_API_KEY=re_xxxxxxxxxxxx
-FROM_EMAIL=Portfolio <onboarding@resend.dev>
+FROM_EMAIL=onboarding@resend.dev
 TO_EMAIL=toi@example.com
 # Autorise http://localhost:<port> comme origine (dev uniquement)
 ALLOW_LOCALHOST=true
