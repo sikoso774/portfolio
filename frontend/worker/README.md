@@ -17,6 +17,27 @@ Navigateur ── fetch /api/contact ──► Cloudflare (route du domaine) ─
 - Limite de débit : 3 envois par minute et par IP (`[[ratelimits]]` dans `wrangler.toml`).
 - Ne journalise jamais le contenu des messages ni les adresses des visiteurs.
 
+## Structure du code
+
+Le Worker est découpé en petits modules (`src/`). Wrangler les regroupe tout seul au déploiement.
+
+| Fichier             | Rôle                                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------------- |
+| `index.js`          | Routeur : `/api/contact` → `contact.js`, `/api/resend-webhook` → `webhook.js`, sinon `404`. |
+| `config.js`         | Constantes : limites des champs, préfixes de sujet, événements surveillés, tolérance Svix.  |
+| `contact.js`        | Formulaire : contrôle d'origine, limite de débit, champ piège, validation, envoi.           |
+| `webhook.js`        | Webhook Resend : vérifie la signature, filtre l'événement, envoie l'alerte.                 |
+| `signature.js`      | Vérification de la signature Svix (HMAC-SHA256, tolérance de 5 minutes).                    |
+| `resend.js`         | Appel à l'API Resend et en-tête expéditeur `Portfolio <adresse>`.                           |
+| `http.js`           | Réponses JSON.                                                                              |
+| `emails/contact.js` | Gabarit (texte + HTML vert) du message reçu depuis le formulaire.                           |
+| `emails/alert.js`   | Gabarit (texte + HTML orange, bloc de logs) de l'alerte de rebond.                          |
+| `emails/escape.js`  | Échappement HTML de tout ce qui vient du visiteur ou de Resend.                             |
+
+Pour changer l'apparence d'un e-mail, modifie seulement le fichier du dossier `emails/` correspondant.
+`index.js` réexporte les fonctions testées : les tests (`tests/contact.test.js`, `tests/webhook.test.js`)
+les importent depuis ce point d'entrée.
+
 ## Mise en place (une seule fois)
 
 ### 1. Resend

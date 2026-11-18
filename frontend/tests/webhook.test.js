@@ -1,5 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { handle, renderAlertText } from "../worker/src/index.js";
+import {
+  alertDetails,
+  handle,
+  renderAlertHtml,
+  renderAlertText,
+} from "../worker/src/index.js";
 
 const SECRET = `whsec_${Buffer.from("a-test-signing-key-for-svix-0001").toString("base64")}`;
 
@@ -101,6 +106,9 @@ describe("Resend webhook: alerts", () => {
     expect(sent.text).toContain("rbl blacklisted");
     expect(sent.text).toContain("me@example.com");
     expect(sent.text).toContain("abc-123");
+    expect(sent.html).toContain("[WARN]");
+    expect(sent.html).toContain("rbl blacklisted");
+    expect(sent.html).toContain("https://resend.com/emails/abc-123");
   });
 
   it.each(["email.complained", "email.delivery_delayed", "email.failed"])(
@@ -164,6 +172,60 @@ describe("Resend webhook: alerts", () => {
       "Rebond",
     );
     expect(text.length).toBeLessThan(900);
+  });
+});
+
+describe("Resend webhook: alert e-mail layout", () => {
+  it("extracts and formats the event details", () => {
+    const d = alertDetails(BOUNCE, "Rebond");
+
+    expect(d.level).toBe("WARN");
+    expect(d.event).toBe("email.bounced");
+    expect(d.to).toBe("me@example.com");
+    expect(d.kind).toBe("Transient / General");
+    expect(d.date).toBe("2026-11-18 10:52:06 UTC");
+    expect(d.id).toBe("abc-123");
+  });
+
+  it("copes with a sparse event", () => {
+    const d = alertDetails({ type: "email.failed", data: {} }, "Échec");
+
+    expect(d.date).toBe("inconnue");
+    expect(d.id).toBe("inconnu");
+    expect(d.reason).toBe("non précisé");
+    expect(
+      renderAlertHtml({ type: "email.failed", data: {} }, "Échec"),
+    ).toContain('href="https://resend.com/emails"');
+  });
+
+  it("escapes everything that comes from the event", () => {
+    const html = renderAlertHtml(
+      {
+        ...BOUNCE,
+        data: {
+          ...BOUNCE.data,
+          email_id: '"><script>alert(1)</script>',
+          subject: "[Portfolio] <img src=x onerror=alert(1)>",
+          bounce: { message: "<b>boom</b> & more", type: "Transient" },
+        },
+      },
+      "Rebond <i>",
+    );
+
+    expect(html).not.toContain("<script");
+    expect(html).not.toContain("<img");
+    expect(html).not.toContain("<b>boom");
+    expect(html).not.toContain("<i>");
+    expect(html).toContain("&lt;b&gt;boom&lt;/b&gt; &amp; more");
+  });
+
+  it("uses the alert look: orange banner and a dark log block", () => {
+    const html = renderAlertHtml(BOUNCE, "Rebond");
+
+    expect(html).toContain("Message du portfolio non remis");
+    expect(html).toContain("#ea580c");
+    expect(html).toContain("#111827");
+    expect(html).toContain("Ouvrir dans Resend");
   });
 });
 
