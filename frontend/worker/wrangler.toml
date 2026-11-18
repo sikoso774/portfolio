@@ -19,6 +19,7 @@ namespace_id = "1001"
 
 # Secrets à créer avec `npx wrangler secret put <NOM>` (voir README.md) :
 #   RESEND_API_KEY  clé API Resend
-#   FROM_EMAIL      expéditeur sur ton domaine vérifié, ex. "Portfolio <contact@zolenikokolo.com>"
+#   FROM_EMAIL      adresse seule, sur ton domaine vérifié, ex. notifications@zolenikokolo.com
+#                  (le Worker affiche « Portfolio <adresse> »)
 #   TO_EMAIL        adresse qui reçoit les messages
 # Ils ne sont volontairement pas écrits ici : le dépôt est public.

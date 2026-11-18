@@ -1,10 +1,16 @@
 import { readFileSync } from "node:fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { handle, validate } from "../worker/src/index.js";
+import {
+  escapeHtml,
+  fromHeader,
+  handle,
+  renderHtml,
+  validate,
+} from "../worker/src/index.js";
 
 const ENV = {
   RESEND_API_KEY: "re_test_key",
-  FROM_EMAIL: "Portfolio <contact@example.com>",
+  FROM_EMAIL: "notifications@example.com",
   TO_EMAIL: "me@example.com",
 };
 
@@ -70,6 +76,44 @@ describe("contact Worker: validation", () => {
   });
 });
 
+describe("contact Worker: e-mail content", () => {
+  it("shows the sender as « Portfolio <address> »", () => {
+    expect(fromHeader({ FROM_EMAIL: "notifications@example.com" })).toBe(
+      "Portfolio <notifications@example.com>",
+    );
+  });
+
+  it("keeps only the address when FROM_EMAIL already has a display name", () => {
+    expect(
+      fromHeader({ FROM_EMAIL: "Someone <notifications@example.com>" }),
+    ).toBe("Portfolio <notifications@example.com>");
+  });
+
+  it("escapes the visitor's text before putting it in the HTML", () => {
+    expect(escapeHtml(`<script>alert("x")</script> & 'y'`)).toBe(
+      "&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt; &amp; &#39;y&#39;",
+    );
+
+    const html = renderHtml({
+      name: "<b>Eve</b>",
+      email: "eve@example.com",
+      subject: "Hi",
+      message: "<img src=x onerror=alert(1)>\nsecond line",
+    });
+    expect(html).not.toContain("<img");
+    expect(html).not.toContain("<b>Eve");
+    expect(html).toContain("&lt;img src=x onerror=alert(1)&gt;<br>second line");
+  });
+
+  it("offers a reply button that targets the visitor", () => {
+    const html = renderHtml({ ...VALID });
+    expect(html).toContain(
+      'href="mailto:ada@example.com?subject=Re%3A%20Hello"',
+    );
+    expect(html).toContain("Répondre à Ada Lovelace");
+  });
+});
+
 describe("contact Worker: request handling", () => {
   it("sends the e-mail through Resend with the secret key", async () => {
     const fetchMock = mockResend();
@@ -83,11 +127,12 @@ describe("contact Worker: request handling", () => {
     expect(url).toBe("https://api.resend.com/emails");
     expect(init.headers.Authorization).toBe("Bearer re_test_key");
     const sent = JSON.parse(init.body);
-    expect(sent.from).toBe(ENV.FROM_EMAIL);
+    expect(sent.from).toBe("Portfolio <notifications@example.com>");
     expect(sent.to).toEqual([ENV.TO_EMAIL]);
     expect(sent.reply_to).toBe(VALID.email);
     expect(sent.subject).toBe("[Portfolio] Hello");
     expect(sent.text).toContain("Nice portfolio!");
+    expect(sent.html).toContain("Nice portfolio!");
   });
 
   it("also accepts the trailing-slash path used by the dev proxy", async () => {
