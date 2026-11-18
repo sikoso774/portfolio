@@ -406,7 +406,7 @@ const fr: Dictionary = {
     findMe: "Retrouvez-moi sur",
     formTitle: "Envoyer un message",
     formSubtitle:
-      "Remplissez le formulaire et votre messagerie s'ouvrira avec le message prêt à envoyer.",
+      "Remplissez le formulaire et votre message arrive directement dans ma boîte mail.",
     fullName: "Nom complet",
     fullNamePlaceholder: "Votre nom",
     emailAddress: "Adresse e-mail",
@@ -415,8 +415,13 @@ const fr: Dictionary = {
     message: "Message",
     messagePlaceholder: "Dites-m'en plus...",
     send: "Envoyer le message",
-    mailBodyName: "Nom",
-    mailBodyEmail: "E-mail",
+    sending: "Envoi en cours…",
+    success:
+      "Merci ! Votre message a bien été envoyé. Je vous réponds très vite.",
+    error:
+      "Un problème est survenu et votre message n'a pas été envoyé. Vous pouvez m'écrire directement à",
+    rateLimited:
+      "Trop de tentatives, patientez une minute puis réessayez, ou écrivez-moi directement à",
   },
 
   footer: {

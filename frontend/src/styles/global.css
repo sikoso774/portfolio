@@ -9,6 +9,7 @@
   --clr-text: #ffffff;
   --clr-text-muted: #d1d5db;
   --clr-text-dim: #9ca3af;
+  --clr-error: #f87171;
 
   /* Gradients */
   --grad-bg: linear-gradient(to right, var(--clr-bg-start), var(--clr-bg-end));
@@ -566,6 +567,7 @@ section {
     --clr-text: #111827;
     --clr-text-muted: #374151;
     --clr-text-dim: #6b7280;
+    --clr-error: #dc2626;
     --grad-card: linear-gradient(
       to bottom right,
       rgba(236, 245, 241, 0.92),

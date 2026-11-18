@@ -151,6 +151,18 @@ const t = useT(lang);
             </p>
 
             <form id="contact-form">
+              <!-- Champ piège : invisible pour un humain, rempli par les robots -->
+              <div class="hp" aria-hidden="true">
+                <label for="website">Website</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+              </div>
+
               <div class="form-row">
                 <div class="form-group">
                   <label for="name">{t.contact.fullName}</label>
@@ -209,8 +221,15 @@ const t = useT(lang);
                   <line x1="22" y1="2" x2="11" y2="13"></line>
                   <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
-                {t.contact.send}
+                <span class="submit-label">{t.contact.send}</span>
               </button>
+              <p
+                id="form-status"
+                class="form-status"
+                role="status"
+                aria-live="polite"
+              >
+              </p>
             </form>
           </div>
         </div>
@@ -225,8 +244,12 @@ const t = useT(lang);
   define:vars={{
     u: EMAIL_USER,
     d: EMAIL_DOMAIN,
-    labelName: t.contact.mailBodyName,
-    labelEmail: t.contact.mailBodyEmail,
+    msg: {
+      sending: t.contact.sending,
+      success: t.contact.success,
+      error: t.contact.error,
+      rateLimited: t.contact.rateLimited,
+    },
   }}
 >
   // Email obfuscation
@@ -239,35 +262,57 @@ const t = useT(lang);
   }
 
   const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  const button = form.querySelector(".submit-btn");
+  const label = form.querySelector(".submit-label");
+  const defaultLabel = label.textContent;
+
+  function setStatus(kind, text) {
+    status.className = "form-status" + (kind ? " " + kind : "");
+    status.textContent = text;
+  }
 
   // La validation (champs requis, format email) est native : le submit ne
-  // se déclenche que si le formulaire est valide.
-  form.addEventListener("submit", function (e) {
+  // se déclenche que si le formulaire est valide. L'envoi passe par le Worker
+  // Cloudflare (/api/contact, même origine) qui appelle Resend : la clé API
+  // n'est jamais dans le navigateur.
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const data = new FormData(form);
-    const name = data.get("name").trim();
-    const senderEmail = data.get("email").trim();
-    const subject = data.get("subject").trim();
-    const message = data.get("message").trim();
+    const payload = {
+      name: data.get("name").trim(),
+      email: data.get("email").trim(),
+      subject: data.get("subject").trim(),
+      message: data.get("message").trim(),
+      website: data.get("website"),
+    };
 
-    const body =
-      labelName +
-      ": " +
-      name +
-      "\n" +
-      labelEmail +
-      ": " +
-      senderEmail +
-      "\n\n" +
-      message;
-    window.location.href =
-      "mailto:" +
-      email +
-      "?subject=" +
-      encodeURIComponent(subject) +
-      "&body=" +
-      encodeURIComponent(body);
+    button.disabled = true;
+    label.textContent = msg.sending;
+    setStatus("", "");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (response.ok) {
+        form.reset();
+        setStatus("success", msg.success);
+      } else {
+        setStatus(
+          "error",
+          (response.status === 429 ? msg.rateLimited : msg.error) + " " + email,
+        );
+      }
+    } catch (error) {
+      setStatus("error", msg.error + " " + email);
+    } finally {
+      button.disabled = false;
+      label.textContent = defaultLabel;
+    }
   });
 </script>
 
@@ -471,6 +516,34 @@ const t = useT(lang);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 18px;
+  }
+
+  /* Champ piège : hors écran (pas display:none, que certains robots détectent) */
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-status {
+    min-height: 1.5em;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .form-status.success {
+    color: var(--clr-accent);
+  }
+
+  .form-status.error {
+    color: var(--clr-error);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: progress;
   }
 
   .form-group {

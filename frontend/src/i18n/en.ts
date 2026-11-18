@@ -400,7 +400,7 @@ const en = {
     findMe: "Find me on",
     formTitle: "Send a message",
     formSubtitle:
-      "Fill in the form and your email client will open with the message ready to send.",
+      "Fill in the form and your message lands straight in my inbox.",
     fullName: "Full name",
     fullNamePlaceholder: "Your name",
     emailAddress: "Email address",
@@ -409,8 +409,13 @@ const en = {
     message: "Message",
     messagePlaceholder: "Tell me more...",
     send: "Send message",
-    mailBodyName: "Name",
-    mailBodyEmail: "Email",
+    sending: "Sending…",
+    success:
+      "Thank you! Your message has been sent. I'll get back to you soon.",
+    error:
+      "Something went wrong and your message was not sent. You can write to me directly at",
+    rateLimited:
+      "Too many attempts, please wait a minute and try again, or write to me directly at",
   },
 
   footer: {
