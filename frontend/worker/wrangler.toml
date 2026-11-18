@@ -6,6 +6,7 @@ compatibility_date = "2026-11-01"
 workers_dev = false
 routes = [
   { pattern = "zolenikokolo.com/api/contact", zone_name = "zolenikokolo.com" },
+  { pattern = "zolenikokolo.com/api/resend-webhook", zone_name = "zolenikokolo.com" },
 ]
 
 # Limite de débit : 3 envois par minute et par IP
@@ -22,4 +23,5 @@ namespace_id = "1001"
 #   FROM_EMAIL      adresse seule, sur ton domaine vérifié, ex. notifications@zolenikokolo.com
 #                  (le Worker affiche « Portfolio <adresse> »)
 #   TO_EMAIL        adresse qui reçoit les messages
+#   RESEND_WEBHOOK_SECRET  secret de signature du webhook Resend (commence par whsec_)
 # Ils ne sont volontairement pas écrits ici : le dépôt est public.

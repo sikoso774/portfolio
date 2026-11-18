@@ -1,18 +1,36 @@
 // Worker Cloudflare : reçoit le formulaire de contact et envoie l'e-mail via Resend.
 //
-// - Route : zolenikokolo.com/api/contact (même origine que le site : la CSP
-//   `default-src 'self'` n'a pas à changer).
+// - Routes (même origine que le site : la CSP `default-src 'self'` n'a pas à changer) :
+//     zolenikokolo.com/api/contact         formulaire de contact
+//     zolenikokolo.com/api/resend-webhook  événements Resend (rebonds) -> e-mail d'alerte
 // - Secrets (jamais dans le dépôt) : RESEND_API_KEY, FROM_EMAIL (l'adresse seule,
-//   ex. notifications@zolenikokolo.com), TO_EMAIL. Le nom affiché de l'expéditeur
-//   (« Portfolio ») est défini ici, dans FROM_NAME.
+//   ex. notifications@zolenikokolo.com), TO_EMAIL, RESEND_WEBHOOK_SECRET (whsec_…).
+//   Le nom affiché de l'expéditeur (« Portfolio ») est défini ici, dans FROM_NAME.
 // - Anti-spam : champ piège (`website`), contrôle de l'origine, validation
 //   stricte, limite de débit par IP (binding RATE_LIMITER).
 
 const RESEND_URL = "https://api.resend.com/emails";
 const MAX_BODY_BYTES = 20_000;
+const MAX_WEBHOOK_BYTES = 100_000;
 const LIMITS = { name: 100, email: 254, subject: 150, message: 5000 };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FROM_NAME = "Portfolio";
+
+// Les messages du formulaire ont ce préfixe : le webhook ne traite que ceux-là
+// (et jamais ses propres alertes, qui ont un autre préfixe : pas de boucle).
+const CONTACT_SUBJECT_PREFIX = "[Portfolio] ";
+const ALERT_SUBJECT_PREFIX = "[Alerte] ";
+
+// Événements Resend qui déclenchent une alerte.
+const WEBHOOK_EVENTS = {
+  "email.bounced": "Rebond : le serveur du destinataire a refusé le message",
+  "email.complained": "Plainte : le message a été signalé comme spam",
+  "email.delivery_delayed": "Livraison retardée",
+  "email.failed": "Échec d'envoi",
+};
+
+// Resend signe ses webhooks avec Svix : on refuse une requête vieille de plus de 5 minutes.
+const WEBHOOK_TOLERANCE_SECONDS = 300;
 
 function json(data, status = 200, headers = {}) {
   return new Response(JSON.stringify(data), {
@@ -109,11 +127,150 @@ export function renderHtml({ name, email, subject, message }) {
 </div>`;
 }
 
+function sendWithResend(env, payload) {
+  return fetch(RESEND_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
+function base64ToBytes(value) {
+  return Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
+}
+
+// Vérifie la signature Svix d'un webhook Resend : HMAC-SHA256 de
+// `${svix-id}.${svix-timestamp}.${corps brut}` avec la clé du secret `whsec_…`.
+export async function verifyWebhookSignature(request, rawBody, secret) {
+  const id = request.headers.get("svix-id");
+  const timestamp = request.headers.get("svix-timestamp");
+  const header = request.headers.get("svix-signature");
+  if (!id || !timestamp || !header) return false;
+
+  const age = Math.abs(Date.now() / 1000 - Number(timestamp));
+  if (!Number.isFinite(age) || age > WEBHOOK_TOLERANCE_SECONDS) return false;
+
+  let key;
+  try {
+    key = await crypto.subtle.importKey(
+      "raw",
+      base64ToBytes(secret.replace(/^whsec_/, "")),
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["verify"],
+    );
+  } catch {
+    return false;
+  }
+
+  const signedContent = new TextEncoder().encode(
+    `${id}.${timestamp}.${rawBody}`,
+  );
+  // L'en-tête peut contenir plusieurs signatures (« v1,xxx v1,yyy ») pendant une
+  // rotation de secret ; `verify` compare en temps constant.
+  for (const part of header.split(" ")) {
+    const [version, signature] = part.split(",");
+    if (version !== "v1" || !signature) continue;
+    try {
+      if (
+        await crypto.subtle.verify(
+          "HMAC",
+          key,
+          base64ToBytes(signature),
+          signedContent,
+        )
+      ) {
+        return true;
+      }
+    } catch {
+      // signature mal formée : on passe à la suivante
+    }
+  }
+  return false;
+}
+
+export function renderAlertText(event, label) {
+  const data = event.data ?? {};
+  const to = Array.isArray(data.to)
+    ? data.to.join(", ")
+    : String(data.to ?? "");
+  const reason = String(
+    data.bounce?.message ?? data.failed?.reason ?? "non précisé",
+  ).slice(0, 500);
+  return [
+    "Un message du formulaire de contact n'a pas été remis.",
+    "",
+    `Événement : ${label}`,
+    `Destinataire : ${to}`,
+    `Sujet : ${data.subject}`,
+    `Motif : ${reason}`,
+    `Date : ${event.created_at ?? data.created_at ?? "inconnue"}`,
+    `Identifiant Resend : ${data.email_id ?? "inconnu"}`,
+    "",
+    "Le visiteur a vu « envoyé » sur le site. Retrouve son message dans Resend",
+    "(Emails), puis réponds-lui par un autre moyen.",
+  ].join("\n");
+}
+
+// Reçoit les événements Resend et t'écrit quand un message du formulaire
+// n'arrive pas (par exemple une adresse refusée par la messagerie).
+export async function handleWebhook(request, env) {
+  if (request.method !== "POST") {
+    return json({ error: "method_not_allowed" }, 405, { Allow: "POST" });
+  }
+  if (!env.RESEND_WEBHOOK_SECRET) {
+    console.error("RESEND_WEBHOOK_SECRET n'est pas défini");
+    return json({ error: "not_configured" }, 500);
+  }
+  if (Number(request.headers.get("Content-Length") ?? 0) > MAX_WEBHOOK_BYTES) {
+    return json({ error: "payload_too_large" }, 413);
+  }
+
+  // La signature porte sur le corps brut : on le lit en texte avant de l'analyser.
+  const rawBody = await request.text();
+  if (
+    !(await verifyWebhookSignature(request, rawBody, env.RESEND_WEBHOOK_SECRET))
+  ) {
+    return json({ error: "invalid_signature" }, 401);
+  }
+
+  let event;
+  try {
+    event = JSON.parse(rawBody);
+  } catch {
+    return json({ error: "invalid_json" }, 400);
+  }
+
+  const label = WEBHOOK_EVENTS[event?.type];
+  const subject = String(event?.data?.subject ?? "");
+  if (!label || !subject.startsWith(CONTACT_SUBJECT_PREFIX)) {
+    return json({ ok: true, ignored: true });
+  }
+
+  const response = await sendWithResend(env, {
+    from: fromHeader(env),
+    to: [env.TO_EMAIL],
+    subject: `${ALERT_SUBJECT_PREFIX}Message du portfolio non remis`,
+    text: renderAlertText(event, label),
+  });
+  if (!response.ok) {
+    // Une réponse non 2xx fait réessayer Resend plus tard.
+    console.error("Resend a refusé l'alerte", response.status);
+    return json({ error: "alert_failed" }, 502);
+  }
+  return json({ ok: true });
+}
+
 export async function handle(request, env) {
   const url = new URL(request.url);
   // Le slash final est accepté : en dev, Astro (trailingSlash: "always") exige
   // `/api/contact/` avant de transmettre la requête au Worker.
-  if (url.pathname.replace(/\/+$/, "") !== "/api/contact") {
+  const path = url.pathname.replace(/\/+$/, "");
+  if (path === "/api/resend-webhook") return handleWebhook(request, env);
+  if (path !== "/api/contact") {
     return json({ error: "not_found" }, 404);
   }
   if (request.method !== "POST") {
@@ -151,20 +308,13 @@ export async function handle(request, env) {
   const { data, fields } = validate(body);
   if (!data) return json({ error: "invalid", fields }, 400);
 
-  const response = await fetch(RESEND_URL, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: fromHeader(env),
-      to: [env.TO_EMAIL],
-      reply_to: data.email,
-      subject: `[Portfolio] ${data.subject}`,
-      text: renderText(data),
-      html: renderHtml(data),
-    }),
+  const response = await sendWithResend(env, {
+    from: fromHeader(env),
+    to: [env.TO_EMAIL],
+    reply_to: data.email,
+    subject: `${CONTACT_SUBJECT_PREFIX}${data.subject}`,
+    text: renderText(data),
+    html: renderHtml(data),
   });
 
   if (!response.ok) {

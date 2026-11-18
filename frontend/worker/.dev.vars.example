@@ -2,5 +2,7 @@
 RESEND_API_KEY=re_xxxxxxxxxxxx
 FROM_EMAIL=onboarding@resend.dev
 TO_EMAIL=toi@example.com
+# Seulement pour tester la signature du webhook en local (voir README.md)
+RESEND_WEBHOOK_SECRET=whsec_xxxxxxxxxxxx
 # Autorise http://localhost:<port> comme origine (dev uniquement)
 ALLOW_LOCALHOST=true
