@@ -90,6 +90,21 @@ describe("contact Worker: request handling", () => {
     expect(sent.text).toContain("Nice portfolio!");
   });
 
+  it("also accepts the trailing-slash path used by the dev proxy", async () => {
+    mockResend();
+    const request = new Request("http://localhost:4321/api/contact/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Origin: "http://localhost:4321",
+      },
+      body: JSON.stringify(VALID),
+    });
+
+    const response = await handle(request, { ...ENV, ALLOW_LOCALHOST: "true" });
+    expect(response.status).toBe(200);
+  });
+
   it("silently drops submissions that fill the honeypot", async () => {
     const fetchMock = mockResend();
     const response = await handle(
@@ -179,7 +194,8 @@ describe("contact page", () => {
   const source = readFileSync("src/pages/[...locale]/contact.astro", "utf-8");
 
   it("posts to the Worker route and no longer opens a mailto draft", () => {
-    expect(source).toContain('fetch("/api/contact"');
+    expect(source).toContain("fetch(endpoint");
+    expect(source).toContain('"/api/contact"');
     expect(source).not.toContain("window.location.href =");
   });
 

@@ -49,10 +49,12 @@ dépôt, qui est public).
 ```bash
 curl -i -X POST https://zolenikokolo.com/api/contact \
   -H "Content-Type: application/json" -H "Origin: https://zolenikokolo.com" \
-  -d '{"name":"Test","email":"test@example.com","subject":"Test","message":"Hello"}'
+  -d '{"name":"Test","email":"ton.adresse@gmail.com","subject":"Test","message":"Hello"}'
 ```
 
-Attendu : `200 {"ok":true}` et un e-mail reçu. Puis teste le vrai formulaire sur `/contact/` (EN et FR).
+Attendu : `200 {"ok":true}` et un e-mail reçu. Mets une **vraie adresse** dans `email` : une adresse
+d'exemple comme `test@example.com` est sur des listes noires (RBL) et la messagerie du destinataire
+refuse le message (voir le dépannage). Puis teste le vrai formulaire sur `/contact/` (EN et FR).
 
 ## Développement local
 
@@ -65,11 +67,16 @@ Dans un autre terminal, `npm run dev` à la racine de `frontend/` : Astro transm
 (proxy dans `astro.config.mjs`). Pour tester sans envoyer de vrai e-mail, laisse `FROM_EMAIL` sur
 `onboarding@resend.dev` et `TO_EMAIL` sur l'adresse de ton compte Resend.
 
+En dev, le formulaire appelle `/api/contact/` (avec slash) : Astro est configuré avec `trailingSlash: "always"`
+et répond 404 à `/api/contact` avant que le proxy n'agisse. Le Worker accepte les deux chemins ; en
+production, c'est `/api/contact` (la route Cloudflare).
+
 ## Dépannage
 
-| Symptôme                         | Cause probable                                                                                               |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `403 forbidden`                  | L'en-tête `Origin` n'est pas `https://zolenikokolo.com` (ou `ALLOW_LOCALHOST` absent en dev).                |
-| `502 send_failed`                | Resend refuse : clé invalide, domaine non vérifié ou `FROM_EMAIL` hors du domaine. Voir `npx wrangler tail`. |
-| `429 rate_limited`               | Plus de 3 envois en une minute depuis la même IP.                                                            |
-| Le formulaire affiche une erreur | Le Worker n'est pas déployé, ou la route n'est pas active sur le domaine.                                    |
+| Symptôme                                                                                     | Cause probable                                                                                                            |
+| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `403 forbidden`                                                                              | L'en-tête `Origin` n'est pas `https://zolenikokolo.com` (ou `ALLOW_LOCALHOST` absent en dev).                             |
+| `502 send_failed`                                                                            | Resend refuse : clé invalide, domaine non vérifié ou `FROM_EMAIL` hors du domaine. Voir `npx wrangler tail`.              |
+| `429 rate_limited`                                                                           | Plus de 3 envois en une minute depuis la même IP.                                                                         |
+| `200` mais rien reçu, « Bounced » dans Resend (Emails) avec `554 5.7.1 … is rbl blacklisted` | L'adresse du visiteur (`Reply-To`) est sur une liste noire, par exemple `test@example.com`. Teste avec une vraie adresse. |
+| Le formulaire affiche une erreur                                                             | Le Worker n'est pas déployé, ou la route n'est pas active sur le domaine.                                                 |

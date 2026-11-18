@@ -58,7 +58,11 @@ export function validate(body) {
 
 export async function handle(request, env) {
   const url = new URL(request.url);
-  if (url.pathname !== "/api/contact") return json({ error: "not_found" }, 404);
+  // Le slash final est accepté : en dev, Astro (trailingSlash: "always") exige
+  // `/api/contact/` avant de transmettre la requête au Worker.
+  if (url.pathname.replace(/\/+$/, "") !== "/api/contact") {
+    return json({ error: "not_found" }, 404);
+  }
   if (request.method !== "POST") {
     return json({ error: "method_not_allowed" }, 405, { Allow: "POST" });
   }

@@ -17,6 +17,11 @@ export function getStaticPaths() {
 
 const lang = getLocale(Astro.currentLocale);
 const t = useT(lang);
+
+// En dev, Astro (trailingSlash: "always") répond 404 à `/api/contact` avant que
+// le proxy Vite n'agisse : on appelle `/api/contact/`, que le Worker accepte.
+// En production, la route Cloudflare est `zolenikokolo.com/api/contact`.
+const contactEndpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
 ---
 
 <Layout title={t.meta.contact.title} description={t.meta.contact.description}>
@@ -242,6 +247,7 @@ const t = useT(lang);
 <script
   is:inline
   define:vars={{
+    endpoint: contactEndpoint,
     u: EMAIL_USER,
     d: EMAIL_DOMAIN,
     msg: {
@@ -293,7 +299,7 @@ const t = useT(lang);
     setStatus("", "");
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
