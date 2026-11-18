@@ -75,6 +75,12 @@ const fr: Dictionary = {
     backToTop: "Retour en haut",
   },
 
+  trusted: {
+    headingBefore: "Ils m'ont",
+    headingAccent: "fait confiance",
+    ariaLabel: "Entreprises avec lesquelles j'ai travaillé",
+  },
+
   hero: {
     badge: "Bienvenue sur mon portfolio",
     title: "Bonjour, je suis Zoléni Kokolo Zassi",
@@ -97,7 +103,7 @@ const fr: Dictionary = {
       "« Animé par la curiosité, attaché à la qualité, inspiré par la technologie. »",
     p2: "Ma passion, c'est l'automatisation et la création de solutions concrètes de bout en bout — du déploiement de serveurs Linux aux applications web full stack. J'aime transformer des défis d'infrastructure et de logiciel complexes en systèmes propres et fiables.",
     learnMore: "En savoir plus sur moi et mes centres d'intérêt",
-    pageTitle: "À propos de Zoléni Kokolo Zassi",
+    pageTitle: "À propos de Moi",
     pageIntro:
       "Un regard plus proche sur qui je suis, ce qui compte pour moi et ce qui me passionne en dehors du code.",
     // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).
@@ -380,6 +386,10 @@ const fr: Dictionary = {
     allArticles: "← Tous les articles",
     by: "Par",
     updatedOn: "mis à jour le",
+    summaryTitle: "En bref",
+    nextTitle: "Pour aller plus loin",
+    nextProjects: "Voir mes projets →",
+    nextSkills: "Découvrir mes compétences →",
     rssTitle: "Zoléni Kokolo Zassi — Blog",
     rssDescription:
       "Journal d'apprentissage : notes et synthèses sur la 3D, le développement et l'infrastructure.",
@@ -396,7 +406,7 @@ const fr: Dictionary = {
     findMe: "Retrouvez-moi sur",
     formTitle: "Envoyer un message",
     formSubtitle:
-      "Remplissez le formulaire et votre messagerie s'ouvrira avec le message prêt à envoyer.",
+      "Remplissez le formulaire et votre message arrive directement dans ma boîte mail.",
     fullName: "Nom complet",
     fullNamePlaceholder: "Votre nom",
     emailAddress: "Adresse e-mail",
@@ -405,8 +415,13 @@ const fr: Dictionary = {
     message: "Message",
     messagePlaceholder: "Dites-m'en plus...",
     send: "Envoyer le message",
-    mailBodyName: "Nom",
-    mailBodyEmail: "E-mail",
+    sending: "Envoi en cours…",
+    success:
+      "Merci ! Votre message a bien été envoyé. Je vous réponds très vite.",
+    error:
+      "Un problème est survenu et votre message n'a pas été envoyé. Vous pouvez m'écrire directement à",
+    rateLimited:
+      "Trop de tentatives, patientez une minute puis réessayez, ou écrivez-moi directement à",
   },
 
   footer: {

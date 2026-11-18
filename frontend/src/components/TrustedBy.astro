@@ -1,0 +1,187 @@
+---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+import { getLocale, useT } from "../i18n";
+const t = useT(getLocale(Astro.currentLocale));
+
+// Logos déposés dans public/assets/images/icons/<id>.(svg|png|webp). Sans fichier,
+// la marque s'affiche en typographie : le composant fonctionne dès maintenant.
+// Les commandes npm se lancent depuis frontend/, d'où process.cwd().
+function logoFor(id: string) {
+  for (const ext of ["svg", "png", "webp"]) {
+    if (
+      existsSync(
+        join(process.cwd(), "public/assets/images/icons", `${id}.${ext}`),
+      )
+    ) {
+      return `/assets/images/icons/${id}.${ext}`;
+    }
+  }
+  return undefined;
+}
+
+// logoHeight : hauteur du logo en px, ajustée pour que les marques aient un
+// poids visuel comparable (Astéria a un texte très fin, il lui faut plus de place).
+const brands = [
+  { id: "noxia", name: "NOXIA Groupe", logoHeight: 96 },
+  { id: "asteria", name: "Maison Astéria", logoHeight: 88 },
+  { id: "rhon", name: "Rhôn Telecom", logoHeight: 56 },
+].map((brand) => ({ ...brand, logo: logoFor(brand.id) }));
+
+// Le défilement est une boucle : on répète le groupe de marques. Seul le
+// premier groupe est lu par les lecteurs d'écran (les autres sont aria-hidden).
+const GROUPS = 4;
+---
+
+<style>
+  .trusted {
+    margin-bottom: 56px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(var(--clr-accent-rgb), 0.15);
+  }
+
+  .trusted-heading {
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+    line-height: 1.2;
+  }
+
+  .trusted-heading em {
+    font-style: normal;
+    color: var(--clr-accent);
+  }
+
+  /* Fenêtre du défilement : les bords s'estompent */
+  .marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+  }
+
+  /* Le décalage de -100/GROUPS % déplace la piste d'exactement un groupe :
+     la boucle est invisible. */
+  .track {
+    display: flex;
+    width: max-content;
+    animation: marquee 32s linear infinite;
+  }
+
+  .marquee:hover .track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-25%);
+    }
+  }
+
+  .group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: clamp(56px, 8vw, 112px);
+    padding-right: clamp(56px, 8vw, 112px);
+    list-style: none;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    min-height: 96px;
+  }
+
+  /* Le logo est une silhouette : on l'utilise comme masque d'un aplat de
+     couleur. Il suit ainsi le thème et passe au vert au survol. L'<img>
+     reste dans le DOM (taille + texte alternatif) mais est invisible. */
+  .logo {
+    display: block;
+    color: var(--clr-text-muted);
+    background: currentColor;
+    -webkit-mask: var(--logo-src) center / contain no-repeat;
+    mask: var(--logo-src) center / contain no-repeat;
+    transition: color 0.3s ease;
+  }
+
+  .brand:hover .logo,
+  .brand:hover .brand-wordmark {
+    color: var(--clr-accent);
+  }
+
+  .logo img {
+    display: block;
+    height: var(--logo-h, 48px);
+    width: auto;
+    opacity: 0;
+  }
+
+  .brand-wordmark {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--clr-text-muted);
+    transition: color 0.3s ease;
+  }
+
+  /* Sans animation : un seul groupe, centré, sans estompage */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      mask-image: none;
+    }
+
+    .track {
+      width: 100%;
+      justify-content: center;
+      animation: none;
+    }
+
+    .group[aria-hidden="true"] {
+      display: none;
+    }
+
+    .group {
+      flex-wrap: wrap;
+      justify-content: center;
+      padding-right: 0;
+    }
+  }
+</style>
+
+<div class="trusted" role="group" aria-label={t.trusted.ariaLabel}>
+  <h2 class="trusted-heading">
+    {t.trusted.headingBefore}
+    <em>{t.trusted.headingAccent}</em>
+  </h2>
+  <div class="marquee">
+    <div class="track">
+      {
+        Array.from({ length: GROUPS }, (_, i) => (
+          <ul class="group" aria-hidden={i === 0 ? undefined : "true"}>
+            {brands.map((brand) => (
+              <li class="brand">
+                {brand.logo ? (
+                  <span
+                    class="logo"
+                    style={`--logo-h: ${brand.logoHeight}px; --logo-src: url(${brand.logo})`}
+                  >
+                    <img src={brand.logo} alt={i === 0 ? brand.name : ""} />
+                  </span>
+                ) : (
+                  <span class="brand-wordmark">{brand.name}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        ))
+      }
+    </div>
+  </div>
+</div>

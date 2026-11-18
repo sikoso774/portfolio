@@ -100,3 +100,7 @@ others/
 frontend/tests/*.json
 # Sortie de build des tests SEO
 .vitest-dist/
+
+# Cloudflare Worker (frontend/worker) : secrets locaux et cache wrangler
+.dev.vars
+.wrangler/

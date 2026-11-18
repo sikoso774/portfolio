@@ -3,3 +3,4 @@ dist/
 .vitest-dist/
 public/
 package-lock.json
+.wrangler/

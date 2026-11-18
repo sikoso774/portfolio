@@ -75,6 +75,12 @@ const en = {
     backToTop: "Back to top",
   },
 
+  trusted: {
+    headingBefore: "Teams that",
+    headingAccent: "trusted me",
+    ariaLabel: "Companies I have worked with",
+  },
+
   hero: {
     badge: "Welcome to my portfolio",
     title: "Hi, I'm Zoléni Kokolo Zassi",
@@ -97,7 +103,7 @@ const en = {
       '"Fuelled by curiosity, committed to quality, inspired by technology."',
     p2: "My passion lies in automation and building concrete end-to-end solutions — from Linux server deployment to full stack web applications. I love turning complex infrastructure and software challenges into clean, working systems.",
     learnMore: "Learn more about me & my interests",
-    pageTitle: "About Zoléni Kokolo Zassi",
+    pageTitle: "About Me",
     pageIntro:
       "A closer look at who I am, what I care about, and what keeps me curious outside of code.",
     // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).
@@ -374,6 +380,10 @@ const en = {
     allArticles: "← All articles",
     by: "By",
     updatedOn: "updated on",
+    summaryTitle: "In short",
+    nextTitle: "Keep exploring",
+    nextProjects: "See my projects →",
+    nextSkills: "Explore my skills →",
     rssTitle: "Zoléni Kokolo Zassi — Blog",
     rssDescription:
       "Learning journal: notes and write-ups on 3D, development, and infrastructure.",
@@ -390,7 +400,7 @@ const en = {
     findMe: "Find me on",
     formTitle: "Send a message",
     formSubtitle:
-      "Fill in the form and your email client will open with the message ready to send.",
+      "Fill in the form and your message lands straight in my inbox.",
     fullName: "Full name",
     fullNamePlaceholder: "Your name",
     emailAddress: "Email address",
@@ -399,8 +409,13 @@ const en = {
     message: "Message",
     messagePlaceholder: "Tell me more...",
     send: "Send message",
-    mailBodyName: "Name",
-    mailBodyEmail: "Email",
+    sending: "Sending…",
+    success:
+      "Thank you! Your message has been sent. I'll get back to you soon.",
+    error:
+      "Something went wrong and your message was not sent. You can write to me directly at",
+    rateLimited:
+      "Too many attempts, please wait a minute and try again, or write to me directly at",
   },
 
   footer: {

@@ -1,6 +1,4 @@
 ---
-import { Image } from "astro:assets";
-import profilePhoto from "../images/photo_profile.jpg";
 import { getLocale, localePath, useT } from "../i18n";
 
 // showPhoto : portrait à côté du texte (page /about/ uniquement — l'accueil l'a déjà dans le Hero).
@@ -58,8 +56,7 @@ const t = useT(lang);
     box-shadow: 0 0 0 8px rgba(var(--clr-accent-rgb), 0.08);
   }
 
-  /* :global() car <Image> est un composant Astro — son <img> n'hérite pas du cid */
-  .about-photo :global(img) {
+  .about-photo img {
     display: block;
     width: 100%;
     height: 100%;
@@ -204,12 +201,13 @@ const t = useT(lang);
       {
         showPhoto && (
           <figure class="about-photo">
-            <Image
-              src={profilePhoto}
+            <img
+              src="/assets/images/photo_profile.png"
               alt={t.hero.photoAlt}
-              widths={[180, 240, 360, 480]}
-              sizes="(max-width: 768px) 180px, 240px"
+              width="999"
+              height="1001"
               loading="eager"
+              decoding="async"
             />
           </figure>
         )

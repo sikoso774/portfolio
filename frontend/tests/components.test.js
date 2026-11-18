@@ -1,4 +1,6 @@
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import Hero from "../src/components/Hero.astro";
 import About from "../src/components/About.astro";
@@ -7,6 +9,8 @@ import ExperiencePreview from "../src/components/ExperiencePreview.astro";
 import ProjectsPreview from "../src/components/ProjectsPreview.astro";
 import Projects from "../src/components/Projects.astro";
 import BlogPreview from "../src/components/BlogPreview.astro";
+import TrustedBy from "../src/components/TrustedBy.astro";
+import Footer from "../src/components/Footer.astro";
 import en from "../src/i18n/en";
 
 describe("Hero", () => {
@@ -98,5 +102,48 @@ describe("BlogPreview", () => {
     const html = await container.renderToString(BlogPreview);
 
     expect(html).toContain('href="/blog/"');
+  });
+});
+
+describe("TrustedBy", () => {
+  it("shows the heading and the three company logos, all of which exist", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(TrustedBy);
+
+    expect(html).toContain(en.trusted.headingBefore);
+    expect(html).toContain(en.trusted.headingAccent);
+
+    const logos = [
+      ...html.matchAll(/<img[^>]*src="(\/assets\/images\/icons\/[^"]+)"/g),
+    ].map((match) => match[1]);
+    // Chaque marque est répétée pour la boucle du défilement
+    for (const id of ["noxia", "asteria", "rhon"]) {
+      expect(logos, `logo ${id}`).toContain(`/assets/images/icons/${id}.svg`);
+    }
+    for (const logo of new Set(logos)) {
+      expect(existsSync(join(process.cwd(), "public", logo)), logo).toBe(true);
+    }
+  });
+
+  it("exposes the brands to screen readers only once", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(TrustedBy);
+
+    const hidden = html.match(/<ul class="group[^"]*" aria-hidden="true"/g);
+    const visible = html.match(/<ul class="group[^"]*"(?! aria-hidden)/g);
+    expect(visible).toHaveLength(1);
+    expect(hidden?.length).toBeGreaterThan(0);
+    // Les copies décoratives n'ont pas de texte alternatif
+    expect(html).toMatch(/<img[^>]*\salt(?=[\s>])/);
+  });
+
+  it("is part of the Footer, above the call to action", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Footer);
+
+    expect(html).toContain(en.trusted.headingAccent);
+    expect(html.indexOf(en.trusted.headingAccent)).toBeLessThan(
+      html.indexOf(en.footer.headingLine2),
+    );
   });
 });

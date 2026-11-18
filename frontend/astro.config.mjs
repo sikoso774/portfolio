@@ -21,6 +21,11 @@ export default defineConfig({
     "/blog/github-pages-headers-securite-cloudflare/":
       "/fr/blog/github-pages-security-headers/",
   },
+  // En dev, /api/contact est transmis au Worker lancé avec `npx wrangler dev`
+  // (voir worker/README.md). En production, c'est une route Cloudflare.
+  vite: {
+    server: { proxy: { "/api": "http://localhost:8787" } },
+  },
   integrations: [
     sitemap({
       // Ajoute les <xhtml:link rel="alternate" hreflang> dans le sitemap.

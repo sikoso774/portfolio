@@ -1,6 +1,11 @@
 ---
 title: "First Steps in Blender: Interface, Navigation, and Modes"
 description: "Understanding Blender's interface, navigating the viewport, and mastering the three working modes — my startup notes on the free 3D software."
+summary:
+  - label: "What you'll learn"
+    text: "The interface, how to navigate the viewport, and the three working modes."
+  - label: "The key habit"
+    text: "Work with keyboard shortcuts rather than the menus, from day one."
 pubDate: 2026-06-12
 tags: ["Blender", "3D", "Beginner", "Tutorial"]
 ---

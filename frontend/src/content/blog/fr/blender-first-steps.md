@@ -1,6 +1,11 @@
 ---
 title: "Premiers pas dans Blender : interface, navigation et modes"
 description: "Comprendre l'interface de Blender, naviguer dans la vue 3D et maîtriser les trois modes de travail — mes notes de démarrage sur le logiciel de 3D gratuit."
+summary:
+  - label: "Ce que vous verrez"
+    text: "L'interface, la navigation dans la vue 3D et les trois modes de travail."
+  - label: "Le bon réflexe"
+    text: "Travailler avec les raccourcis clavier plutôt que dans les menus, dès le premier jour."
 pubDate: 2026-06-12
 tags: ["Blender", "3D", "Débutant", "Tutoriel"]
 ---

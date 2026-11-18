@@ -1,0 +1,24 @@
+name = "portfolio-contact"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+# Le Worker n'est joignable que par la route de ton domaine, pas par *.workers.dev
+workers_dev = false
+routes = [
+  { pattern = "zolenikokolo.com/api/contact", zone_name = "zolenikokolo.com" },
+]
+
+# Limite de débit : 3 envois par minute et par IP
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 3
+  period = 60
+
+# Secrets à créer avec `npx wrangler secret put <NOM>` (voir README.md) :
+#   RESEND_API_KEY  clé API Resend
+#   FROM_EMAIL      expéditeur sur ton domaine vérifié, ex. "Portfolio <contact@zolenikokolo.com>"
+#   TO_EMAIL        adresse qui reçoit les messages
+# Ils ne sont volontairement pas écrits ici : le dépôt est public.

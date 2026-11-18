@@ -70,10 +70,10 @@ describe("built site SEO", () => {
     ]) {
       const html = read(page);
       const src = html.match(
-        /<img[^>]*src="(\/_astro\/photo_profile[^"]+)"/,
+        /<img[^>]*src="(\/assets\/images\/photo_profile[^"]+)"/,
       )?.[1];
       expect(src, `${page} : <img> de la photo de profil`).toBeTruthy();
-      // Le fichier optimisé référencé doit exister dans le build (pas de 404).
+      // Le fichier référencé doit exister dans le build (pas de 404).
       expect(existsSync(join(OUT_DIR, src)), `${page} : ${src}`).toBe(true);
     }
   });
@@ -83,9 +83,9 @@ describe("built site SEO", () => {
     const person = extractGraph(html).find(
       (node) => node["@type"] === "Person",
     );
-    expect(person.image).toBe(`${SITE.origin}/assets/img/photo_profile.jpg`);
+    expect(person.image).toBe(`${SITE.origin}/assets/images/photo_profile.png`);
     expect(
-      existsSync(join(OUT_DIR, "assets", "img", "photo_profile.jpg")),
+      existsSync(join(OUT_DIR, "assets", "images", "photo_profile.png")),
     ).toBe(true);
   });
 
@@ -144,6 +144,30 @@ describe("built site SEO", () => {
         (html.match(/<h1[\s>]/g) ?? []).length,
         `${file} : nombre de <h1>`,
       ).toBe(1);
+    }
+  });
+
+  it("shows the summary and the end-of-article links on every article", () => {
+    for (const lang of ["", "fr/"]) {
+      for (const slug of blogSlugs) {
+        const file = `${lang}blog/${slug}/index.html`;
+        const html = read(file);
+        expect(html, `${file} : résumé`).toContain('class="article-summary"');
+        // Liens vers Projets et Compétences, dans la langue de l'article.
+        expect(html, `${file} : lien Projets`).toContain(
+          `href="/${lang}projects/"`,
+        );
+        expect(html, `${file} : lien Compétences`).toContain(
+          `href="/${lang}skills/"`,
+        );
+        const article = extractGraph(html).find(
+          (node) => node["@type"] === "BlogPosting",
+        );
+        expect(
+          article.abstract?.length,
+          `${file} : abstract JSON-LD`,
+        ).toBeGreaterThan(40);
+      }
     }
   });
 

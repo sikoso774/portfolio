@@ -9,6 +9,10 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
+    // Résumé « En bref » affiché en tête d'article (pyramide inversée : problème puis solution).
+    summary: z
+      .array(z.object({ label: z.string(), text: z.string() }))
+      .optional(),
     draft: z.boolean().default(false),
   }),
 });

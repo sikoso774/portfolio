@@ -28,14 +28,25 @@ describe.each([
     const anchorLinks = hrefs.filter((href) => /^\/?#/.test(href));
     expect(anchorLinks, `${name} should not contain anchor links`).toEqual([]);
   });
+});
 
+// Le Footer n'a plus de navigation : seul le Header liste toutes les routes.
+describe("Header navigation routes", () => {
   it("links to every real route", async () => {
     const container = await AstroContainer.create();
-    const html = await container.renderToString(Component);
+    const html = await container.renderToString(Header);
     const hrefs = extractHrefs(html);
 
     for (const route of EXPECTED_ROUTES) {
-      expect(hrefs, `${name} should link to ${route}`).toContain(route);
+      expect(hrefs, `Header should link to ${route}`).toContain(route);
     }
+  });
+});
+
+describe("Footer links", () => {
+  it("keeps the contact CTA", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Footer);
+    expect(extractHrefs(html)).toContain("/contact/");
   });
 });
