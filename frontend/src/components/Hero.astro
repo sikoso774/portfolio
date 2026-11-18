@@ -168,17 +168,17 @@ const t = useT(lang);
         <div class="badge">{t.hero.badge}</div>
         <h1>{t.hero.title}</h1>
         <p>
-          {t.hero.leadBefore}<span class="highlight">{t.hero.leadRole}</span>{
-            t.hero.leadAfter
-          }
+          {t.hero.leadBefore}
+          <span class="highlight">{t.hero.leadRole}</span>
+          {t.hero.leadAfter}
         </p>
         <div class="hero-buttons">
-          <a href={localePath("/projects/", lang)} class="btn-primary"
-            >{t.hero.seeWork}</a
-          >
-          <a href={localePath("/contact/", lang)} class="btn-outline"
-            >{t.hero.getInTouch}</a
-          >
+          <a href={localePath("/projects/", lang)} class="btn-primary">
+            {t.hero.seeWork}
+          </a>
+          <a href={localePath("/contact/", lang)} class="btn-outline">
+            {t.hero.getInTouch}
+          </a>
         </div>
       </div>
     </div>

@@ -162,26 +162,24 @@ const GROUPS = 4;
   </h2>
   <div class="marquee">
     <div class="track">
-      {
-        Array.from({ length: GROUPS }, (_, i) => (
-          <ul class="group" aria-hidden={i === 0 ? undefined : "true"}>
-            {brands.map((brand) => (
-              <li class="brand">
-                {brand.logo ? (
-                  <span
-                    class="logo"
-                    style={`--logo-h: ${brand.logoHeight}px; --logo-src: url(${brand.logo})`}
-                  >
-                    <img src={brand.logo} alt={i === 0 ? brand.name : ""} />
-                  </span>
-                ) : (
-                  <span class="brand-wordmark">{brand.name}</span>
-                )}
-              </li>
-            ))}
-          </ul>
-        ))
-      }
+      {Array.from({ length: GROUPS }, (_, i) => (
+        <ul class="group" aria-hidden={i === 0 ? undefined : "true"}>
+          {brands.map((brand) => (
+            <li class="brand">
+              {brand.logo ? (
+                <span
+                  class="logo"
+                  style={`--logo-h: ${brand.logoHeight}px; --logo-src: url(${brand.logo})`}
+                >
+                  <img src={brand.logo} alt={i === 0 ? brand.name : ""} />
+                </span>
+              ) : (
+                <span class="brand-wordmark">{brand.name}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      ))}
     </div>
   </div>
 </div>

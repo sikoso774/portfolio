@@ -28,9 +28,7 @@ const t = useT(lang);
         <div class="section-header">
           <h1>{t.experience.pageTitle}</h1>
           <div class="underline"></div>
-          <p class="section-description">
-            {t.experience.pageIntro}
-          </p>
+          <p class="section-description">{t.experience.pageIntro}</p>
         </div>
       </div>
     </section>
@@ -42,24 +40,22 @@ const t = useT(lang);
         </div>
 
         <div class="timeline">
-          {
-            Object.values(t.experience.jobs).map((job) => (
-              <div class="timeline-item card">
-                <div class="timeline-dot" />
-                <div class="timeline-date">{job.date}</div>
-                <h3>{job.title}</h3>
-                <p class="company">
-                  {job.company} &nbsp;·&nbsp; {job.place}
-                </p>
-                <p class="description">{job.description}</p>
-                <div class="tech-tags">
-                  {job.tags.map((tag) => (
-                    <span class="tag">{tag}</span>
-                  ))}
-                </div>
+          {Object.values(t.experience.jobs).map((job) => (
+            <div class="timeline-item card">
+              <div class="timeline-dot" />
+              <div class="timeline-date">{job.date}</div>
+              <h3>{job.title}</h3>
+              <p class="company">
+                {job.company} &nbsp;·&nbsp; {job.place}
+              </p>
+              <p class="description">{job.description}</p>
+              <div class="tech-tags">
+                {job.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
               </div>
-            ))
-          }
+            </div>
+          ))}
         </div>
 
         <div class="block-header" style="margin-top: 80px">
@@ -67,23 +63,21 @@ const t = useT(lang);
         </div>
 
         <div class="education-grid">
-          {
-            Object.values(t.experience.education).map((edu) => (
-              <div class="card education-card">
-                <div class="edu-year">{edu.year}</div>
-                <h3>{edu.title}</h3>
-                <p class="company">
-                  {edu.school} &nbsp;·&nbsp; {edu.place}
-                </p>
-                <p class="description">{edu.description}</p>
-                <div class="tech-tags" style="margin-top: 16px;">
-                  {edu.tags.map((tag) => (
-                    <span class="tag">{tag}</span>
-                  ))}
-                </div>
+          {Object.values(t.experience.education).map((edu) => (
+            <div class="card education-card">
+              <div class="edu-year">{edu.year}</div>
+              <h3>{edu.title}</h3>
+              <p class="company">
+                {edu.school} &nbsp;·&nbsp; {edu.place}
+              </p>
+              <p class="description">{edu.description}</p>
+              <div class="tech-tags" style="margin-top: 16px;">
+                {edu.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
               </div>
-            ))
-          }
+            </div>
+          ))}
         </div>
       </div>
     </section>

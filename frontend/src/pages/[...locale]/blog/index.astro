@@ -36,28 +36,26 @@ const dateFmt = new Intl.DateTimeFormat(dateLocale[lang], {
         <p class="section-description">{t.blog.pageIntro}</p>
       </div>
 
-      {
-        posts.length === 0 ? (
-          <p class="blog-empty">{t.blog.empty}</p>
-        ) : (
-          <div class="blog-list">
-            {posts.map((post) => (
-              <a href={postPath(postSlug(post), lang)} class="card blog-card">
-                <time datetime={post.data.pubDate.toISOString()}>
-                  {dateFmt.format(post.data.pubDate)}
-                </time>
-                <h3>{post.data.title}</h3>
-                <p>{post.data.description}</p>
-                <div class="tags">
-                  {post.data.tags.map((tag) => (
-                    <span>{tag}</span>
-                  ))}
-                </div>
-              </a>
-            ))}
-          </div>
-        )
-      }
+      {posts.length === 0 ? (
+        <p class="blog-empty">{t.blog.empty}</p>
+      ) : (
+        <div class="blog-list">
+          {posts.map((post) => (
+            <a href={postPath(postSlug(post), lang)} class="card blog-card">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {dateFmt.format(post.data.pubDate)}
+              </time>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <div class="tags">
+                {post.data.tags.map((tag) => (
+                  <span>{tag}</span>
+                ))}
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   </main>
   <Footer />

@@ -189,106 +189,96 @@ const t = useT(lang);
 
 <section id="about" class:list={["about", { "on-page": showPhoto }]}>
   <div class="container">
-    {
-      !showPhoto && (
-        <div class="section-header">
-          <h2>{t.about.title}</h2>
-          <div class="underline" />
-        </div>
-      )
-    }
+    {!showPhoto && (
+      <div class="section-header">
+        <h2>{t.about.title}</h2>
+        <div class="underline" />
+      </div>
+    )}
     <div class:list={["card", "about-card", { "with-photo": showPhoto }]}>
-      {
-        showPhoto && (
-          <figure class="about-photo">
-            <img
-              src="/assets/images/photo_profile.png"
-              alt={t.hero.photoAlt}
-              width="999"
-              height="1001"
-              loading="eager"
-              decoding="async"
-            />
-          </figure>
-        )
-      }
+      {showPhoto && (
+        <figure class="about-photo">
+          <img
+            src="/assets/images/photo_profile.png"
+            alt={t.hero.photoAlt}
+            width="999"
+            height="1001"
+            loading="eager"
+            decoding="async"
+          />
+        </figure>
+      )}
       <div class="about-text">
-        {
-          showPhoto ? (
-            t.about.page.intro.map((paragraph) => <p>{paragraph}</p>)
-          ) : (
-            <>
-              <p>
-                {t.about.p1Before}
-                <span class="highlight">{t.about.p1Highlight}</span>
-                {t.about.p1After}
-              </p>
-              <div class="quote-box">
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-                <p>{t.about.quote}</p>
-              </div>
-              <p>{t.about.p2}</p>
-            </>
-          )
-        }
+        {showPhoto ? (
+          t.about.page.intro.map((paragraph) => <p>{paragraph}</p>)
+        ) : (
+          <>
+            <p>
+              {t.about.p1Before}
+              <span class="highlight">{t.about.p1Highlight}</span>
+              {t.about.p1After}
+            </p>
+            <div class="quote-box">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+              <p>{t.about.quote}</p>
+            </div>
+            <p>{t.about.p2}</p>
+          </>
+        )}
       </div>
     </div>
-    {
-      showPhoto && (
-        <div class="about-cards">
-          {t.about.page.cards.map((card) => (
-            <div class="card about-info-card">
-              <h3>{card.title}</h3>
-              <p>{card.text}</p>
-              <div class="info-tags">
-                {card.tags.map((tag) => (
-                  <span class="info-tag">{tag}</span>
-                ))}
-              </div>
-            </div>
-          ))}
+    {showPhoto && (
+      <div class="about-cards">
+        {t.about.page.cards.map((card) => (
           <div class="card about-info-card">
-            <h3>{t.about.page.valuesTitle}</h3>
-            <ul class="values-list">
-              {t.about.page.values.map((value) => (
-                <li>
-                  <strong>{value.name}</strong>
-                  <span>{value.text}</span>
-                </li>
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+            <div class="info-tags">
+              {card.tags.map((tag) => (
+                <span class="info-tag">{tag}</span>
               ))}
-            </ul>
+            </div>
           </div>
+        ))}
+        <div class="card about-info-card">
+          <h3>{t.about.page.valuesTitle}</h3>
+          <ul class="values-list">
+            {t.about.page.values.map((value) => (
+              <li>
+                <strong>{value.name}</strong>
+                <span>{value.text}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      )
-    }
-    {
-      showLink && (
-        <div class="about-footer">
-          <a href={localePath("/about/", lang)} class="see-more-link">
-            {t.about.learnMore}
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </a>
-        </div>
-      )
-    }
+      </div>
+    )}
+    {showLink && (
+      <div class="about-footer">
+        <a href={localePath("/about/", lang)} class="see-more-link">
+          {t.about.learnMore}
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+      </div>
+    )}
   </div>
 </section>

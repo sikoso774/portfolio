@@ -13,39 +13,37 @@ const dateFmt = new Intl.DateTimeFormat(dateLocale[lang], {
 });
 ---
 
-{
-  posts.length > 0 && (
-    <section id="writing" class="writing">
-      <div class="container">
-        <div class="section-header">
-          <h2>{t.blog.previewTitle}</h2>
-          <div class="underline" />
-          <p class="section-description">{t.blog.previewDescription}</p>
-        </div>
-
-        <div class="blog-list">
-          {posts.map((post) => (
-            <a href={postPath(postSlug(post), lang)} class="card blog-card">
-              <time datetime={post.data.pubDate.toISOString()}>
-                {dateFmt.format(post.data.pubDate)}
-              </time>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
-              <div class="tags">
-                {post.data.tags.slice(0, 3).map((tag) => (
-                  <span>{tag}</span>
-                ))}
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <div class="writing-cta">
-          <a href={localePath("/blog/", lang)} class="btn-outline">
-            {t.blog.viewAll}
-          </a>
-        </div>
+{posts.length > 0 && (
+  <section id="writing" class="writing">
+    <div class="container">
+      <div class="section-header">
+        <h2>{t.blog.previewTitle}</h2>
+        <div class="underline" />
+        <p class="section-description">{t.blog.previewDescription}</p>
       </div>
-    </section>
-  )
-}
+
+      <div class="blog-list">
+        {posts.map((post) => (
+          <a href={postPath(postSlug(post), lang)} class="card blog-card">
+            <time datetime={post.data.pubDate.toISOString()}>
+              {dateFmt.format(post.data.pubDate)}
+            </time>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            <div class="tags">
+              {post.data.tags.slice(0, 3).map((tag) => (
+                <span>{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="writing-cta">
+        <a href={localePath("/blog/", lang)} class="btn-outline">
+          {t.blog.viewAll}
+        </a>
+      </div>
+    </div>
+  </section>
+)}
