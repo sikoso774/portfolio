@@ -223,7 +223,7 @@ describe("Resend webhook: alert e-mail layout", () => {
     const html = renderAlertHtml(BOUNCE, "Rebond");
 
     expect(html).toContain("Message du portfolio non remis");
-    expect(html).toContain("#ea580c");
+    expect(html).toContain("#c2410c");
     expect(html).toContain("#111827");
     expect(html).toContain("Ouvrir dans Resend");
   });

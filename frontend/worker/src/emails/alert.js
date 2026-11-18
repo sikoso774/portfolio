@@ -70,14 +70,14 @@ export function renderAlertHtml(event, label) {
       : `https://resend.com/emails/${encodeURIComponent(d.id)}`;
   return `<div style="background:#f3f4f6;padding:24px;font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111827;">
   <div style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
-    <div style="background:#ea580c;padding:20px 24px;color:#ffffff;font-size:19px;font-weight:700;">&#9888; Message du portfolio non remis</div>
+    <div style="background:#c2410c;padding:20px 24px;color:#ffffff;font-size:18px;font-weight:700;">&#9888; Message du portfolio non remis</div>
     <div style="padding:24px;">
-      <p style="margin:0 0 4px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#c2410c;font-weight:700;">Warning &middot; ${escapeHtml(label)}</p>
+      <p style="margin:0 0 4px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#9a3412;font-weight:700;">Warning &middot; ${escapeHtml(label)}</p>
       <p style="margin:0 0 20px;font-size:15px;line-height:1.6;">Un message du formulaire de contact n'a pas été remis. Le visiteur a vu « envoyé » sur le site.</p>
-      <div style="margin:0 0 24px;padding:16px;background:#111827;border-left:4px solid #f97316;border-radius:8px;color:#e5e7eb;font-family:Consolas,'SF Mono',Menlo,'Courier New',monospace;font-size:13px;line-height:1.7;word-break:break-word;">
+      <div style="margin:0 0 24px;padding:16px;background:#111827;border-left:4px solid #ea580c;border-radius:8px;color:#e5e7eb;font-family:Consolas,'SF Mono',Menlo,'Courier New',monospace;font-size:13px;line-height:1.7;word-break:break-word;">
       ${logs}
       </div>
-      <a href="${escapeHtml(dashboard)}" style="display:inline-block;padding:10px 20px;background:#c2410c;color:#ffffff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:600;">Ouvrir dans Resend</a>
+      <a href="${escapeHtml(dashboard)}" style="display:inline-block;padding:10px 20px;background:#9a3412;color:#ffffff;text-decoration:none;border-radius:8px;font-size:14px;font-weight:600;">Ouvrir dans Resend</a>
       <p style="margin:16px 0 0;font-size:13px;line-height:1.5;color:#6b7280;">Retrouve son message dans Resend, puis réponds au visiteur par un autre moyen.</p>
     </div>
     <div style="padding:14px 24px;border-top:1px solid #e5e7eb;font-size:12px;color:#6b7280;">Alerte automatique de zolenikokolo.com</div>
