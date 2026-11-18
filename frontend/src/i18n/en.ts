@@ -103,7 +103,7 @@ const en = {
       '"Fuelled by curiosity, committed to quality, inspired by technology."',
     p2: "My passion lies in automation and building concrete end-to-end solutions — from Linux server deployment to full stack web applications. I love turning complex infrastructure and software challenges into clean, working systems.",
     learnMore: "Learn more about me & my interests",
-    pageTitle: "About Zoléni Kokolo Zassi",
+    pageTitle: "About Me",
     pageIntro:
       "A closer look at who I am, what I care about, and what keeps me curious outside of code.",
     // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).

@@ -103,7 +103,7 @@ const fr: Dictionary = {
       "« Animé par la curiosité, attaché à la qualité, inspiré par la technologie. »",
     p2: "Ma passion, c'est l'automatisation et la création de solutions concrètes de bout en bout — du déploiement de serveurs Linux aux applications web full stack. J'aime transformer des défis d'infrastructure et de logiciel complexes en systèmes propres et fiables.",
     learnMore: "En savoir plus sur moi et mes centres d'intérêt",
-    pageTitle: "À propos de Zoléni Kokolo Zassi",
+    pageTitle: "À propos de Moi",
     pageIntro:
       "Un regard plus proche sur qui je suis, ce qui compte pour moi et ce qui me passionne en dehors du code.",
     // Contenu propre à la page /about/ (l'accueil garde p1/quote/p2 ci-dessus).
