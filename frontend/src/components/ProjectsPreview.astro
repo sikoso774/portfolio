@@ -57,34 +57,26 @@ const t = useT(lang);
     <div class="section-header">
       <h2>{t.projects.title}</h2>
       <div class="underline"></div>
-      <p class="section-description">
-        {t.projects.intro}
-      </p>
+      <p class="section-description">{t.projects.intro}</p>
     </div>
     <div class="projects-preview-grid">
       <div class="card project-preview-card">
         <h3>{t.projects.previewItems[0].title}</h3>
-        <p>
-          {t.projects.previewItems[0].description}
-        </p>
+        <p>{t.projects.previewItems[0].description}</p>
       </div>
       <div class="card project-preview-card">
         <h3>{t.projects.previewItems[1].title}</h3>
-        <p>
-          {t.projects.previewItems[1].description}
-        </p>
+        <p>{t.projects.previewItems[1].description}</p>
       </div>
       <div class="card project-preview-card">
         <h3>{t.projects.previewItems[2].title}</h3>
-        <p>
-          {t.projects.previewItems[2].description}
-        </p>
+        <p>{t.projects.previewItems[2].description}</p>
       </div>
     </div>
     <div class="projects-cta">
-      <a href={localePath("/projects/", lang)} class="btn-outline"
-        >{t.projects.viewAll}</a
-      >
+      <a href={localePath("/projects/", lang)} class="btn-outline">
+        {t.projects.viewAll}
+      </a>
     </div>
   </div>
 </section>

@@ -442,29 +442,27 @@ const switchable = locales.filter((l) => alternates[l]);
       </nav>
 
       <div class="header-buttons">
-        {
-          switchable.length > 1 && (
-            <div class="lang-switch" role="group" aria-label={t.nav.language}>
-              {switchable.map((l) =>
-                l === lang ? (
-                  <span class="lang-current" aria-current="true">
-                    {l.toUpperCase()}
-                  </span>
-                ) : (
-                  <a
-                    href={alternates[l]}
-                    hreflang={htmlLang[l]}
-                    lang={htmlLang[l]}
-                    title={localeLabel[l]}
-                    data-astro-reload
-                  >
-                    {l.toUpperCase()}
-                  </a>
-                ),
-              )}
-            </div>
-          )
-        }
+        {switchable.length > 1 && (
+          <div class="lang-switch" role="group" aria-label={t.nav.language}>
+            {switchable.map((l) =>
+              l === lang ? (
+                <span class="lang-current" aria-current="true">
+                  {l.toUpperCase()}
+                </span>
+              ) : (
+                <a
+                  href={alternates[l]}
+                  hreflang={htmlLang[l]}
+                  lang={htmlLang[l]}
+                  title={localeLabel[l]}
+                  data-astro-reload
+                >
+                  {l.toUpperCase()}
+                </a>
+              ),
+            )}
+          </div>
+        )}
         <a
           href="https://github.com/Sikoso774"
           target="_blank"
@@ -501,49 +499,53 @@ const switchable = locales.filter((l) => alternates[l]);
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
       <nav>
-        <a href={localePath("/about/", lang)} style="--i:0"
-          ><span class="nav-num">01</span>{t.nav.about}</a
-        >
-        <a href={localePath("/skills/", lang)} style="--i:1"
-          ><span class="nav-num">02</span>{t.nav.skills}</a
-        >
-        <a href={localePath("/experience/", lang)} style="--i:2"
-          ><span class="nav-num">03</span>{t.nav.experience}</a
-        >
-        <a href={localePath("/projects/", lang)} style="--i:3"
-          ><span class="nav-num">04</span>{t.nav.projects}</a
-        >
-        <a href={localePath("/blog/", lang)} style="--i:4"
-          ><span class="nav-num">05</span>{t.nav.blog}</a
-        >
-        <a href={localePath("/contact/", lang)} style="--i:5"
-          ><span class="nav-num">06</span>{t.nav.contact}</a
-        >
+        <a href={localePath("/about/", lang)} style="--i:0">
+          <span class="nav-num">01</span>
+          {t.nav.about}
+        </a>
+        <a href={localePath("/skills/", lang)} style="--i:1">
+          <span class="nav-num">02</span>
+          {t.nav.skills}
+        </a>
+        <a href={localePath("/experience/", lang)} style="--i:2">
+          <span class="nav-num">03</span>
+          {t.nav.experience}
+        </a>
+        <a href={localePath("/projects/", lang)} style="--i:3">
+          <span class="nav-num">04</span>
+          {t.nav.projects}
+        </a>
+        <a href={localePath("/blog/", lang)} style="--i:4">
+          <span class="nav-num">05</span>
+          {t.nav.blog}
+        </a>
+        <a href={localePath("/contact/", lang)} style="--i:5">
+          <span class="nav-num">06</span>
+          {t.nav.contact}
+        </a>
       </nav>
       <div class="mobile-menu-actions">
-        {
-          switchable.length > 1 && (
-            <div class="lang-switch" role="group" aria-label={t.nav.language}>
-              {switchable.map((l) =>
-                l === lang ? (
-                  <span class="lang-current" aria-current="true">
-                    {l.toUpperCase()}
-                  </span>
-                ) : (
-                  <a
-                    href={alternates[l]}
-                    hreflang={htmlLang[l]}
-                    lang={htmlLang[l]}
-                    title={localeLabel[l]}
-                    data-astro-reload
-                  >
-                    {l.toUpperCase()}
-                  </a>
-                ),
-              )}
-            </div>
-          )
-        }
+        {switchable.length > 1 && (
+          <div class="lang-switch" role="group" aria-label={t.nav.language}>
+            {switchable.map((l) =>
+              l === lang ? (
+                <span class="lang-current" aria-current="true">
+                  {l.toUpperCase()}
+                </span>
+              ) : (
+                <a
+                  href={alternates[l]}
+                  hreflang={htmlLang[l]}
+                  lang={htmlLang[l]}
+                  title={localeLabel[l]}
+                  data-astro-reload
+                >
+                  {l.toUpperCase()}
+                </a>
+              ),
+            )}
+          </div>
+        )}
         <a
           href="https://github.com/Sikoso774"
           target="_blank"

@@ -32,9 +32,7 @@ const contactEndpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
         <div class="section-header">
           <h1>{t.contact.pageTitle}</h1>
           <div class="underline"></div>
-          <p class="section-description">
-            {t.contact.pageIntro}
-          </p>
+          <p class="section-description">{t.contact.pageIntro}</p>
         </div>
       </div>
     </section>
@@ -61,8 +59,7 @@ const contactEndpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
                       stroke="currentColor"
                       stroke-width="2"
                     >
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
-                      ></path>
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>
                   </div>
@@ -82,17 +79,15 @@ const contactEndpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
                       stroke="currentColor"
                       stroke-width="2"
                     >
-                      <path
-                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                      ></path>
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                       <polyline points="22,6 12,13 2,6"></polyline>
                     </svg>
                   </div>
                   <div>
                     <p class="info-label">{t.contact.email}</p>
-                    <a id="contact-email" href="#" class="info-value info-link"
-                      >—</a
-                    >
+                    <a id="contact-email" href="#" class="info-value info-link">
+                      —
+                    </a>
                   </div>
                 </div>
 
@@ -106,7 +101,13 @@ const contactEndpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
                       stroke="currentColor"
                       stroke-width="2"
                     >
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"
+                      <rect
+                        x="3"
+                        y="4"
+                        width="18"
+                        height="18"
+                        rx="2"
+                        ry="2"
                       ></rect>
                       <line x1="16" y1="2" x2="16" y2="6"></line>
                       <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -151,9 +152,7 @@ const contactEndpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
           <!-- Form column -->
           <div class="form-wrapper card">
             <h2>{t.contact.formTitle}</h2>
-            <p class="form-subtitle">
-              {t.contact.formSubtitle}
-            </p>
+            <p class="form-subtitle">{t.contact.formSubtitle}</p>
 
             <form id="contact-form">
               <!-- Champ piège : invisible pour un humain, rempli par les robots -->
@@ -211,7 +210,8 @@ const contactEndpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
                   name="message"
                   rows="6"
                   placeholder={t.contact.messagePlaceholder}
-                  required></textarea>
+                  required
+                ></textarea>
               </div>
 
               <button type="submit" class="btn-primary submit-btn">
@@ -233,8 +233,7 @@ const contactEndpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
                 class="form-status"
                 role="status"
                 aria-live="polite"
-              >
-              </p>
+              ></p>
             </form>
           </div>
         </div>

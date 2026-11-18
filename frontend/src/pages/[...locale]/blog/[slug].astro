@@ -80,47 +80,47 @@ const dateFmt = new Intl.DateTimeFormat(dateLocale[lang], {
   <Header alternates={alternates} />
   <main class="blog-page">
     <article class="container article">
-      <a href={localePath("/blog/", lang)} class="article-back">{t.blog.back}</a
-      >
+      <a href={localePath("/blog/", lang)} class="article-back">
+        {t.blog.back}
+      </a>
       <header class="article-header">
         <div class="tags">
-          {post.data.tags.map((tag) => <span>{tag}</span>)}
+          {post.data.tags.map((tag) => (
+            <span>{tag}</span>
+          ))}
         </div>
         <h1>{post.data.title}</h1>
         <div class="article-meta">
           <span>
             {t.blog.by}
-            <a href={localePath("/about/", lang)} rel="author"
-              >{t.meta.siteName}</a
-            > ·
+            <a href={localePath("/about/", lang)} rel="author">
+              {t.meta.siteName}
+            </a>{" "}
+            ·
           </span>
           <time datetime={post.data.pubDate.toISOString()}>
             {dateFmt.format(post.data.pubDate)}
           </time>
-          {
-            post.data.updatedDate && (
-              <span>
-                · {t.blog.updatedOn} {dateFmt.format(post.data.updatedDate)}
-              </span>
-            )
-          }
+          {post.data.updatedDate && (
+            <span>
+              · {t.blog.updatedOn} {dateFmt.format(post.data.updatedDate)}
+            </span>
+          )}
         </div>
       </header>
-      {
-        post.data.summary && (
-          <aside class="article-summary" aria-label={t.blog.summaryTitle}>
-            <p class="article-summary-title">{t.blog.summaryTitle}</p>
-            <dl>
-              {post.data.summary.map((item) => (
-                <div>
-                  <dt>{item.label}</dt>
-                  <dd>{item.text}</dd>
-                </div>
-              ))}
-            </dl>
-          </aside>
-        )
-      }
+      {post.data.summary && (
+        <aside class="article-summary" aria-label={t.blog.summaryTitle}>
+          <p class="article-summary-title">{t.blog.summaryTitle}</p>
+          <dl>
+            {post.data.summary.map((item) => (
+              <div>
+                <dt>{item.label}</dt>
+                <dd>{item.text}</dd>
+              </div>
+            ))}
+          </dl>
+        </aside>
+      )}
       <div class="prose">
         <Content />
       </div>
@@ -128,17 +128,17 @@ const dateFmt = new Intl.DateTimeFormat(dateLocale[lang], {
         <nav class="article-next" aria-label={t.blog.nextTitle}>
           <p class="article-next-title">{t.blog.nextTitle}</p>
           <div class="article-next-links">
-            <a href={localePath("/projects/", lang)} class="btn-outline"
-              >{t.blog.nextProjects}</a
-            >
-            <a href={localePath("/skills/", lang)} class="btn-outline"
-              >{t.blog.nextSkills}</a
-            >
+            <a href={localePath("/projects/", lang)} class="btn-outline">
+              {t.blog.nextProjects}
+            </a>
+            <a href={localePath("/skills/", lang)} class="btn-outline">
+              {t.blog.nextSkills}
+            </a>
           </div>
         </nav>
-        <a href={localePath("/blog/", lang)} class="btn-outline"
-          >{t.blog.allArticles}</a
-        >
+        <a href={localePath("/blog/", lang)} class="btn-outline">
+          {t.blog.allArticles}
+        </a>
       </footer>
     </article>
   </main>
