@@ -23,7 +23,7 @@ function logoFor(id: string) {
 // logoHeight : hauteur du logo en px, ajustée pour que les marques aient un
 // poids visuel comparable (Astéria a un texte très fin, il lui faut plus de place).
 const brands = [
-  { id: "noxia", name: "NOXIA Security", logoHeight: 48 },
+  { id: "noxia", name: "NOXIA Groupe", logoHeight: 96 },
   { id: "asteria", name: "Maison Astéria", logoHeight: 88 },
   { id: "rhon", name: "Rhôn Telecom", logoHeight: 56 },
 ].map((brand) => ({ ...brand, logo: logoFor(brand.id) }));
@@ -43,14 +43,13 @@ const GROUPS = 4;
   .trusted-heading {
     margin-bottom: 40px;
     text-align: center;
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2.25rem, 5.5vw, 3.75rem);
-    line-height: 1.1;
-    letter-spacing: -0.01em;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+    line-height: 1.2;
   }
 
   .trusted-heading em {
+    font-style: normal;
     color: var(--clr-accent);
   }
 
@@ -96,7 +95,7 @@ const GROUPS = 4;
   .brand {
     display: flex;
     align-items: center;
-    min-height: 88px;
+    min-height: 96px;
   }
 
   /* Le logo est une silhouette : on l'utilise comme masque d'un aplat de
@@ -124,8 +123,8 @@ const GROUPS = 4;
   }
 
   .brand-wordmark {
-    font-family: var(--font-display);
-    font-size: 28px;
+    font-size: 22px;
+    font-weight: 600;
     line-height: 1;
     white-space: nowrap;
     color: var(--clr-text-muted);
