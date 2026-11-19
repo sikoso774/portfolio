@@ -3,7 +3,6 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import Icon from "../../components/Icon.astro";
-import { EMAIL_USER, EMAIL_DOMAIN } from "../../site.js";
 import {
   getLocale,
   htmlLang,
@@ -17,11 +16,6 @@ export function getStaticPaths() {
 
 const lang = getLocale(Astro.currentLocale);
 const t = useT(lang);
-
-// En dev, Astro (trailingSlash: "always") répond 404 à `/api/contact` avant que
-// le proxy Vite n'agisse : on appelle `/api/contact/`, que le Worker accepte.
-// En production, la route Cloudflare est `zolenikokolo.com/api/contact`.
-const contactEndpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
 ---
 
 <Layout title={t.meta.contact.title} description={t.meta.contact.description}>
@@ -154,7 +148,13 @@ const contactEndpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
             <h2>{t.contact.formTitle}</h2>
             <p class="form-subtitle">{t.contact.formSubtitle}</p>
 
-            <form id="contact-form">
+            <form
+              id="contact-form"
+              data-msg-sending={t.contact.sending}
+              data-msg-success={t.contact.success}
+              data-msg-error={t.contact.error}
+              data-msg-rate-limited={t.contact.rateLimited}
+            >
               <!-- Champ piège : invisible pour un humain, rempli par les robots -->
               <div class="hp" aria-hidden="true">
                 <label for="website">Website</label>
@@ -243,82 +243,91 @@ const contactEndpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
   <Footer />
 </Layout>
 
-<script
-  is:inline
-  define:vars={{
-    endpoint: contactEndpoint,
-    u: EMAIL_USER,
-    d: EMAIL_DOMAIN,
-    msg: {
-      sending: t.contact.sending,
-      success: t.contact.success,
-      error: t.contact.error,
-      rateLimited: t.contact.rateLimited,
-    },
-  }}
->
-  // Email obfuscation
-  const email = u + "@" + d;
+<script>
+  // Script traité par Astro (pas `is:inline`) : il est servi en fichier /_astro/*.js, ce qui
+  // permet à la CSP de se passer de `'unsafe-inline'`. Les textes traduits arrivent par les
+  // attributs data-msg-* du formulaire, puisque `define:vars` forcerait un script inline.
+  import { EMAIL_USER, EMAIL_DOMAIN } from "../../site.js";
 
-  const emailLink = document.getElementById("contact-email");
-  if (emailLink) {
-    emailLink.textContent = email;
-    emailLink.href = "mailto:" + email;
-  }
+  // En dev, Astro (trailingSlash: "always") répond 404 à `/api/contact` avant que
+  // le proxy Vite n'agisse : on appelle `/api/contact/`, que le Worker accepte.
+  // En production, la route Cloudflare est `zolenikokolo.com/api/contact`.
+  const endpoint = import.meta.env.DEV ? "/api/contact/" : "/api/contact";
 
-  const form = document.getElementById("contact-form");
-  const status = document.getElementById("form-status");
-  const button = form.querySelector(".submit-btn");
-  const label = form.querySelector(".submit-label");
-  const defaultLabel = label.textContent;
+  function initContactPage() {
+    const form = document.getElementById("contact-form");
+    // Un script traité ne s'exécute qu'une fois avec le ClientRouter : on s'initialise à
+    // chaque `astro:page-load`, et on sort sur les autres pages (ou si c'est déjà fait).
+    if (!form || form.dataset.ready) return;
+    form.dataset.ready = "true";
 
-  function setStatus(kind, text) {
-    status.className = "form-status" + (kind ? " " + kind : "");
-    status.textContent = text;
-  }
+    // Email obfuscation
+    const email = EMAIL_USER + "@" + EMAIL_DOMAIN;
 
-  // La validation (champs requis, format email) est native : le submit ne
-  // se déclenche que si le formulaire est valide. L'envoi passe par le Worker
-  // Cloudflare (/api/contact, même origine) qui appelle Resend : la clé API
-  // n'est jamais dans le navigateur.
-  form.addEventListener("submit", async function (e) {
-    e.preventDefault();
-
-    const data = new FormData(form);
-    const payload = {
-      name: data.get("name").trim(),
-      email: data.get("email").trim(),
-      subject: data.get("subject").trim(),
-      message: data.get("message").trim(),
-      website: data.get("website"),
-    };
-
-    button.disabled = true;
-    label.textContent = msg.sending;
-    setStatus("", "");
-
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (response.ok) {
-        form.reset();
-        setStatus("success", msg.success);
-      } else {
-        setStatus(
-          "error",
-          (response.status === 429 ? msg.rateLimited : msg.error) + " " + email,
-        );
-      }
-    } catch (error) {
-      setStatus("error", msg.error + " " + email);
-    } finally {
-      button.disabled = false;
-      label.textContent = defaultLabel;
+    const emailLink = document.getElementById("contact-email");
+    if (emailLink) {
+      emailLink.textContent = email;
+      emailLink.href = "mailto:" + email;
     }
-  });
+
+    const msg = form.dataset;
+    const status = document.getElementById("form-status");
+    const button = form.querySelector(".submit-btn");
+    const label = form.querySelector(".submit-label");
+    const defaultLabel = label.textContent;
+
+    function setStatus(kind, text) {
+      status.className = "form-status" + (kind ? " " + kind : "");
+      status.textContent = text;
+    }
+
+    // La validation (champs requis, format email) est native : le submit ne
+    // se déclenche que si le formulaire est valide. L'envoi passe par le Worker
+    // Cloudflare (/api/contact, même origine) qui appelle Resend : la clé API
+    // n'est jamais dans le navigateur.
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const data = new FormData(form);
+      const payload = {
+        name: data.get("name").trim(),
+        email: data.get("email").trim(),
+        subject: data.get("subject").trim(),
+        message: data.get("message").trim(),
+        website: data.get("website"),
+      };
+
+      button.disabled = true;
+      label.textContent = msg.msgSending;
+      setStatus("", "");
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (response.ok) {
+          form.reset();
+          setStatus("success", msg.msgSuccess);
+        } else {
+          setStatus(
+            "error",
+            (response.status === 429 ? msg.msgRateLimited : msg.msgError) +
+              " " +
+              email,
+          );
+        }
+      } catch (error) {
+        setStatus("error", msg.msgError + " " + email);
+      } finally {
+        button.disabled = false;
+        label.textContent = defaultLabel;
+      }
+    });
+  }
+
+  document.addEventListener("astro:page-load", initContactPage);
 </script>
 
 <style>

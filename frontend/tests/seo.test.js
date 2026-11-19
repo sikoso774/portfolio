@@ -8,6 +8,7 @@ import {
 } from "node:fs";
 import { join } from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { EMAIL_DOMAIN, EMAIL_USER } from "../src/site.js";
 import { blogPosting, profilePage } from "../src/utils/schema";
 import en from "../src/i18n/en";
 import fr from "../src/i18n/fr";
@@ -224,6 +225,26 @@ describe("built site SEO", () => {
     const truncated = /(^|[>\s])(idth|dth|le|vg width)=?"/;
     for (const file of htmlFiles(OUT_DIR)) {
       expect(readFileSync(file, "utf-8"), file).not.toMatch(truncated);
+    }
+  });
+
+  it("ships no inline executable <script>, so the CSP can drop 'unsafe-inline'", () => {
+    // Le header CSP posé par Cloudflare doit pouvoir se limiter à `script-src 'self'` : un
+    // script inline (`is:inline`, `define:vars`, ou un petit script qu'Astro aurait inliné)
+    // serait alors bloqué en production. Seuls les blocs de données JSON-LD restent inline.
+    const inlineScript =
+      /<script(?![^>]*\ssrc=)(?![^>]*type="application\/ld\+json")[^>]*>/;
+    for (const file of htmlFiles(OUT_DIR)) {
+      expect(readFileSync(file, "utf-8"), file).not.toMatch(inlineScript);
+    }
+  });
+
+  it("never writes the full contact address in the HTML", () => {
+    // Quand `main.js` était inliné, la minification recollait les deux morceaux de site.js
+    // et l'adresse finissait en clair dans chaque page, à portée des scrapers.
+    const address = `${EMAIL_USER}@${EMAIL_DOMAIN}`;
+    for (const file of htmlFiles(OUT_DIR)) {
+      expect(readFileSync(file, "utf-8"), file).not.toContain(address);
     }
   });
 
