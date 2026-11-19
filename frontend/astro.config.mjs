@@ -25,6 +25,11 @@ export default defineConfig({
   // (voir worker/README.md). En production, c'est une route Cloudflare.
   vite: {
     server: { proxy: { "/api": "http://localhost:8787" } },
+    // Astro inline dans le HTML les scripts plus petits que cette limite (4 ko par défaut) :
+    // `main.js` finissait dans un <script> inline, ce qui obligeait la CSP (header posé par
+    // Cloudflare) à garder `'unsafe-inline'` dans `script-src`. À 0, chaque script est servi
+    // en fichier /_astro/*.js et `script-src 'self'` suffit.
+    build: { assetsInlineLimit: 0 },
   },
   integrations: [
     sitemap({
